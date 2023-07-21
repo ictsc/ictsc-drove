@@ -1,0 +1,6 @@
+users:
+  - {
+      name: 'ictsc',
+      uid: '1011',
+      password: "{{ lookup('env', 'CLUSTER_PASS') }}",
+    }

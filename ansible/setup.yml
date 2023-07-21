@@ -1,0 +1,520 @@
+# wait for ssh connection
+- hosts: cloud_servers
+  name: Wait for SSH connection
+  gather_facts: false
+  tasks:
+    - name: Wait for SSH connection
+      ansible.builtin.wait_for_connection:
+        delay: 5
+        timeout: 300
+
+# common setup phase
+- hosts: cloud_servers
+  name: Common Setup
+  become: true
+  vars_files:
+    - var.yml
+  tasks:
+    - name: Add a ictsc group
+      ansible.builtin.group:
+        name: ictsc
+        state: present
+
+    - name: Add a new user
+      ansible.builtin.user:
+        name: '{{ item.name }}'
+        uid: '{{ item.uid }}'
+        password: "{{ item.password | password_hash('sha512') }}"
+        group: '{{ item.name }}'
+        shell: /bin/bash
+        groups: sudo
+        state: present
+      with_items:
+        - '{{ users }}'
+
+    - name: Create .ssh directory
+      ansible.builtin.file:
+        path: /home/{{ item.name }}/.ssh/
+        state: directory
+        owner: '{{ item.name }}'
+        group: sudo
+        mode: 0700
+      with_items:
+        - '{{ users }}'
+
+    - name: Add authorized_key
+      ansible.posix.authorized_key:
+        user: '{{ item.name }}'
+        key: "{{ lookup('file', './keys') }}"
+      with_items:
+        - '{{ users }}'
+
+    - name: Add to sudoers
+      ansible.builtin.lineinfile:
+        dest: /etc/sudoers
+        line: '{{ item.name }} ALL=(ALL) NOPASSWD:ALL'
+      with_items:
+        - '{{ users }}'
+
+    - name: Update and Upgrade
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: 'dist'
+
+    - name: Check if a reboot is needed
+      register: reboot_required_file
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+        get_checksum: false
+
+    - name: Reboot if kernel was updated
+      ansible.builtin.reboot:
+        msg: 'Reboot initiated by Ansible for kernel updates'
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: uptime
+      when: reboot_required_file.stat.exists
+
+# containerd setup phase
+- hosts: cloud_servers
+  name: Containerd Setup
+  become: true
+  vars_files:
+    - var.yml
+  vars:
+    sysctl_config:
+      net.ipv4.ip_forward: 1
+      net.ipv4.conf.all.forwarding: 1
+      net.ipv6.conf.all.forwarding: 1
+      net.ipv4.ip_nonlocal_bind: 1
+      net.bridge.bridge-nf-call-ip6tables: 1
+      net.bridge.bridge-nf-call-iptables: 1
+  tasks:
+    - name: Setup kernel module settings
+      ansible.builtin.copy:
+        content: |
+          overlay
+          br_netfilter
+        dest: /etc/modules-load.d/containerd.conf
+        mode: 0644
+      with_items:
+        - '{{ users }}'
+
+    - name: Load kernel modules
+      community.general.modprobe:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - overlay
+        - br_netfilter
+
+    - name: Set kernel params
+      ansible.posix.sysctl:
+        name: '{{ item.key }}'
+        value: '{{ item.value }}'
+        sysctl_set: true
+        state: present
+        reload: true
+        ignoreerrors: true
+      with_dict: '{{ sysctl_config }}'
+
+    - name: Install "apt-transport-https ca-certificates curl software-properties-common" packages
+      ansible.builtin.apt:
+        name: '{{ packages }}'
+        state: present
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+
+    - name: Get docker's official GPG key
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /tmp/docker.gpg
+        mode: 0644
+        force: true
+
+    - name: Add docker's official GPG key
+      become: true
+      ansible.builtin.shell: gpg --dearmor --batch --yes -o /etc/apt/keyrings/docker.gpg < /tmp/docker.gpg
+      changed_when: false
+
+    - name: Add docker repository
+      ansible.builtin.apt_repository:
+        repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Update apt repository
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install containerd
+      ansible.builtin.apt:
+        name: '{{ packages }}'
+        state: present
+      vars:
+        packages:
+          - containerd.io
+
+    - name: Create settings directory
+      ansible.builtin.file:
+        path: /etc/containerd
+        state: directory
+        mode: 0755
+
+    - name: Configure containerd
+      ansible.builtin.shell: |
+        containerd config default > /etc/containerd/config.toml
+      changed_when: true
+
+    - name: Enable systemd_cgroup conf
+      ansible.builtin.replace:
+        dest: '/etc/containerd/config.toml'
+        regexp: 'SystemdCgroup = false'
+        replace: 'SystemdCgroup = true'
+
+    - name: Set containerd service to start on boot
+      ansible.builtin.systemd:
+        name: containerd
+        daemon_reload: true
+        state: restarted
+        enabled: true
+
+# interface setup phase
+- hosts: master_server
+  name: Netplan setup (master)
+  any_errors_fatal: true
+  roles:
+    - role: mrlesmithjr.netplan
+      become: true
+      netplan_remove_existing: false
+      netplan_enabled: true
+      netplan_config_file: /etc/netplan/60-ansible-config.yaml
+      netplan_renderer: networkd
+      netplan_configuration:
+        network:
+          version: 2
+          ethernets:
+            eth1:
+              addresses:
+                - 192.168.100.1{{groups["master_server"].index(inventory_hostname)}}/24
+
+- hosts: node_server
+  name: Netplan setup (node)
+  any_errors_fatal: true
+  roles:
+    - role: mrlesmithjr.netplan
+      become: true
+      netplan_remove_existing: false
+      netplan_enabled: true
+      netplan_config_file: /etc/netplan/60-ansible-config.yaml
+      netplan_renderer: networkd
+      netplan_configuration:
+        network:
+          version: 2
+          ethernets:
+            eth1:
+              addresses:
+                - 192.168.100.2{{groups["node_server"].index(inventory_hostname)}}/24
+
+- hosts: lb_server
+  name: Netplan setup (lb)
+  any_errors_fatal: true
+  roles:
+    - role: mrlesmithjr.netplan
+      become: true
+      netplan_remove_existing: false
+      netplan_enabled: true
+      netplan_config_file: /etc/netplan/60-ansible-config.yaml
+      netplan_renderer: networkd
+      netplan_configuration:
+        network:
+          version: 2
+          ethernets:
+            eth1:
+              addresses:
+                - 192.168.100.3{{groups["lb_server"].index(inventory_hostname)}}/24
+
+# kubernetes setup phase
+- hosts: master_server:node_server
+  name: Kubernetes setup
+  become: true
+  vars_files:
+    - var.yml
+  tasks:
+    - name: Add gpg key
+      ansible.builtin.apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+    - name: Add k8s apt repository
+      ansible.builtin.apt_repository:
+        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+
+    - name: Update apt repository
+      ansible.builtin.apt:
+        update_cache: true
+    - name: Install "kubeadm kubelet kubectl" packages
+
+      ansible.builtin.apt:
+        name: '{{ packages }}'
+        state: present
+      vars:
+        packages:
+          - kubeadm
+          - kubelet
+          - kubectl
+
+    - name: Remove swapfile from /etc/fstab
+      ansible.posix.mount:
+        name: swap
+        fstype: swap
+        state: absent
+
+    - name: Disable swap
+      ansible.builtin.command: swapoff -a
+      when: ansible_swaptotal_mb > 0
+
+    - name: Update setting file
+      ansible.builtin.template:
+        src: ./ansible-template/10-kubeadm.template.conf
+        dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+        mode: 0644
+
+    - name: Restart kubelet.service
+      ansible.builtin.systemd:
+        name: kubelet
+        daemon_reload: true
+        state: restarted
+        enabled: true
+
+# kubernetes api lb setup phase
+- hosts: lb_server
+  name: Kubernetes api lb setup
+  become: true
+  vars_files:
+    - var.yml
+  tasks:
+    - name: Install haproxy, keepalived
+      ansible.builtin.apt:
+        name: '{{ packages }}'
+        state: present
+      vars:
+        packages:
+          - haproxy
+          - keepalived
+
+    - name: Enable haproxy demon
+      ansible.builtin.lineinfile:
+        path: /etc/default/haproxy
+        regexp: '^ENABLED='
+        line: 'ENABLED=1'
+
+    - name: Send haproxy.cfg
+      ansible.builtin.template:
+        src: ansible-template/haproxy.cfg
+        dest: /etc/haproxy/haproxy.cfg
+        mode: 0644
+
+    - name: Send keepalived.conf
+      ansible.builtin.template:
+        src: ansible-template/keepalived.conf
+        dest: /etc/keepalived/keepalived.conf
+        mode: 0644
+
+    - name: Restart haproxy
+      ansible.builtin.systemd:
+        name: haproxy
+        daemon_reload: true
+        state: restarted
+        enabled: true
+
+    - name: Restart keepalived
+      ansible.builtin.systemd:
+        name: keepalived
+        daemon_reload: true
+        state: restarted
+        enabled: true
+
+# kubeadm setup phase
+- hosts: delegate_server
+  name: Kubeadm setup
+  any_errors_fatal: true
+  become: true
+  vars_files:
+    - var.yml
+  tasks:
+    - name: Send kubeadm-config
+      ansible.builtin.template:
+        src: ansible-template/kubeadm-config.yaml
+        dest: /tmp/kubeadm-config.yml
+        mode: 0644
+
+    - name: Dry-run kubeadm init
+      ansible.builtin.command: kubeadm init --dry-run
+      register: kubeadm_dry_run
+      changed_when: false
+      failed_when: false
+
+    - name: Run kubeadm init
+      ansible.builtin.command: kubeadm init --config=/tmp/kubeadm-config.yml
+        and kubeadm_dry_run.rc == 0
+      # skip init if already initialized
+
+    # get cert
+    - name: Get kubeadm cert
+      ansible.builtin.command: kubeadm init phase upload-certs --upload-certs
+      register: certs_raw
+
+    - name: Set cert
+      ansible.builtin.set_fact:
+        certs: '{{ certs_raw.stdout_lines[2] }}'
+
+    # get join command
+    - name: Get join command
+      ansible.builtin.command: kubeadm token create --print-join-command
+      register: join_command_raw
+
+    - name: Set join command
+      ansible.builtin.set_fact:
+        join_command: '{{ join_command_raw.stdout_lines[0] }}'
+
+    - name: Create .kube directory for ictsc user
+      ansible.builtin.file:
+        path: /home/{{ item.name }}/.kube
+        state: directory
+        owner: '{{ item.name }}'
+        mode: 0700
+      with_items:
+        - '{{ users }}'
+
+    - name: Copy admin.conf to ictsc kube config
+      ansible.builtin.copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/{{ item.name }}/.kube/config
+        remote_src: true
+        owner: '{{ item.name }}'
+        mode: 0600
+      with_items:
+        - '{{ users }}'
+
+    - name: Create .kube directory for ubuntu user
+      ansible.builtin.file:
+        path: /home/ubuntu/.kube
+        state: directory
+        owner: ubuntu
+        mode: 0700
+
+    - name: Copy admin.conf to ubuntu kube config
+      ansible.builtin.copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/ubuntu/.kube/config
+        remote_src: true
+        owner: ubuntu
+        mode: 0600
+
+# Helm install from apt
+- hosts: delegate_server
+  name: Helm setup
+  any_errors_fatal: true
+  become: true
+  tasks:
+    - name: Add helm's official GPG key
+      ansible.builtin.apt_key:
+        url: https://helm.baltorepo.com/organization/signing.asc
+        state: present
+
+    - name: Add helm repository
+      ansible.builtin.apt_repository:
+        repo: deb https://baltocdn.com/helm/stable/debian/ all main
+        state: present
+
+    - name: Update apt repository
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install helm
+      ansible.builtin.apt:
+        name: '{{ packages }}'
+        state: present
+      vars:
+        packages:
+          - helm
+
+# CNI Install
+# cilium install with BGP config
+- hosts: delegate_server
+  name: Cilium setup
+  any_errors_fatal: true
+  become: true
+  vars_files:
+    - var.yml
+  tasks:
+    - name: Send bgp-config
+      ansible.builtin.template:
+        src: ansible-template/bgp-config.yaml
+        dest: /tmp/bgp-config.yaml
+        mode: 0644
+
+    - name: Apply bgp-config
+      ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
+
+      become: false
+    - name: Add Cilium chart repo
+      ansible.builtin.shell: |
+        helm repo add cilium https://helm.cilium.io/
+        helm repo update
+
+      become_method: enable
+    - name: Deploy Cilium
+      ansible.builtin.shell: |
+        helm upgrade --install cilium cilium/cilium --version 1.12.6 \
+        --namespace kube-system --set bgp.enabled=true --set bgp.announce.loadbalancerIP=true --set bgp.announce.podCIDR=true
+
+      become_method: enable
+    - name: Restart pods
+      ansible.builtin.shell:
+        executable: /bin/bash
+        cmd: |
+          set -o pipefail
+          kubectl get pods --all-namespaces -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork \
+          --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
+      failed_when: false
+      become_method: enable
+
+# join other master node
+- hosts: master_server
+  name: Join other master
+  become: true
+  tasks:
+    - name: Join cluster
+      ansible.builtin.command:
+        "{{ hostvars[groups['master_server'][0]]['join_command'] }} --control-plane \
+        --certificate-key {{ hostvars[groups['master_server'][0]]['certs'] }}"
+      failed_when: false
+      when: groups['master_server'].index(inventory_hostname) != 0
+
+# join worker node
+- hosts: node_server
+  name: Join cluster
+  become: true
+  tasks:
+    - name: Join cluster
+      ansible.builtin.command: "{{ hostvars[groups['master_server'][0]]['join_command'] }}"
+      failed_when: false
+      changed_when: true
+
+# install argocd
+- hosts: delegate_server
+  name: Install argo CD
+  become: true
+  tasks:
+    - name: Install argocd
+      ansible.builtin.shell: |
+        kubectl create namespace argocd
+        kubectl apply -n argocd \
+        -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      become: false
