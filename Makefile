@@ -45,3 +45,15 @@ init-env-file:
 reset-env:
 	@rm -f .envrc
 	@echo ".envrcを削除しました"
+
+.PHONY: init-ansible
+.ONESHELL:
+init-ansible:
+	@if ! (type pipenv >/dev/null 2>&1); then
+		echo "下記公式ドキュメントを参考に、pipenvをインストールしてください"
+		echo "https://pipenv-ja.readthedocs.io/ja/translate-ja/install.html#installing-pipenv"
+		exit 0
+	fi
+	@cd ansible
+	@pipenv install -d
+	@chmod +x inventory_handler.py
