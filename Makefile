@@ -1,5 +1,8 @@
 SAKURACLOUD_ZONE=tk1a
 
+.PHONY: init
+init: init-env init-ansible
+
 .PHONY: init-env
 .ONESHELL:
 init-env:
@@ -56,7 +59,7 @@ init-ansible:
 	fi
 	@cd ansible
 	@pipenv install -d
-	@chmod +x inventory_handler.py
+	@chmod +x inventory/inventory_handler.py
 
 .PHONY: ansible
 .ONESHELL:
