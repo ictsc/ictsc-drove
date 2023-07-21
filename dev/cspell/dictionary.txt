@@ -1,4 +1,5 @@
 argocd
+containerd
 dearmor
 direnv
 envrc
