@@ -112,7 +112,10 @@ def main():
     inventory["lb_server"]["vars"] = {  # type: ignore
         "VIP": hosts["outputs"]["vip_address"]["value"]
     }
-    inventory["delegate_server"] = {"hosts": [inventory["master_server"]["hosts"][0]]}
+    inventory["delegate_server"] = {
+        "hosts": [inventory["master_server"]["hosts"][0]],
+        "vars": {"workspace": workspace},
+    }
 
     print(json.dumps(inventory))
 
