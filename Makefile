@@ -41,8 +41,8 @@ init-env-file:
 	} > .envrc
 	@echo ".envrcを作成しました"
 
-.PHONY: reset-env
-reset-env:
+.PHONY: delete-env
+delete-env:
 	@rm -f .envrc
 	@echo ".envrcを削除しました"
 
@@ -57,3 +57,9 @@ init-ansible:
 	@cd ansible
 	@pipenv install -d
 	@chmod +x inventory_handler.py
+
+.PHONY: ansible
+.ONESHELL:
+ansible:
+	@cd ansible
+	@pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa setup.yml --extra-vars ansible_sudo_pass=$$CLUSTER_PASS
