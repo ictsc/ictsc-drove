@@ -7,7 +7,7 @@ import json
 from minio import Minio  # type: ignore
 
 
-def fetch_tfstate(wsp: str):
+def fetch_tfstate(workspace: str):
     m_client = Minio(
         "s3.isk01.sakurastorage.jp",
         access_key=os.environ.get("TF_STATE_ACCESS_KEY"),
@@ -17,13 +17,13 @@ def fetch_tfstate(wsp: str):
 
     response = m_client.get_object(
         "ictsc-k8s-cluster",
-        f"env:/{wsp}/terraform.tfstate",
+        f"env:/{workspace}/terraform.tfstate",
     )
 
     return json.loads(response.read())
 
 
-def get_wsp():
+def get_workspace():
     cmd = "terraform workspace show"
     working_dir = "../../terraform"
 
@@ -40,7 +40,8 @@ def main():
         "cloud_servers": {"children": ["master_server", "lb_server", "node_server"]},
         "_meta": {},
     }
-    hosts = fetch_tfstate(get_wsp())
+    workspace = get_workspace()
+    hosts = fetch_tfstate(workspace)
 
     # Uncomment below to see the tfstate object
     #
