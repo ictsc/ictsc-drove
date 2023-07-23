@@ -1,0 +1,9 @@
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+kubernetesVersion: stable
+apiServer:
+  certSANs:
+    - "{{ hostvars[groups['lb_server'][0]]['VIP'] }}"
+controlPlaneEndpoint: "{{ hostvars[groups['lb_server'][0]]['VIP'] }}:6443"
+networking:
+  podSubnet: 10.244.0.0/16

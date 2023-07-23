@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bgp-config
+  namespace: kube-system
+data:
+  config.yaml: |
+    peers:
+      - peer-address: {{ groups['bgp_router'][0] }}
+        peer-asn: 65020
+        my-asn: 65021
+    address-pools:
+      - name: default
+        protocol: bgp
+        addresses:
+          - {{ hostvars[groups['bgp_router'][0]]['bgp-address'] }}
