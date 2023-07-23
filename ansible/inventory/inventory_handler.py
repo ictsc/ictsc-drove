@@ -49,8 +49,8 @@ def main():
     # print(hosts["outputs"])
 
     inventory_gp = {}
-    for host_name in hosts["outputs"]:
-        match host_name:
+    for output_key in hosts["outputs"]:
+        match output_key:
             case "k8s_lb_server_ipaddress":
                 inventory["lb_server"] = {"hosts": []}
                 inventory_gp = inventory["lb_server"]
@@ -66,23 +66,19 @@ def main():
             case _:
                 continue
 
-        ip_addresses = hosts["outputs"][host_name]["value"]
+        ip_addresses = hosts["outputs"][output_key]["value"]
         node = 0
         master = 0
 
         for ip in ip_addresses:
             # inventory filter list
             # private reject
-            if (
-                ip[:11] == "192.168.100"
-                or host_name == "show_workspaces"
-                or host_name == "vip_address"
-            ):
+            if ip[:11] == "192.168.100":
                 continue
 
             inventory_gp["hosts"].append(ip)
 
-            match host_name:
+            match output_key:
                 case "k8s_master_server_ipaddress":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip: {"internal_ip": f"192.168.100.1{str(master)}"}
@@ -94,7 +90,7 @@ def main():
                     }
                     node += 1
 
-        if host_name == "k8s_lb_server_ipaddress":
+        if output_key == "k8s_lb_server_ipaddress":
             inventory["_meta"] = inventory["_meta"] | {
                 "hostvars": {
                     inventory_gp["hosts"][0]: {
