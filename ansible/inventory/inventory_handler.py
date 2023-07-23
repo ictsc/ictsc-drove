@@ -50,21 +50,21 @@ def main():
 
     inventory_gp = {}
     for host_name in hosts["outputs"]:
-        if host_name == "public_address_list":
-            continue
-
-        if host_name == "k8s_lb_server_ipaddress":
-            inventory["lb_server"] = {"hosts": []}
-            inventory_gp = inventory["lb_server"]
-        elif host_name == "k8s_master_server_ipaddress":
-            inventory["master_server"] = {"hosts": []}
-            inventory_gp = inventory["master_server"]
-        elif host_name == "k8s_node_server_ipaddress":
-            inventory["node_server"] = {"hosts": []}
-            inventory_gp = inventory["node_server"]
-        elif host_name == "k8s_router_ipaddress":
-            inventory["bgp_router"] = {"hosts": []}
-            inventory_gp = inventory["bgp_router"]
+        match host_name:
+            case "k8s_lb_server_ipaddress":
+                inventory["lb_server"] = {"hosts": []}
+                inventory_gp = inventory["lb_server"]
+            case "k8s_master_server_ipaddress":
+                inventory["master_server"] = {"hosts": []}
+                inventory_gp = inventory["master_server"]
+            case "k8s_node_server_ipaddress":
+                inventory["node_server"] = {"hosts": []}
+                inventory_gp = inventory["node_server"]
+            case "k8s_router_ipaddress":
+                inventory["bgp_router"] = {"hosts": []}
+                inventory_gp = inventory["bgp_router"]
+            case _:
+                continue
 
         ip_addresses = hosts["outputs"][host_name]["value"]
         node = 0
@@ -81,18 +81,18 @@ def main():
                 continue
 
             inventory_gp["hosts"].append(ip)
-            if host_name == "k8s_master_server_ipaddress":
-                inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                    ip: {"internal_ip": f"192.168.100.1{str(master)}"}
-                }
-                master += 1
-            elif host_name == "k8s_node_server_ipaddress":
-                inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                    ip: {"internal_ip": f"192.168.100.2{str(node)}"}
-                }
-                node += 1
-            elif host_name == "k8s_router_ipaddress":
-                continue
+
+            match host_name:
+                case "k8s_master_server_ipaddress":
+                    inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
+                        ip: {"internal_ip": f"192.168.100.1{str(master)}"}
+                    }
+                    master += 1
+                case "k8s_node_server_ipaddress":
+                    inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
+                        ip: {"internal_ip": f"192.168.100.2{str(node)}"}
+                    }
+                    node += 1
 
         if host_name == "k8s_lb_server_ipaddress":
             inventory["_meta"] = inventory["_meta"] | {
