@@ -1,7 +1,9 @@
 argocd
+blackhole
 containerd
 dearmor
 direnv
+ebgp
 envrc
 ethernets
 fstype

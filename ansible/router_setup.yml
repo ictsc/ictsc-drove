@@ -1,0 +1,27 @@
+# wait for ssh connection
+- hosts: bgp_router
+  name: Wait for SSH connection
+  gather_facts: false
+  tasks:
+    - name: Wait for SSH connection
+      ansible.builtin.wait_for_connection:
+        delay: 5
+        timeout: 300
+
+# router setup phase
+- hosts: bgp_router
+  name: Router setup
+  gather_facts: false
+  tasks:
+    - name: Setup bgp
+      vyos.vyos.vyos_config:
+        lines:
+          - set protocols static route {{ hostvars[groups['bgp_router'][0]]['bgp-address'] }} blackhole distance 254
+          - set protocols bgp local-as 65020
+          - set protocols bgp neighbor {{ groups["node_server"][0] }} remote-as 65021
+          - set protocols bgp neighbor {{ groups["node_server"][1] }} remote-as 65021
+          - set protocols bgp neighbor {{ groups["node_server"][2] }} remote-as 65021
+          - set protocols bgp address-family ipv4-unicast maximum-paths ebgp 3
+          - set system login banner pre-login ""
+          - set system option performance throughput
+        save: true

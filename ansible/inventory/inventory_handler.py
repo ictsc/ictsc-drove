@@ -62,6 +62,9 @@ def main():
         elif host_name == "k8s_node_server_ipaddress":
             inventory["node_server"] = {"hosts": []}
             inventory_gp = inventory["node_server"]
+        elif host_name == "k8s_router_ipaddress":
+            inventory["bgp_router"] = {"hosts": []}
+            inventory_gp = inventory["bgp_router"]
 
         ip_addresses = hosts["outputs"][host_name]["value"]
         node = 0
@@ -111,6 +114,9 @@ def main():
 
     inventory["lb_server"]["vars"] = {  # type: ignore
         "VIP": hosts["outputs"]["vip_address"]["value"]
+    }
+    inventory["bgp_router"]["vars"] = {  # type: ignore
+        "bgp-address": hosts["outputs"]["external_address_range"]["value"]
     }
     inventory["delegate_server"] = {
         "hosts": [inventory["master_server"]["hosts"][0]],
