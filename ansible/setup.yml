@@ -461,20 +461,20 @@
 
     - name: Apply bgp-config
       ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
-
       become: false
+
     - name: Add Cilium chart repo
       ansible.builtin.shell: |
         helm repo add cilium https://helm.cilium.io/
         helm repo update
-
       become_method: enable
+
     - name: Deploy Cilium
       ansible.builtin.shell: |
         helm upgrade --install cilium cilium/cilium --version 1.12.6 \
         --namespace kube-system --set bgp.enabled=true --set bgp.announce.loadbalancerIP=true --set bgp.announce.podCIDR=true
-
       become_method: enable
+
     - name: Restart pods
       ansible.builtin.shell:
         executable: /bin/bash
