@@ -3,6 +3,10 @@
 !/.vscode/extensions.json
 .infracost/
 
+.terraform
+.terraform.lock.hcl
+
 .envrc
 
+id_rsa
 keys

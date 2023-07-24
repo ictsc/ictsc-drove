@@ -1,7 +1,7 @@
 SAKURACLOUD_ZONE=tk1a
 
 .PHONY: init
-init: init-env init-ansible
+init: init-env init-ansible init-terraform
 	chmod +x keys.sh
 	./keys.sh
 
@@ -69,3 +69,34 @@ ansible:
 	@cd ansible
 	@pipenv run ansible-playbook router_setup.yml
 	@pipenv run ansible-playbook -u ubuntu --private-key=id_rsa setup.yml --extra-vars ansible_sudo_pass=$$CLUSTER_PASS
+
+.PHONY: init-terraform
+.ONESHELL:
+init-terraform: show-ws
+	@if ! (type direnv >/dev/null 2>&1); then
+	echo "下記公式ドキュメントを参考に、direnvをインストールしてください"
+	echo "https://github.com/direnv/direnv/blob/master/docs/installation.md"
+	exit 0
+	fi
+	@cd terraform
+	@terraform init
+
+.PHONY: show-ws
+show-ws:
+	@cd terraform && terraform workspace show
+
+.PHONY: select-dev
+select-dev:
+	@cd terraform && terraform workspace select dev
+
+.PHONY: select-prod
+select-prod:
+	@cd terraform && terraform workspace select prod
+
+.PHONY: terraform-apply
+terraform-apply:
+	@cd terraform	&& terraform apply -auto-approve
+
+.PHONY: terraform-destroy
+terraform-destroy:
+	@cd terraform	&& terraform destroy
