@@ -68,4 +68,4 @@ init-ansible:
 ansible:
 	@cd ansible
 	@pipenv run ansible-playbook router_setup.yml
-	@pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa setup.yml --extra-vars ansible_sudo_pass=$$CLUSTER_PASS
+	@pipenv run ansible-playbook -u ubuntu --private-key=id_rsa setup.yml --extra-vars ansible_sudo_pass=$$CLUSTER_PASS
