@@ -74,8 +74,8 @@ ansible:
 .ONESHELL:
 init-terraform: show-ws
 	@if ! (type direnv >/dev/null 2>&1); then
-	echo "下記公式ドキュメントを参考に、direnvをインストールしてください"
-	echo "https://github.com/direnv/direnv/blob/master/docs/installation.md"
+	echo "下記公式ドキュメントを参考に、terraformをインストールしてください"
+	echo "https://developer.hashicorp.com/terraform/downloads"
 	exit 0
 	fi
 	@cd terraform
