@@ -13,3 +13,4 @@ ignorePaths:
   - '**/Pipfile'
   - '**/Pipfile.lock'
   - '**/*.cfg'
+  - '**/*.conf'

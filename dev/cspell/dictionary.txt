@@ -28,9 +28,11 @@ pipefail
 pipenv
 Pipfile
 posix
+sacloud
 SAKURACLOUD
 sakurastorage
 swapfile
 swapoff
 swaptotal
 tfstate
+vyos
