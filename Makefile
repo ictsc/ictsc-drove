@@ -2,6 +2,8 @@ SAKURACLOUD_ZONE=tk1a
 
 .PHONY: init
 init: init-env init-ansible
+	chmod +x keys.sh
+	./keys.sh
 
 .PHONY: init-env
 .ONESHELL:
