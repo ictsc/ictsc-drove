@@ -257,8 +257,8 @@
     - name: Update apt repository
       ansible.builtin.apt:
         update_cache: true
-    - name: Install "kubeadm kubelet kubectl" packages
 
+    - name: Install "kubeadm kubelet kubectl" packages
       ansible.builtin.apt:
         name: '{{ packages }}'
         state: present
