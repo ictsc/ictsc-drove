@@ -51,16 +51,16 @@ def main():
     inventory_gp = {}
     for output_key in hosts["outputs"]:
         match output_key:
-            case "k8s_lb_server_ipaddress":
+            case "k8s_lb_server_ip_address":
                 inventory["lb_server"] = {"hosts": []}
                 inventory_gp = inventory["lb_server"]
-            case "k8s_master_server_ipaddress":
+            case "k8s_master_server_ip_address":
                 inventory["master_server"] = {"hosts": []}
                 inventory_gp = inventory["master_server"]
-            case "k8s_node_server_ipaddress":
+            case "k8s_node_server_ip_address":
                 inventory["node_server"] = {"hosts": []}
                 inventory_gp = inventory["node_server"]
-            case "k8s_router_ipaddress":
+            case "k8s_router_ip_address":
                 inventory["bgp_router"] = {"hosts": []}
                 inventory_gp = inventory["bgp_router"]
             case _:
@@ -79,18 +79,18 @@ def main():
             inventory_gp["hosts"].append(ip)
 
             match output_key:
-                case "k8s_master_server_ipaddress":
+                case "k8s_master_server_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip: {"internal_ip": f"192.168.100.1{str(master)}"}
                     }
                     master += 1
-                case "k8s_node_server_ipaddress":
+                case "k8s_node_server_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip: {"internal_ip": f"192.168.100.2{str(node)}"}
                     }
                     node += 1
 
-        if output_key == "k8s_lb_server_ipaddress":
+        if output_key == "k8s_lb_server_ip_address":
             inventory["_meta"] = inventory["_meta"] | {
                 "hostvars": {
                     inventory_gp["hosts"][0]: {
