@@ -41,7 +41,7 @@ def main():
         "_meta": {},
     }
     workspace = get_workspace()
-    hosts = fetch_tfstate(workspace)
+    tfstate = fetch_tfstate(workspace)
 
     # Uncomment below to see the tfstate object
     #
@@ -49,7 +49,7 @@ def main():
     # print(hosts["outputs"])
 
     inventory_gp = {}
-    for output_key in hosts["outputs"]:
+    for output_key in tfstate["outputs"]:
         match output_key:
             case "k8s_lb_server_ip_address":
                 inventory["lb_server"] = {"hosts": []}
@@ -66,7 +66,7 @@ def main():
             case _:
                 continue
 
-        ip_addresses = hosts["outputs"][output_key]["value"]
+        ip_addresses = tfstate["outputs"][output_key]["value"]
         node = 0
         master = 0
 
@@ -109,10 +109,10 @@ def main():
             }
 
     inventory["lb_server"]["vars"] = {  # type: ignore
-        "VIP": hosts["outputs"]["vip_address"]["value"]
+        "VIP": tfstate["outputs"]["vip_address"]["value"]
     }
     inventory["bgp_router"]["vars"] = {  # type: ignore
-        "bgp-address": hosts["outputs"]["external_address_range"]["value"]
+        "bgp-address": tfstate["outputs"]["external_address_range"]["value"]
     }
     inventory["delegate_server"] = {
         "hosts": [inventory["master_server"]["hosts"][0]],
