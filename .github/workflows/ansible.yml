@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.x'
           architecture: 'x64'
-      - name: Initialize pipenv
-        run: pipenv install -d
+      - name: Install Ansible Lint
+        run: pip install ansible-lint
       - name: Ansible Lint
-        run: pipenv run ansible-lint -s
+        run: ansible-lint -s
