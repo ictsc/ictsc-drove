@@ -1,9 +1,12 @@
 SAKURACLOUD_ZONE=tk1a
 
 .PHONY: init
+.ONESHELL:
 init: init-env init-ansible init-terraform
-	chmod +x keys.sh
-	./keys.sh
+	@if [ ! -e keys ]; then
+		chmod +x keys.sh
+		./keys.sh
+	fi
 
 .PHONY: init-env
 .ONESHELL:
