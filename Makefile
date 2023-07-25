@@ -27,6 +27,11 @@ init-env-file:
 	@read SAKURACLOUD_ACCESS_TOKEN_SECRET
 	@echo "今年度のcluster_passを入力してください"
 	@read CLUSTER_PASS
+	@echo "tfstateを保存するバケットを選択してください (default: ictsc-drove)"
+	@read TF_STATE_BUCKET
+	@if [ -z "$$TF_STATE_BUCKET" ]; then
+		TF_STATE_BUCKET=ictsc-drove
+	fi
 	@echo "さくらのオブジェクトストレージのアクセスキーを入力してください"
 	@read TF_STATE_ACCESS_KEY
 	@echo "さくらのオブジェクトストレージのシークレットキーを入力してください"
@@ -38,6 +43,7 @@ init-env-file:
 		echo "";
 		echo "export CLUSTER_PASS=$$CLUSTER_PASS";
 		echo "export TF_VAR_cluster_pass=\"\$${CLUSTER_PASS}\"";
+		echo "export TF_STATE_BUCKET=$$TF_STATE_BUCKET";
 		echo "";
 		echo "export TF_STATE_ACCESS_KEY=$$TF_STATE_ACCESS_KEY";
 		echo "export TF_STATE_SECRET_KEY=$$TF_STATE_SECRET_KEY";
@@ -79,7 +85,7 @@ init-terraform: show-ws
 	exit 0
 	fi
 	@cd terraform
-	@terraform init
+	@terraform init -backend-config="bucket=$$TF_STATE_BUCKET"
 
 .PHONY: show-ws
 show-ws:

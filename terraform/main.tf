@@ -10,7 +10,6 @@ terraform {
   backend "s3" {
     endpoint                    = "s3.isk01.sakurastorage.jp"
     region                      = "jp-north-1"
-    bucket                      = "ictsc-k8s-cluster"
     key                         = "terraform.tfstate"
     skip_credentials_validation = true
     skip_region_validation      = true

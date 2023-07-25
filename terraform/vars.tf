@@ -1,5 +1,6 @@
 # disk size plan: https://cloud.sakura.ad.jp/specification/server-disk/#server-disk-content02-price
 variable "cluster_pass" { default = "" }
+variable "bucket" { default = "ictsc-drove" }
 variable "external_subnet" {
   type = map(any)
   default = {
