@@ -45,7 +45,7 @@
     - name: Add authorized_key
       ansible.posix.authorized_key:
         user: '{{ item.name }}'
-        key: "{{ lookup('file', '../keys') }}"
+        key: "{{ lookup('file', '../dev/keys') }}"
       with_items:
         - '{{ users }}'
 
