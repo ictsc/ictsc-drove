@@ -21,7 +21,9 @@ jobs:
         with:
           python-version: '3.x'
           architecture: 'x64'
-      - name: Install Ansible Lint
-        run: pip install ansible ansible-lint
+      - name: Install Ansible-Related Packages
+        run: pip install ansible ansible-lint ansible-galaxy
+      - name: Install netplan Role
+        run: ansible-galaxy install mrlesmithjr.netplan
       - name: Ansible Lint
         run: ansible-lint -s
