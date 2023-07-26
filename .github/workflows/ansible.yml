@@ -22,6 +22,6 @@ jobs:
           python-version: '3.x'
           architecture: 'x64'
       - name: Install Ansible Lint
-        run: pip install ansible-lint
+        run: pip install ansible ansible-lint
       - name: Ansible Lint
         run: ansible-lint -s
