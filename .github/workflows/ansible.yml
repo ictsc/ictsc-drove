@@ -26,4 +26,4 @@ jobs:
       - name: Install netplan Role
         run: ansible-galaxy install mrlesmithjr.netplan
       - name: Ansible Lint
-        run: ansible-lint -s -i var.yml
+        run: ansible-lint -s --exclude var.yml
