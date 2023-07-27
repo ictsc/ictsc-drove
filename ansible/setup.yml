@@ -185,8 +185,8 @@
         enabled: true
 
 # interface setup phase
-- hosts: master_server
-  name: Netplan setup (master)
+- hosts: control-plane
+  name: Netplan setup (control-plane)
   any_errors_fatal: true
   roles:
     - role: mrlesmithjr.netplan
@@ -201,10 +201,10 @@
           ethernets:
             eth1:
               addresses:
-                - 192.168.100.1{{groups["master_server"].index(inventory_hostname)}}/24
+                - 192.168.100.1{{groups["control-plane"].index(inventory_hostname)}}/24
 
-- hosts: node_server
-  name: Netplan setup (node)
+- hosts: worker-node
+  name: Netplan setup (worker-node)
   any_errors_fatal: true
   roles:
     - role: mrlesmithjr.netplan
@@ -219,9 +219,9 @@
           ethernets:
             eth1:
               addresses:
-                - 192.168.100.2{{groups["node_server"].index(inventory_hostname)}}/24
+                - 192.168.100.2{{groups["worker-node"].index(inventory_hostname)}}/24
 
-- hosts: lb_server
+- hosts: lb
   name: Netplan setup (lb)
   any_errors_fatal: true
   roles:
@@ -237,10 +237,10 @@
           ethernets:
             eth1:
               addresses:
-                - 192.168.100.3{{groups["lb_server"].index(inventory_hostname)}}/24
+                - 192.168.100.3{{groups["lb"].index(inventory_hostname)}}/24
 
 # kubernetes setup phase
-- hosts: master_server:node_server
+- hosts: control-plane:worker-node
   name: Kubernetes setup
   become: true
   vars_files:
@@ -293,7 +293,7 @@
         enabled: true
 
 # kubernetes api lb setup phase
-- hosts: lb_server
+- hosts: lb
   name: Kubernetes api lb setup
   become: true
   vars_files:
@@ -341,7 +341,7 @@
         enabled: true
 
 # kubeadm setup phase
-- hosts: delegate_server
+- hosts: delegate
   name: Kubeadm setup
   any_errors_fatal: true
   become: true
@@ -362,7 +362,7 @@
 
     - name: Run kubeadm init
       ansible.builtin.command: kubeadm init --config=/tmp/kubeadm-config.yml
-      when: groups['master_server'].index(inventory_hostname) == 0 and kubeadm_dry_run.rc == 0
+      when: groups['control-plane'].index(inventory_hostname) == 0 and kubeadm_dry_run.rc == 0
       changed_when: false
       # skip init if already initialized
 
@@ -421,7 +421,7 @@
         mode: "0600"
 
 # Helm install from apt
-- hosts: delegate_server
+- hosts: delegate
   name: Helm setup
   any_errors_fatal: true
   become: true
@@ -450,7 +450,7 @@
 
 # CNI Install
 # cilium install with BGP config
-- hosts: delegate_server
+- hosts: delegate
   name: Cilium setup
   any_errors_fatal: true
   vars_files:
@@ -489,31 +489,31 @@
       changed_when: false
       failed_when: false
 
-# join other master node
-- hosts: master_server
-  name: Join other master
+# join other control-plane worker-node
+- hosts: control-plane
+  name: Join other control-plane
   become: true
   tasks:
     - name: Join cluster
       ansible.builtin.command:
-        "{{ hostvars[groups['master_server'][0]]['join_command'] }} --control-plane \
-        --certificate-key {{ hostvars[groups['master_server'][0]]['certs'] }}"
+        "{{ hostvars[groups['control-plane'][0]]['join_command'] }} --control-plane \
+        --certificate-key {{ hostvars[groups['control-plane'][0]]['certs'] }}"
       changed_when: false
       failed_when: false
-      when: groups['master_server'].index(inventory_hostname) != 0
+      when: groups['control-plane'].index(inventory_hostname) != 0
 
-# join worker node
-- hosts: node_server
+# join worker worker-node
+- hosts: worker-node
   name: Join cluster
   become: true
   tasks:
     - name: Join cluster
-      ansible.builtin.command: "{{ hostvars[groups['master_server'][0]]['join_command'] }}"
+      ansible.builtin.command: "{{ hostvars[groups['control-plane'][0]]['join_command'] }}"
       changed_when: true
       failed_when: false
 
 # install argocd
-- hosts: delegate_server
+- hosts: delegate
   name: Install argo CD
   become: true
   tasks:

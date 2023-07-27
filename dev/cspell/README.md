@@ -46,6 +46,6 @@ VSCodeの場合は、検出されている青線部にマウスをホバーし�
   - `make init`で初期設定を入れます
   - これで自動でスペルチェックが走ります
 - それ以外
-  - Nodeを入れます
+  - worker-nodeを入れます
   - `npm install -g cspell@latest`でcspellを入れます
   - `cspell -c dev/cspell/cspell.config.yaml "**"`でスペルチェックします
