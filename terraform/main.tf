@@ -16,6 +16,10 @@ terraform {
   }
 }
 
+# Configure the SakuraCloud Provider
+provider "sakuracloud" {
+}
+
 # ubuntu archive
 data "sakuracloud_archive" "ubuntu-archive" {
   os_type = "ubuntu2204"
@@ -33,33 +37,4 @@ resource "sakuracloud_ssh_key_gen" "gen_key" {
     when    = destroy
     command = "rm -f ../id_rsa"
   }
-}
-
-# Configure the SakuraCloud Provider
-provider "sakuracloud" {
-}
-
-# Load the control-plane module
-module "control-plane" {
-  source = "./control-plane"
-}
-
-# Load the worker-node module
-module "worker-node" {
-  source = "./worker-node"
-}
-
-# Load the network module
-module "network" {
-  source = "./network"
-}
-
-# Load the router module
-module "router" {
-  source = "./router"
-}
-
-# Load the load-balancer module
-module "lb" {
-  source = "./lb"
 }
