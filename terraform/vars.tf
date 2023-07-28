@@ -11,7 +11,7 @@ variable "external_subnet" {
     prd = 28
   }
 }
-variable "control-plane" {
+variable "control_plane" {
   type = map(any)
   default = {
     wsp = 3
@@ -19,7 +19,7 @@ variable "control-plane" {
     prd = 3
   }
 }
-variable "control-plane_cpu" {
+variable "control_plane_cpu" {
   type = map(any)
   default = {
     wsp = 4
@@ -27,7 +27,7 @@ variable "control-plane_cpu" {
     prd = 4
   }
 }
-variable "control-plane_mem" {
+variable "control_plane_mem" {
   type = map(any)
   default = {
     wsp = 8
@@ -35,7 +35,7 @@ variable "control-plane_mem" {
     prd = 8
   }
 }
-variable "control-plane_disk" {
+variable "control_plane_disk" {
   type = map(any)
   default = {
     wsp = 40
@@ -44,7 +44,7 @@ variable "control-plane_disk" {
   }
 }
 
-variable "worker-node" {
+variable "worker_node" {
   type = map(any)
   default = {
     wsp = 3
@@ -52,7 +52,7 @@ variable "worker-node" {
     prd = 3
   }
 }
-variable "worker-node_cpu" {
+variable "worker_node_cpu" {
   type = map(any)
   default = {
     wsp = 4
@@ -60,7 +60,7 @@ variable "worker-node_cpu" {
     prd = 4
   }
 }
-variable "worker-node_mem" {
+variable "worker_node_mem" {
   type = map(any)
   default = {
     wsp = 16
@@ -68,7 +68,7 @@ variable "worker-node_mem" {
     prd = 16
   }
 }
-variable "worker-node_disk" {
+variable "worker_node_disk" {
   type = map(any)
   default = {
     wsp = 40
@@ -77,7 +77,7 @@ variable "worker-node_disk" {
   }
 }
 
-variable "worker-node_rook_disk" {
+variable "worker_node_rook_disk" {
   type = map(any)
   default = {
     wsp = 100

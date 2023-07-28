@@ -37,7 +37,7 @@ def get_workspace():
 
 def main():
     inventory = {
-        "cloud_servers": {"children": ["control-plane", "lb", "worker-node"]},
+        "cloud_servers": {"children": ["control_plane", "lb", "worker_node"]},
         "_meta": {},
     }
     workspace = get_workspace()
@@ -54,12 +54,12 @@ def main():
             case "k8s_lb_ip_address":
                 inventory["lb"] = {"hosts": []}
                 inventory_gp = inventory["lb"]
-            case "k8s_control-plane_ip_address":
-                inventory["control-plane"] = {"hosts": []}
-                inventory_gp = inventory["control-plane"]
-            case "k8s_worker-node_ip_address":
-                inventory["worker-node"] = {"hosts": []}
-                inventory_gp = inventory["worker-node"]
+            case "k8s_control_plane_ip_address":
+                inventory["control_plane"] = {"hosts": []}
+                inventory_gp = inventory["control_plane"]
+            case "k8s_worker_node_ip_address":
+                inventory["worker_node"] = {"hosts": []}
+                inventory_gp = inventory["worker_node"]
             case "k8s_router_ip_address":
                 inventory["bgp_router"] = {"hosts": []}
                 inventory_gp = inventory["bgp_router"]
@@ -79,12 +79,12 @@ def main():
             inventory_gp["hosts"].append(ip)
 
             match output_key:
-                case "k8s_control-plane_ip_address":
+                case "k8s_control_plane_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip: {"internal_ip": f"192.168.100.1{str(control_plane)}"}
                     }
                     control_plane += 1
-                case "k8s_worker-node_ip_address":
+                case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip: {"internal_ip": f"192.168.100.2{str(worker_node)}"}
                     }
@@ -96,7 +96,7 @@ def main():
                     inventory_gp["hosts"][0]: {
                         "opposite": inventory_gp["hosts"][1],
                         "priority": "150",
-                        "state": "control-plane",
+                        "state": "Master",
                         "internal_ip": "192.168.100.31",
                     },
                     inventory_gp["hosts"][1]: {
@@ -115,7 +115,7 @@ def main():
         "bgp-address": tfstate["outputs"]["external_address_range"]["value"]
     }
     inventory["delegate"] = {
-        "hosts": [inventory["control-plane"]["hosts"][0]],
+        "hosts": [inventory["control_plane"]["hosts"][0]],
         "vars": {"workspace": workspace},
     }
 

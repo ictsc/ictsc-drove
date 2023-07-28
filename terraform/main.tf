@@ -20,7 +20,7 @@ terraform {
 provider "sakuracloud" {}
 
 # ubuntu archive
-data "sakuracloud_archive" "ubuntu-archive" {
+data "sakuracloud_archive" "ubuntu_archive" {
   os_type = "ubuntu2204"
 }
 
@@ -28,11 +28,11 @@ data "sakuracloud_archive" "ubuntu-archive" {
 resource "sakuracloud_ssh_key_gen" "gen_key" {
   name = "k8s_pub_key"
 
-  provisioner "local-exec" {
+  provisioner "local_exec" {
     command = "echo \"${self.private_key}\" > ../id_rsa; chmod 0600 ../id_rsa"
   }
 
-  provisioner "local-exec" {
+  provisioner "local_exec" {
     when    = destroy
     command = "rm -f ../id_rsa"
   }
