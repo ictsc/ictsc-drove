@@ -6,11 +6,12 @@ metadata:
 data:
   config.yaml: |
     peers:
-      - peer-address: {{ groups['bgp_router'][0] }}
+      - peer-address: {{ item }}
         peer-asn: 65020
         my-asn: 65021
     address-pools:
       - name: default
         protocol: bgp
         addresses:
-          - {{ hostvars[groups['bgp_router'][0]]['bgp-address'] }}
+          - {{ hostvars[item]['bgp-address'] }}
+  with_dict: "{{ groups['bgp_router'] }}"
