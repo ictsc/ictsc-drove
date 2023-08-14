@@ -18,10 +18,13 @@
         lines:
           - set protocols static route {{ hostvars[groups['bgp_router'][0]]['bgp-address'] }} blackhole distance 254
           - set protocols bgp local-as 65020
-          - set protocols bgp neighbor {{ groups["node_server"][0] }} remote-as 65021
-          - set protocols bgp neighbor {{ groups["node_server"][1] }} remote-as 65021
-          - set protocols bgp neighbor {{ groups["node_server"][2] }} remote-as 65021
           - set protocols bgp address-family ipv4-unicast maximum-paths ebgp 3
           - set system login banner pre-login ""
           - set system option performance throughput
         save: true
+    - name: Define Peers
+      vyos.vyos.vyos_config:
+        lines:
+          - set protocols bgp neighbor {{ item }} remote-as 65021
+        save: true
+      loop: "{{ groups['node_server'] }}"

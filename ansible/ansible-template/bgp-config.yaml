@@ -6,11 +6,15 @@ metadata:
 data:
   config.yaml: |
     peers:
-      - peer-address: {{ groups['bgp_router'][0] }}
+    {% for item in groups['bgp_router'] %}
+      - peer-address: {{ item }}
         peer-asn: 65020
         my-asn: 65021
+    {% endfor %}
     address-pools:
       - name: default
         protocol: bgp
         addresses:
-          - {{ hostvars[groups['bgp_router'][0]]['bgp-address'] }}
+    {% for item in groups['bgp_router'] %}
+          - {{ hostvars[item]['bgp-address'] }}
+    {% endfor %}
