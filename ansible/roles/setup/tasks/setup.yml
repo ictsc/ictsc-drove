@@ -38,14 +38,14 @@
         state: directory
         owner: '{{ item.name }}'
         group: sudo
-        mode: 0700
+        mode: '0700'
       with_items:
         - '{{ users }}'
 
     - name: Add authorized_key
       ansible.posix.authorized_key:
         user: '{{ item.name }}'
-        key: "{{ lookup('file', '../keys') }}"
+        key: "{{ lookup('file', '../dev/keys') }}"
       with_items:
         - '{{ users }}'
 
@@ -98,7 +98,7 @@
           overlay
           br_netfilter
         dest: /etc/modules-load.d/containerd.conf
-        mode: 0644
+        mode: '0644'
       with_items:
         - '{{ users }}'
 
@@ -135,7 +135,7 @@
       ansible.builtin.get_url:
         url: https://download.docker.com/linux/ubuntu/gpg
         dest: /tmp/docker.gpg
-        mode: 0644
+        mode: '0644'
         force: true
 
     - name: Add docker's official GPG key
@@ -164,7 +164,7 @@
       ansible.builtin.file:
         path: /etc/containerd
         state: directory
-        mode: 0755
+        mode: '0755'
 
     - name: Configure containerd
       ansible.builtin.shell: |
@@ -277,12 +277,13 @@
     - name: Disable swap
       ansible.builtin.command: swapoff -a
       when: ansible_swaptotal_mb > 0
+      changed_when: false
 
     - name: Update setting file
       ansible.builtin.template:
         src: ./ansible-template/10-kubeadm.template.conf
         dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-        mode: 0644
+        mode: '0644'
 
     - name: Restart kubelet.service
       ansible.builtin.systemd:
@@ -317,13 +318,13 @@
       ansible.builtin.template:
         src: ansible-template/haproxy.cfg
         dest: /etc/haproxy/haproxy.cfg
-        mode: 0644
+        mode: '0644'
 
     - name: Send keepalived.conf
       ansible.builtin.template:
         src: ansible-template/keepalived.conf
         dest: /etc/keepalived/keepalived.conf
-        mode: 0644
+        mode: '0644'
 
     - name: Restart haproxy
       ansible.builtin.systemd:
@@ -351,7 +352,7 @@
       ansible.builtin.template:
         src: ansible-template/kubeadm-config.yaml
         dest: /tmp/kubeadm-config.yml
-        mode: 0644
+        mode: '0644'
 
     - name: Dry-run kubeadm init
       ansible.builtin.command: kubeadm init --dry-run
@@ -361,13 +362,15 @@
 
     - name: Run kubeadm init
       ansible.builtin.command: kubeadm init --config=/tmp/kubeadm-config.yml
-        and kubeadm_dry_run.rc == 0
+      when: groups['master_server'].index(inventory_hostname) == 0 and kubeadm_dry_run.rc == 0
+      changed_when: false
       # skip init if already initialized
 
     # get cert
     - name: Get kubeadm cert
       ansible.builtin.command: kubeadm init phase upload-certs --upload-certs
       register: certs_raw
+      changed_when: false
 
     - name: Set cert
       ansible.builtin.set_fact:
@@ -377,6 +380,7 @@
     - name: Get join command
       ansible.builtin.command: kubeadm token create --print-join-command
       register: join_command_raw
+      changed_when: false
 
     - name: Set join command
       ansible.builtin.set_fact:
@@ -387,7 +391,7 @@
         path: /home/{{ item.name }}/.kube
         state: directory
         owner: '{{ item.name }}'
-        mode: 0700
+        mode: '0700'
       with_items:
         - '{{ users }}'
 
@@ -397,7 +401,7 @@
         dest: /home/{{ item.name }}/.kube/config
         remote_src: true
         owner: '{{ item.name }}'
-        mode: 0600
+        mode: '0600'
       with_items:
         - '{{ users }}'
 
@@ -406,7 +410,7 @@
         path: /home/ubuntu/.kube
         state: directory
         owner: ubuntu
-        mode: 0700
+        mode: '0700'
 
     - name: Copy admin.conf to ubuntu kube config
       ansible.builtin.copy:
@@ -414,7 +418,7 @@
         dest: /home/ubuntu/.kube/config
         remote_src: true
         owner: ubuntu
-        mode: 0600
+        mode: '0600'
 
 # Helm install from apt
 - hosts: delegate_server
@@ -457,23 +461,24 @@
       ansible.builtin.template:
         src: ansible-template/bgp-config.yaml
         dest: /tmp/bgp-config.yaml
-        mode: 0644
+        mode: '0644'
 
     - name: Apply bgp-config
       ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
       become: false
+      changed_when: false
 
     - name: Add Cilium chart repo
       ansible.builtin.shell: |
         helm repo add cilium https://helm.cilium.io/
         helm repo update
-      become_method: enable
+      changed_when: false
 
     - name: Deploy Cilium
       ansible.builtin.shell: |
         helm upgrade --install cilium cilium/cilium --version 1.12.6 \
         --namespace kube-system --set bgp.enabled=true --set bgp.announce.loadbalancerIP=true --set bgp.announce.podCIDR=true
-      become_method: enable
+      changed_when: false
 
     - name: Restart pods
       ansible.builtin.shell:
@@ -482,8 +487,8 @@
           set -o pipefail
           kubectl get pods --all-namespaces -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork \
           --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
+      changed_when: false
       failed_when: false
-      become_method: enable
 
 # join other master node
 - hosts: master_server
@@ -494,6 +499,7 @@
       ansible.builtin.command:
         "{{ hostvars[groups['master_server'][0]]['join_command'] }} --control-plane \
         --certificate-key {{ hostvars[groups['master_server'][0]]['certs'] }}"
+      changed_when: false
       failed_when: false
       when: groups['master_server'].index(inventory_hostname) != 0
 
@@ -504,8 +510,8 @@
   tasks:
     - name: Join cluster
       ansible.builtin.command: "{{ hostvars[groups['master_server'][0]]['join_command'] }}"
-      failed_when: false
       changed_when: true
+      failed_when: false
 
 # install argocd
 - hosts: delegate_server
@@ -518,3 +524,4 @@
         kubectl apply -n argocd \
         -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
       become: false
+      changed_when: false
