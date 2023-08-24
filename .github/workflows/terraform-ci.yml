@@ -1,4 +1,4 @@
-name: Terraform
+name: Terraform CI Pipeline
 
 on:
   push:

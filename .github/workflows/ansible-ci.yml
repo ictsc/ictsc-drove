@@ -1,4 +1,4 @@
-name: Ansible
+name: Ansible CI Pipeline
 
 on:
   push:
