@@ -119,17 +119,6 @@ variable "lb_disk" {
   }
 }
 
-
-
-variable "first_step_subnet" {
-  type = map(any)
-  default = {
-    wsp = "28"
-    dev = "28"
-    prd = "28"
-  }
-}
-
 variable "router_archive_id" {
   type = map(any)
   default = {
@@ -171,13 +160,5 @@ variable "router_disk" {
     wsp = "20"
     dev = "20"
     prd = "20"
-  }
-}
-variable "router_subnet" {
-  type = map(any)
-  default = {
-    wsp = 28
-    dev = 28
-    prd = 28
   }
 }
