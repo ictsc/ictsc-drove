@@ -22,6 +22,7 @@ mrlesmithjr
 netfilter
 Netplan
 networkd
+nofilter
 nonlocal
 NOPASSWD
 ONESHELL
@@ -32,8 +33,10 @@ posix
 sacloud
 SAKURACLOUD
 sakurastorage
+stefanzweifel
 swapfile
 swapoff
 swaptotal
+tflint
 tfstate
 vyos
