@@ -1,5 +1,8 @@
 # disk size plan: https://cloud.sakura.ad.jp/specification/server-disk/#server-disk-content02-price
-variable "cluster_pass" { default = "" }
+variable "cluster_pass" {
+  type    = string
+  default = ""
+}
 variable "external_subnet" {
   type = map(any)
   default = {
@@ -116,17 +119,6 @@ variable "lb_disk" {
   }
 }
 
-
-
-variable "first_step_subnet" {
-  type = map(any)
-  default = {
-    wsp = "28"
-    dev = "28"
-    prd = "28"
-  }
-}
-
 variable "router_archive_id" {
   type = map(any)
   default = {
@@ -168,13 +160,5 @@ variable "router_disk" {
     wsp = "20"
     dev = "20"
     prd = "20"
-  }
-}
-variable "router_subnet" {
-  type = map(any)
-  default = {
-    wsp = 28
-    dev = 28
-    prd = 28
   }
 }
