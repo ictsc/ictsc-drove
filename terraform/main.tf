@@ -17,8 +17,7 @@ terraform {
 }
 
 # Configure the SakuraCloud Provider
-provider "sakuracloud" {
-}
+provider "sakuracloud" {}
 
 # ubuntu archive
 data "sakuracloud_archive" "ubuntu-archive" {
