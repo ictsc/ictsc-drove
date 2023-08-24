@@ -3,8 +3,8 @@ resource "sakuracloud_server" "k8s-node-server" {
   name   = "k8s-node-${count.index + 1}-server-${terraform.workspace}"
   core   = lookup(var.node_cpu, terraform.workspace)
   memory = lookup(var.node_mem, terraform.workspace)
-  disks  = ["${sakuracloud_disk.k8s-node-disk[count.index].id}", "${sakuracloud_disk.k8s-rook-disk[count.index].id}"]
-  tags   = ["k8s", "${terraform.workspace}", "@nic-double-queue"]
+  disks  = [sakuracloud_disk.k8s-node-disk[count.index].id, sakuracloud_disk.k8s-rook-disk[count.index].id]
+  tags   = ["k8s", terraform.workspace, "@nic-double-queue"]
   network_interface {
     upstream = sakuracloud_internet.k8s-external-switch.switch_id
   }
@@ -16,7 +16,7 @@ resource "sakuracloud_server" "k8s-node-server" {
     hostname        = "k8s-node-${count.index + 1}-server-${terraform.workspace}"
     password        = var.cluster_pass
     disable_pw_auth = "true"
-    ssh_key_ids     = ["${sakuracloud_ssh_key_gen.gen_key.id}"]
+    ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
     # note_ids        = ["<ID>", "<ID>"]
     ip_address = sakuracloud_internet.k8s-external-switch.ip_addresses[count.index + length(sakuracloud_internet.k8s-external-switch.ip_addresses) - 4]
     gateway    = sakuracloud_internet.k8s-external-switch.gateway

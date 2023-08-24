@@ -3,7 +3,7 @@ output "vip_address" {
 }
 
 output "external_address_range" {
-  value = "${sakuracloud_subnet.bgp-subnet.ip_addresses[0]}/${lookup(var.external_subnet, terraform.workspace)}"
+  value = sakuracloud_subnet.bgp-subnet.ip_addresses[0] / lookup(var.external_subnet, terraform.workspace)
 }
 
 output "k8s_router_ip_address" {
