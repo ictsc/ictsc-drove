@@ -16,7 +16,7 @@ def fetch_tfstate(workspace: str):
     )
 
     response = m_client.get_object(
-        "ictsc-k8s-cluster",
+        "ictsc-drove",
         f"env:/{workspace}/terraform.tfstate",
     )
 
@@ -25,7 +25,7 @@ def fetch_tfstate(workspace: str):
 
 def get_workspace():
     cmd = "terraform workspace show"
-    working_dir = "../../terraform"
+    working_dir = "../terraform"
 
     return (
         subprocess.Popen(cmd, cwd=working_dir, stdout=subprocess.PIPE, shell=True)
@@ -46,7 +46,7 @@ def main():
     # Uncomment below to see the tfstate object
     #
     # import pprint
-    # print(hosts["outputs"])
+    # print(tfstate["outputs"])
 
     inventory_gp = {}
     for output_key in tfstate["outputs"]:
