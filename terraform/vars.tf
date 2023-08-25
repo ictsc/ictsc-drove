@@ -119,15 +119,6 @@ variable "lb_disk" {
   }
 }
 
-variable "router_archive_id" {
-  type = map(any)
-  default = {
-    wsp = "113500057368"
-    dev = "113500057368"
-    prd = "113500057368"
-  }
-}
-
 variable "router" {
   type = map(any)
   default = {
