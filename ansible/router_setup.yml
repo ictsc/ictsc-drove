@@ -8,23 +8,150 @@
         delay: 5
         timeout: 300
 
+# common setup phase
+- hosts: bgp_router
+  name: Common Setup
+  become: true
+  vars_files:
+    - var.yml
+  tasks:
+    - name: Add a ictsc group
+      ansible.builtin.group:
+        name: ictsc
+        state: present
+
+    - name: Add a new user
+      ansible.builtin.user:
+        name: '{{ item.name }}'
+        uid: '{{ item.uid }}'
+        password: "{{ item.password | password_hash('sha512') }}"
+        group: '{{ item.name }}'
+        shell: /bin/bash
+        groups: sudo
+        state: present
+      with_items:
+        - '{{ users }}'
+
+    - name: Create .ssh directory
+      ansible.builtin.file:
+        path: /home/{{ item.name }}/.ssh/
+        state: directory
+        owner: '{{ item.name }}'
+        group: sudo
+        mode: '0700'
+      with_items:
+        - '{{ users }}'
+
+    - name: Add authorized_key
+      ansible.posix.authorized_key:
+        user: '{{ item.name }}'
+        key: "{{ lookup('file', '../dev/keys') }}"
+      with_items:
+        - '{{ users }}'
+
+    - name: Add to sudoers
+      ansible.builtin.lineinfile:
+        dest: /etc/sudoers
+        line: '{{ item.name }} ALL=(ALL) NOPASSWD:ALL'
+      with_items:
+        - '{{ users }}'
+
+    - name: Update and Upgrade
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: 'dist'
+
+    - name: Check if a reboot is needed
+      register: reboot_required_file
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+        get_checksum: false
+
+    - name: Reboot if kernel was updated
+      ansible.builtin.reboot:
+        msg: 'Reboot initiated by Ansible for kernel updates'
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: uptime
+      when: reboot_required_file.stat.exists
+
+# linux setup phase
+- hosts: bgp_router
+  name: Linux Setup
+  become: true
+  vars_files:
+    - var.yml
+  vars:
+    sysctl_config:
+      net.ipv4.ip_forward: 1
+      net.ipv4.conf.all.forwarding: 1
+      net.ipv6.conf.all.forwarding: 1
+  tasks:
+    - name: Set kernel params
+      ansible.posix.sysctl:
+        name: '{{ item.key }}'
+        value: '{{ item.value }}'
+        sysctl_set: true
+        state: present
+        reload: true
+        ignoreerrors: true
+      with_dict: '{{ sysctl_config }}'
+    - name: Update apt repository
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install BIRD2
+      ansible.builtin.apt:
+        name: '{{ packages }}'
+        state: present
+      vars:
+        packages:
+          - bird2
+
 # router setup phase
 - hosts: bgp_router
   name: Router setup
   gather_facts: false
   tasks:
-    - name: Setup bgp
-      vyos.vyos.vyos_config:
-        lines:
-          - set protocols static route {{ hostvars[groups['bgp_router'][0]]['bgp-address'] }} blackhole distance 254
-          - set protocols bgp local-as 65020
-          - set protocols bgp address-family ipv4-unicast maximum-paths ebgp 3
-          - set system login banner pre-login ""
-          - set system option performance throughput
-        save: true
-    - name: Define Peers
-      vyos.vyos.vyos_config:
-        lines:
-          - set protocols bgp neighbor {{ item }} remote-as 65021
-        save: true
-      loop: "{{ groups['node_server'] }}"
+    - name: Upload BIRD configuration file
+      ansible.builtin.template:
+        src: '{{ item.src }}'
+        dest: '{{ item.dest }}'
+        mode: '0644'
+      with_items:
+        - src: files/bird.conf
+          dest: /tmp/bird.conf
+      register: bird_pre_config_updated
+
+    - name: Validate pre BIRD configuration file syntax
+      ansible.builtin.shell:
+        cmd: |
+          set -eu
+          /usr/sbin/bird -p -c /tmp/bird.conf
+        executable: /bin/bash
+      changed_when: false
+
+    - name: Copy BIRD configuration file to the running BIRD system
+      ansible.builtin.copy:
+        src: '{{ item.src }}'
+        dest: '{{ item.dest }}'
+        mode: '0644'
+        remote_src: true
+        backup: true
+      with_items:
+        - src: /tmp/bird.conf
+          dest: /etc/bird/bird.conf
+      notify:
+        Reconfigure BIRD
+
+  handlers:
+    - name: Reconfigure BIRD
+      ansible.builtin.shell:
+        cmd: |
+          set -eu
+          /usr/sbin/bird -p -c /etc/bird/bird.conf
+          /usr/sbin/birdc configure
+        executable: /bin/bash
+      changed_when: true
