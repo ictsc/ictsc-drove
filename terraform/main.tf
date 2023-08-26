@@ -24,11 +24,6 @@ data "sakuracloud_archive" "ubuntu-archive" {
   os_type = "ubuntu2204"
 }
 
-# debian archive
-data "sakuracloud_archive" "debian-archive" {
-  os_type = "debian11"
-}
-
 # pub key
 resource "sakuracloud_ssh_key_gen" "gen_key" {
   name = "k8s_pub_key"

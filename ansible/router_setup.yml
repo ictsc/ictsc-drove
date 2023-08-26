@@ -113,7 +113,7 @@
 # router setup phase
 - hosts: bgp_router
   name: Router setup
-  gather_facts: false
+  become: true
   tasks:
     - name: Upload BIRD configuration file
       ansible.builtin.template:
