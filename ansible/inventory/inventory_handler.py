@@ -25,7 +25,7 @@ def fetch_tfstate(workspace: str):
 
 def get_workspace():
     cmd = "terraform workspace show"
-    working_dir = "../terraform"
+    working_dir = os.path.dirname(__file__) + "/../../terraform"
 
     return (
         subprocess.Popen(cmd, cwd=working_dir, stdout=subprocess.PIPE, shell=True)
