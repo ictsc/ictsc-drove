@@ -3,7 +3,7 @@ name: Terraform CI Pipeline
 on:
   push:
     branches:
-      - "main"
+      - main
   pull_request:
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
           github_token: ${{ github.token }}
           working_directory: terraform
           fail_on_error: true
-          filter_mode: "nofilter"
+          filter_mode: nofilter
   format:
     name: Format
     runs-on: ubuntu-latest
