@@ -12,4 +12,6 @@ ignorePaths:
   - ".vscode"
   - "**/Pipfile"
   - "**/Pipfile.lock"
+  - "**/*.cfg"
+  - "**/*.conf"
   - "**/*.j2"
