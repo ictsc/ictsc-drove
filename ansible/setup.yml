@@ -453,7 +453,6 @@
 - hosts: delegate_server
   name: Cilium setup
   any_errors_fatal: true
-  become: true
   vars_files:
     - var.yml
   tasks:
