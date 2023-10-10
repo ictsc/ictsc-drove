@@ -72,6 +72,7 @@ init-ansible:
 	fi
 	@cd ansible
 	@pipenv install -d
+	@pipenv run ansible-galaxy install mrlesmithjr.netplan
 	@chmod +x inventory/inventory_handler.py
 
 .PHONY: ansible
