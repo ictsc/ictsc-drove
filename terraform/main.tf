@@ -8,7 +8,9 @@ terraform {
   }
 
   backend "s3" {
-    endpoint                    = "s3.isk01.sakurastorage.jp"
+    endpoints {
+      s3 = "https://s3.isk01.sakurastorage.jp/"
+    }
     region                      = "jp-north-1"
     key                         = "terraform.tfstate"
     skip_credentials_validation = true
