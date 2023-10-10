@@ -22,44 +22,44 @@
 
     - name: Add a new user
       ansible.builtin.user:
-        name: '{{ item.name }}'
-        uid: '{{ item.uid }}'
+        name: "{{ item.name }}"
+        uid: "{{ item.uid }}"
         password: "{{ item.password | password_hash('sha512') }}"
-        group: '{{ item.name }}'
+        group: "{{ item.name }}"
         shell: /bin/bash
         groups: sudo
         state: present
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Create .ssh directory
       ansible.builtin.file:
         path: /home/{{ item.name }}/.ssh/
         state: directory
-        owner: '{{ item.name }}'
+        owner: "{{ item.name }}"
         group: sudo
-        mode: '0700'
+        mode: "0700"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Add authorized_key
       ansible.posix.authorized_key:
-        user: '{{ item.name }}'
+        user: "{{ item.name }}"
         key: "{{ lookup('file', '../dev/keys') }}"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Add to sudoers
       ansible.builtin.lineinfile:
         dest: /etc/sudoers
-        line: '{{ item.name }} ALL=(ALL) NOPASSWD:ALL'
+        line: "{{ item.name }} ALL=(ALL) NOPASSWD:ALL"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Update and Upgrade
       ansible.builtin.apt:
         update_cache: true
-        upgrade: 'dist'
+        upgrade: "dist"
 
     - name: Check if a reboot is needed
       register: reboot_required_file
@@ -69,7 +69,7 @@
 
     - name: Reboot if kernel was updated
       ansible.builtin.reboot:
-        msg: 'Reboot initiated by Ansible for kernel updates'
+        msg: "Reboot initiated by Ansible for kernel updates"
         connect_timeout: 5
         reboot_timeout: 300
         pre_reboot_delay: 0
@@ -91,20 +91,20 @@
   tasks:
     - name: Set kernel params
       ansible.posix.sysctl:
-        name: '{{ item.key }}'
-        value: '{{ item.value }}'
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
         sysctl_set: true
         state: present
         reload: true
         ignoreerrors: true
-      with_dict: '{{ sysctl_config }}'
+      with_dict: "{{ sysctl_config }}"
     - name: Update apt repository
       ansible.builtin.apt:
         update_cache: true
 
     - name: Install BIRD2
       ansible.builtin.apt:
-        name: '{{ packages }}'
+        name: "{{ packages }}"
         state: present
       vars:
         packages:
@@ -117,9 +117,9 @@
   tasks:
     - name: Upload BIRD configuration file
       ansible.builtin.template:
-        src: '{{ item.src }}'
-        dest: '{{ item.dest }}'
-        mode: '0644'
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0644"
       with_items:
         - src: files/bird.conf
           dest: /tmp/bird.conf
@@ -135,16 +135,15 @@
 
     - name: Copy BIRD configuration file to the running BIRD system
       ansible.builtin.copy:
-        src: '{{ item.src }}'
-        dest: '{{ item.dest }}'
-        mode: '0644'
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0644"
         remote_src: true
         backup: true
       with_items:
         - src: /tmp/bird.conf
           dest: /etc/bird/bird.conf
-      notify:
-        Reconfigure BIRD
+      notify: Reconfigure BIRD
 
   handlers:
     - name: Reconfigure BIRD

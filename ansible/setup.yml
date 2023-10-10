@@ -22,44 +22,44 @@
 
     - name: Add a new user
       ansible.builtin.user:
-        name: '{{ item.name }}'
-        uid: '{{ item.uid }}'
+        name: "{{ item.name }}"
+        uid: "{{ item.uid }}"
         password: "{{ item.password | password_hash('sha512') }}"
-        group: '{{ item.name }}'
+        group: "{{ item.name }}"
         shell: /bin/bash
         groups: sudo
         state: present
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Create .ssh directory
       ansible.builtin.file:
         path: /home/{{ item.name }}/.ssh/
         state: directory
-        owner: '{{ item.name }}'
+        owner: "{{ item.name }}"
         group: sudo
-        mode: '0700'
+        mode: "0700"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Add authorized_key
       ansible.posix.authorized_key:
-        user: '{{ item.name }}'
+        user: "{{ item.name }}"
         key: "{{ lookup('file', '../dev/keys') }}"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Add to sudoers
       ansible.builtin.lineinfile:
         dest: /etc/sudoers
-        line: '{{ item.name }} ALL=(ALL) NOPASSWD:ALL'
+        line: "{{ item.name }} ALL=(ALL) NOPASSWD:ALL"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Update and Upgrade
       ansible.builtin.apt:
         update_cache: true
-        upgrade: 'dist'
+        upgrade: "dist"
 
     - name: Check if a reboot is needed
       register: reboot_required_file
@@ -69,7 +69,7 @@
 
     - name: Reboot if kernel was updated
       ansible.builtin.reboot:
-        msg: 'Reboot initiated by Ansible for kernel updates'
+        msg: "Reboot initiated by Ansible for kernel updates"
         connect_timeout: 5
         reboot_timeout: 300
         pre_reboot_delay: 0
@@ -98,13 +98,13 @@
           overlay
           br_netfilter
         dest: /etc/modules-load.d/containerd.conf
-        mode: '0644'
+        mode: "0644"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Load kernel modules
       community.general.modprobe:
-        name: '{{ item }}'
+        name: "{{ item }}"
         state: present
       with_items:
         - overlay
@@ -112,17 +112,17 @@
 
     - name: Set kernel params
       ansible.posix.sysctl:
-        name: '{{ item.key }}'
-        value: '{{ item.value }}'
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
         sysctl_set: true
         state: present
         reload: true
         ignoreerrors: true
-      with_dict: '{{ sysctl_config }}'
+      with_dict: "{{ sysctl_config }}"
 
     - name: Install "apt-transport-https ca-certificates curl software-properties-common" packages
       ansible.builtin.apt:
-        name: '{{ packages }}'
+        name: "{{ packages }}"
         state: present
       vars:
         packages:
@@ -135,7 +135,7 @@
       ansible.builtin.get_url:
         url: https://download.docker.com/linux/ubuntu/gpg
         dest: /tmp/docker.gpg
-        mode: '0644'
+        mode: "0644"
         force: true
 
     - name: Add docker's official GPG key
@@ -154,7 +154,7 @@
 
     - name: Install containerd
       ansible.builtin.apt:
-        name: '{{ packages }}'
+        name: "{{ packages }}"
         state: present
       vars:
         packages:
@@ -164,7 +164,7 @@
       ansible.builtin.file:
         path: /etc/containerd
         state: directory
-        mode: '0755'
+        mode: "0755"
 
     - name: Configure containerd
       ansible.builtin.shell: |
@@ -173,9 +173,9 @@
 
     - name: Enable systemd_cgroup conf
       ansible.builtin.replace:
-        dest: '/etc/containerd/config.toml'
-        regexp: 'SystemdCgroup = false'
-        replace: 'SystemdCgroup = true'
+        dest: "/etc/containerd/config.toml"
+        regexp: "SystemdCgroup = false"
+        replace: "SystemdCgroup = true"
 
     - name: Set containerd service to start on boot
       ansible.builtin.systemd:
@@ -260,7 +260,7 @@
 
     - name: Install "kubeadm kubelet kubectl" packages
       ansible.builtin.apt:
-        name: '{{ packages }}'
+        name: "{{ packages }}"
         state: present
       vars:
         packages:
@@ -283,7 +283,7 @@
       ansible.builtin.template:
         src: ./ansible-template/10-kubeadm.template.conf
         dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-        mode: '0644'
+        mode: "0644"
 
     - name: Restart kubelet.service
       ansible.builtin.systemd:
@@ -301,7 +301,7 @@
   tasks:
     - name: Install haproxy, keepalived
       ansible.builtin.apt:
-        name: '{{ packages }}'
+        name: "{{ packages }}"
         state: present
       vars:
         packages:
@@ -311,20 +311,20 @@
     - name: Enable haproxy demon
       ansible.builtin.lineinfile:
         path: /etc/default/haproxy
-        regexp: '^ENABLED='
-        line: 'ENABLED=1'
+        regexp: "^ENABLED="
+        line: "ENABLED=1"
 
     - name: Send haproxy.cfg
       ansible.builtin.template:
         src: ansible-template/haproxy.cfg
         dest: /etc/haproxy/haproxy.cfg
-        mode: '0644'
+        mode: "0644"
 
     - name: Send keepalived.conf
       ansible.builtin.template:
         src: ansible-template/keepalived.conf
         dest: /etc/keepalived/keepalived.conf
-        mode: '0644'
+        mode: "0644"
 
     - name: Restart haproxy
       ansible.builtin.systemd:
@@ -352,7 +352,7 @@
       ansible.builtin.template:
         src: ansible-template/kubeadm-config.yaml
         dest: /tmp/kubeadm-config.yml
-        mode: '0644'
+        mode: "0644"
 
     - name: Dry-run kubeadm init
       ansible.builtin.command: kubeadm init --dry-run
@@ -374,7 +374,7 @@
 
     - name: Set cert
       ansible.builtin.set_fact:
-        certs: '{{ certs_raw.stdout_lines[2] }}'
+        certs: "{{ certs_raw.stdout_lines[2] }}"
 
     # get join command
     - name: Get join command
@@ -384,33 +384,33 @@
 
     - name: Set join command
       ansible.builtin.set_fact:
-        join_command: '{{ join_command_raw.stdout_lines[0] }}'
+        join_command: "{{ join_command_raw.stdout_lines[0] }}"
 
     - name: Create .kube directory for ictsc user
       ansible.builtin.file:
         path: /home/{{ item.name }}/.kube
         state: directory
-        owner: '{{ item.name }}'
-        mode: '0700'
+        owner: "{{ item.name }}"
+        mode: "0700"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Copy admin.conf to ictsc kube config
       ansible.builtin.copy:
         src: /etc/kubernetes/admin.conf
         dest: /home/{{ item.name }}/.kube/config
         remote_src: true
-        owner: '{{ item.name }}'
-        mode: '0600'
+        owner: "{{ item.name }}"
+        mode: "0600"
       with_items:
-        - '{{ users }}'
+        - "{{ users }}"
 
     - name: Create .kube directory for ubuntu user
       ansible.builtin.file:
         path: /home/ubuntu/.kube
         state: directory
         owner: ubuntu
-        mode: '0700'
+        mode: "0700"
 
     - name: Copy admin.conf to ubuntu kube config
       ansible.builtin.copy:
@@ -418,7 +418,7 @@
         dest: /home/ubuntu/.kube/config
         remote_src: true
         owner: ubuntu
-        mode: '0600'
+        mode: "0600"
 
 # Helm install from apt
 - hosts: delegate_server
@@ -442,7 +442,7 @@
 
     - name: Install helm
       ansible.builtin.apt:
-        name: '{{ packages }}'
+        name: "{{ packages }}"
         state: present
       vars:
         packages:
@@ -460,7 +460,7 @@
       ansible.builtin.template:
         src: ansible-template/bgp-config.yaml
         dest: /tmp/bgp-config.yaml
-        mode: '0644'
+        mode: "0644"
 
     - name: Apply bgp-config
       ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
