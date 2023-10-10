@@ -3,7 +3,7 @@ name: Ansible CI Pipeline
 on:
   push:
     branches:
-      - 'main'
+      - main
   pull_request:
 
 jobs:
@@ -19,8 +19,8 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
-          architecture: 'x64'
+          python-version: 3.x
+          architecture: x64
       - name: Install Ansible-Related Packages
         run: pip install ansible ansible-lint
       - name: Install netplan Role
