@@ -109,6 +109,9 @@ select-prod:
 terraform-apply:
 	@cd terraform	&& terraform apply -auto-approve
 
-.PHONY: terraform-destroy
-terraform-destroy:
+.PHONY: create
+create: terraform-apply ansible
+
+.PHONY: destroy
+destroy:
 	@cd terraform	&& terraform destroy
