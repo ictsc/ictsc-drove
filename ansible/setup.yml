@@ -281,7 +281,7 @@
 
     - name: Update setting file
       ansible.builtin.template:
-        src: ./ansible-template/10-kubeadm.template.conf
+        src: ./ansible-template/10-kubeadm.conf.j2
         dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
         mode: "0644"
 
@@ -316,13 +316,13 @@
 
     - name: Send haproxy.cfg
       ansible.builtin.template:
-        src: ansible-template/haproxy.cfg
+        src: ansible-template/haproxy.cfg.j2
         dest: /etc/haproxy/haproxy.cfg
         mode: "0644"
 
     - name: Send keepalived.conf
       ansible.builtin.template:
-        src: ansible-template/keepalived.conf
+        src: ansible-template/keepalived.conf.j2
         dest: /etc/keepalived/keepalived.conf
         mode: "0644"
 
@@ -350,7 +350,7 @@
   tasks:
     - name: Send kubeadm-config
       ansible.builtin.template:
-        src: ansible-template/kubeadm-config.yaml
+        src: ansible-template/kubeadm-config.yml.j2
         dest: /tmp/kubeadm-config.yml
         mode: "0644"
 
@@ -458,7 +458,7 @@
   tasks:
     - name: Send bgp-config
       ansible.builtin.template:
-        src: ansible-template/bgp-config.yaml
+        src: ansible-template/bgp-config.yaml.j2
         dest: /tmp/bgp-config.yaml
         mode: "0644"
 
