@@ -1,4 +1,2 @@
-ansible_network_os: vyos
-ansible_user: vyos
-ansible_connection: network_cli
+ansible_user: ubuntu
 ansible_password: "{{ lookup('env', 'CLUSTER_PASS') }}"

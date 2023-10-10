@@ -72,14 +72,15 @@ init-ansible:
 	fi
 	@cd ansible
 	@pipenv install -d
+	@pipenv run ansible-galaxy install mrlesmithjr.netplan
 	@chmod +x inventory/inventory_handler.py
 
 .PHONY: ansible
 .ONESHELL:
 ansible:
 	@cd ansible
-	@pipenv run ansible-playbook router_setup.yml
-	@pipenv run ansible-playbook -u ubuntu --private-key=id_rsa setup.yml --extra-vars ansible_sudo_pass=$$CLUSTER_PASS
+	@pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$$CLUSTER_PASS router_setup.yml
+	@pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$$CLUSTER_PASS setup.yml
 
 .PHONY: init-terraform
 .ONESHELL:
@@ -108,6 +109,9 @@ select-prod:
 terraform-apply:
 	@cd terraform	&& terraform apply -auto-approve
 
-.PHONY: terraform-destroy
-terraform-destroy:
+.PHONY: create
+create: terraform-apply ansible
+
+.PHONY: destroy
+destroy:
 	@cd terraform	&& terraform destroy
