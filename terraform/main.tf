@@ -8,7 +8,7 @@ terraform {
   }
 
   backend "s3" {
-    endpoints {
+    endpoints = {
       s3 = "https://s3.isk01.sakurastorage.jp"
     }
     region                     = "jp-north-1"
