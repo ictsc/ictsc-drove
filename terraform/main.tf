@@ -26,7 +26,7 @@ data "sakuracloud_archive" "ubuntu_archive" {
 
 # pub key
 resource "sakuracloud_ssh_key_gen" "gen_key" {
-  name = "k8s_pub_key"
+  name = "k8s-pub-key"
 
   provisioner "local-exec" {
     command = "echo \"${self.private_key}\" > ../id_rsa; chmod 0600 ../id_rsa"

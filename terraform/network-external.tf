@@ -1,5 +1,5 @@
 resource "sakuracloud_internet" "k8s_external_switch" {
-  name       = "k8s_external_switch"
+  name       = "k8s-external-switch"
   netmask    = lookup(var.external_subnet, terraform.workspace)
   band_width = 100
   timeouts {
