@@ -91,21 +91,19 @@ def main():
                     worker_node += 1
 
         if output_key == "k8s_lb_ip_address":
-            inventory["_meta"] = inventory["_meta"] | {
-                "hostvars": {
-                    inventory_gp["hosts"][0]: {
-                        "opposite": inventory_gp["hosts"][1],
-                        "priority": "150",
-                        "state": "Master",
-                        "internal_ip": "192.168.100.31",
-                    },
-                    inventory_gp["hosts"][1]: {
-                        "opposite": inventory_gp["hosts"][0],
-                        "priority": "101",
-                        "state": "BACKUP",
-                        "internal_ip": "192.168.100.32",
-                    },
-                }
+            inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
+                inventory_gp["hosts"][0]: {
+                    "opposite": inventory_gp["hosts"][1],
+                    "priority": "150",
+                    "state": "Master",
+                    "internal_ip": "192.168.100.31",
+                },
+                inventory_gp["hosts"][1]: {
+                    "opposite": inventory_gp["hosts"][0],
+                    "priority": "101",
+                    "state": "BACKUP",
+                    "internal_ip": "192.168.100.32",
+                },
             }
 
     inventory["lb"]["vars"] = {  # type: ignore
