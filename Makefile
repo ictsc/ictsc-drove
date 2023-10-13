@@ -86,9 +86,9 @@ ansible:
 .ONESHELL:
 init-terraform: show-ws
 	@if ! (type direnv >/dev/null 2>&1); then
-	echo "下記公式ドキュメントを参考に、terraformをインストールしてください"
-	echo "https://developer.hashicorp.com/terraform/downloads"
-	exit 0
+		echo "下記公式ドキュメントを参考に、terraformをインストールしてください"
+		echo "https://developer.hashicorp.com/terraform/downloads"
+		exit 0
 	fi
 	@cd terraform
 	@terraform init -backend-config="bucket=$$TF_STATE_BUCKET"
