@@ -114,7 +114,7 @@ def main():
     inventory["bgp_router"]["vars"] = {  # type: ignore
         "bgp_address": tfstate["outputs"]["external_address_range"]["value"]
     }
-    inventory["delegate"] = {
+    inventory["delegate_plane"] = {
         "hosts": [inventory["control_plane"]["hosts"][0]],
         "vars": {"workspace": workspace},
     }

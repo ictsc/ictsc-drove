@@ -139,7 +139,6 @@
         force: true
 
     - name: Add docker's official GPG key
-      become: true
       ansible.builtin.shell: gpg --dearmor --batch --yes -o /etc/apt/keyrings/docker.gpg < /tmp/docker.gpg
       changed_when: false
 
@@ -341,7 +340,7 @@
         enabled: true
 
 # kubeadm setup phase
-- hosts: delegate_control_plane
+- hosts: delegate_plane
   name: Kubeadm setup
   any_errors_fatal: true
   become: true
@@ -421,7 +420,7 @@
         mode: "0600"
 
 # Helm install from apt
-- hosts: delegate
+- hosts: delegate_plane
   name: Helm setup
   any_errors_fatal: true
   become: true
@@ -450,7 +449,7 @@
 
 # CNI Install
 # cilium install with BGP config
-- hosts: delegate
+- hosts: delegate_plane
   name: Cilium setup
   any_errors_fatal: true
   vars_files:
@@ -464,7 +463,6 @@
 
     - name: Apply bgp-config
       ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
-      become: false
       changed_when: false
 
     - name: Add Cilium chart repo
@@ -513,14 +511,12 @@
       failed_when: false
 
 # install argocd
-- hosts: delegate
+- hosts: delegate_plane
   name: Install argo CD
-  become: true
   tasks:
     - name: Install argocd
       ansible.builtin.shell: |
         kubectl create namespace argocd
         kubectl apply -n argocd \
         -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-      become: false
       changed_when: false
