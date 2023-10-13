@@ -18,7 +18,7 @@ resource "sakuracloud_server" "k8s-lb-server" {
     disable_pw_auth = "true"
     ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
     # note_ids      = ["<ID>", "<ID>"]
-    ip_address = sakuracloud_internet.k8s_external_switch.ip_addresses[count.index + lookup(var.router, terraform.workspace) + lookup(var.master, terraform.workspace)]
+    ip_address = sakuracloud_internet.k8s_external_switch.ip_addresses[count.index + lookup(var.router, terraform.workspace) + lookup(var.control_plane, terraform.workspace)]
     gateway    = sakuracloud_internet.k8s_external_switch.gateway
     netmask    = lookup(var.external_subnet, terraform.workspace)
   }
