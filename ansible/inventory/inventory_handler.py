@@ -37,8 +37,8 @@ def get_workspace():
 
 def main():
     inventory = {
-        "cloud_servers": {"children": ["master_server", "lb_server", "node_server"]},
-        "_meta": {},
+        "cloud_servers": {"children": ["control_plane", "lb", "worker_node"]},
+        "_meta": {"hostvars": {}},
     }
     workspace = get_workspace()
     tfstate = fetch_tfstate(workspace)
@@ -51,15 +51,15 @@ def main():
     inventory_gp = {}
     for output_key in tfstate["outputs"]:
         match output_key:
-            case "k8s_lb_server_ip_address":
-                inventory["lb_server"] = {"hosts": []}
-                inventory_gp = inventory["lb_server"]
-            case "k8s_master_server_ip_address":
-                inventory["master_server"] = {"hosts": []}
-                inventory_gp = inventory["master_server"]
-            case "k8s_node_server_ip_address":
-                inventory["node_server"] = {"hosts": []}
-                inventory_gp = inventory["node_server"]
+            case "k8s_lb_ip_address":
+                inventory["lb"] = {"hosts": []}
+                inventory_gp = inventory["lb"]
+            case "k8s_control_plane_ip_address":
+                inventory["control_plane"] = {"hosts": []}
+                inventory_gp = inventory["control_plane"]
+            case "k8s_worker_node_ip_address":
+                inventory["worker_node"] = {"hosts": []}
+                inventory_gp = inventory["worker_node"]
             case "k8s_router_ip_address":
                 inventory["bgp_router"] = {"hosts": []}
                 inventory_gp = inventory["bgp_router"]
@@ -67,8 +67,8 @@ def main():
                 continue
 
         ip_addresses = tfstate["outputs"][output_key]["value"]
-        node = 0
-        master = 0
+        worker_node = 0
+        control_plane = 0
 
         for ip in ip_addresses:
             # inventory filter list
@@ -79,24 +79,24 @@ def main():
             inventory_gp["hosts"].append(ip)
 
             match output_key:
-                case "k8s_master_server_ip_address":
+                case "k8s_control_plane_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                        ip: {"internal_ip": f"192.168.100.1{str(master)}"}
+                        ip: {"internal_ip": f"192.168.100.1{str(control_plane)}"}
                     }
-                    master += 1
-                case "k8s_node_server_ip_address":
+                    control_plane += 1
+                case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                        ip: {"internal_ip": f"192.168.100.2{str(node)}"}
+                        ip: {"internal_ip": f"192.168.100.2{str(worker_node)}"}
                     }
-                    node += 1
+                    worker_node += 1
 
-        if output_key == "k8s_lb_server_ip_address":
+        if output_key == "k8s_lb_ip_address":
             inventory["_meta"] = inventory["_meta"] | {
                 "hostvars": {
                     inventory_gp["hosts"][0]: {
                         "opposite": inventory_gp["hosts"][1],
                         "priority": "150",
-                        "state": "MASTER",
+                        "state": "Master",
                         "internal_ip": "192.168.100.31",
                     },
                     inventory_gp["hosts"][1]: {
@@ -108,14 +108,14 @@ def main():
                 }
             }
 
-    inventory["lb_server"]["vars"] = {  # type: ignore
+    inventory["lb"]["vars"] = {  # type: ignore
         "VIP": tfstate["outputs"]["vip_address"]["value"]
     }
     inventory["bgp_router"]["vars"] = {  # type: ignore
-        "bgp-address": tfstate["outputs"]["external_address_range"]["value"]
+        "bgp_address": tfstate["outputs"]["external_address_range"]["value"]
     }
-    inventory["delegate_server"] = {
-        "hosts": [inventory["master_server"]["hosts"][0]],
+    inventory["delegate_plane"] = {
+        "hosts": [inventory["control_plane"]["hosts"][0]],
         "vars": {"workspace": workspace},
     }
 

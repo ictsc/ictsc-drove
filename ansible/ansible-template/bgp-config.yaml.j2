@@ -16,5 +16,5 @@ data:
         protocol: bgp
         addresses:
 {% for item in groups['bgp_router'] %}
-          - {{ hostvars[item]['bgp-address'] }}
+          - {{ hostvars[item]['bgp_address'] }}
 {% endfor %}

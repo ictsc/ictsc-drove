@@ -22,6 +22,6 @@ backend api
     balance roundrobin
     option tcp-check
     # k8s addressing
-{% for address in groups['master_server'] %}
-    server k8s-master-{{ loop.index }} {{ address }}:6443 check fall 3 rise 2
+{% for address in groups['control_plane'] %}
+    server k8s-control-plane-{{ loop.index }} {{ address }}:6443 check fall 3 rise 2
 {% endfor %}

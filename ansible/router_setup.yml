@@ -121,7 +121,7 @@
         dest: "{{ item.dest }}"
         mode: "0644"
       with_items:
-        - src: files/bird.conf
+        - src: ansible-template/bird.conf.j2
           dest: /tmp/bird.conf
       register: bird_pre_config_updated
 

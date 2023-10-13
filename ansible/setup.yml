@@ -139,7 +139,6 @@
         force: true
 
     - name: Add docker's official GPG key
-      become: true
       ansible.builtin.shell: gpg --dearmor --batch --yes -o /etc/apt/keyrings/docker.gpg < /tmp/docker.gpg
       changed_when: false
 
@@ -185,8 +184,8 @@
         enabled: true
 
 # interface setup phase
-- hosts: master_server
-  name: Netplan setup (master)
+- hosts: control_plane
+  name: Netplan setup (control_plane)
   any_errors_fatal: true
   roles:
     - role: mrlesmithjr.netplan
@@ -201,10 +200,10 @@
           ethernets:
             eth1:
               addresses:
-                - 192.168.100.1{{groups["master_server"].index(inventory_hostname)}}/24
+                - 192.168.100.1{{groups["control_plane"].index(inventory_hostname)}}/24
 
-- hosts: node_server
-  name: Netplan setup (node)
+- hosts: worker_node
+  name: Netplan setup (worker_node)
   any_errors_fatal: true
   roles:
     - role: mrlesmithjr.netplan
@@ -219,9 +218,9 @@
           ethernets:
             eth1:
               addresses:
-                - 192.168.100.2{{groups["node_server"].index(inventory_hostname)}}/24
+                - 192.168.100.2{{groups["worker_node"].index(inventory_hostname)}}/24
 
-- hosts: lb_server
+- hosts: lb
   name: Netplan setup (lb)
   any_errors_fatal: true
   roles:
@@ -237,10 +236,10 @@
           ethernets:
             eth1:
               addresses:
-                - 192.168.100.3{{groups["lb_server"].index(inventory_hostname)}}/24
+                - 192.168.100.3{{groups["lb"].index(inventory_hostname)}}/24
 
 # kubernetes setup phase
-- hosts: master_server:node_server
+- hosts: control_plane:worker_node
   name: Kubernetes setup
   become: true
   vars_files:
@@ -293,7 +292,7 @@
         enabled: true
 
 # kubernetes api lb setup phase
-- hosts: lb_server
+- hosts: lb
   name: Kubernetes api lb setup
   become: true
   vars_files:
@@ -341,7 +340,7 @@
         enabled: true
 
 # kubeadm setup phase
-- hosts: delegate_server
+- hosts: delegate_plane
   name: Kubeadm setup
   any_errors_fatal: true
   become: true
@@ -362,7 +361,7 @@
 
     - name: Run kubeadm init
       ansible.builtin.command: kubeadm init --config=/tmp/kubeadm-config.yml
-      when: groups['master_server'].index(inventory_hostname) == 0 and kubeadm_dry_run.rc == 0
+      when: groups['control_plane'].index(inventory_hostname) == 0 and kubeadm_dry_run.rc == 0
       changed_when: false
       # skip init if already initialized
 
@@ -421,7 +420,7 @@
         mode: "0600"
 
 # Helm install from apt
-- hosts: delegate_server
+- hosts: delegate_plane
   name: Helm setup
   any_errors_fatal: true
   become: true
@@ -450,7 +449,7 @@
 
 # CNI Install
 # cilium install with BGP config
-- hosts: delegate_server
+- hosts: delegate_plane
   name: Cilium setup
   any_errors_fatal: true
   vars_files:
@@ -464,7 +463,6 @@
 
     - name: Apply bgp-config
       ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
-      become: false
       changed_when: false
 
     - name: Add Cilium chart repo
@@ -489,38 +487,36 @@
       changed_when: false
       failed_when: false
 
-# join other master node
-- hosts: master_server
-  name: Join other master
+# join other control_plane
+- hosts: control_plane
+  name: Join other control_plane
   become: true
   tasks:
     - name: Join cluster
       ansible.builtin.command:
-        "{{ hostvars[groups['master_server'][0]]['join_command'] }} --control-plane \
-        --certificate-key {{ hostvars[groups['master_server'][0]]['certs'] }}"
+        "{{ hostvars[groups['control_plane'][0]]['join_command'] }} --control_plane \
+        --certificate-key {{ hostvars[groups['control_plane'][0]]['certs'] }}"
       changed_when: false
       failed_when: false
-      when: groups['master_server'].index(inventory_hostname) != 0
+      when: groups['control_plane'].index(inventory_hostname) != 0
 
-# join worker node
-- hosts: node_server
+# join worker_node
+- hosts: worker_node
   name: Join cluster
   become: true
   tasks:
     - name: Join cluster
-      ansible.builtin.command: "{{ hostvars[groups['master_server'][0]]['join_command'] }}"
+      ansible.builtin.command: "{{ hostvars[groups['control_plane'][0]]['join_command'] }}"
       changed_when: true
       failed_when: false
 
 # install argocd
-- hosts: delegate_server
+- hosts: delegate_plane
   name: Install argo CD
-  become: true
   tasks:
     - name: Install argocd
       ansible.builtin.shell: |
         kubectl create namespace argocd
         kubectl apply -n argocd \
         -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-      become: false
       changed_when: false
