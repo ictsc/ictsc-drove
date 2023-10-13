@@ -14,8 +14,8 @@ output "k8s_control_plane_server_ip_address" {
   value = sakuracloud_server.k8s-control_plane-server[*].ip_address
 }
 
-output "k8s_node_server_ip_address" {
-  value = sakuracloud_server.k8s-node-server[*].ip_address
+output "k8s_worker_node_server_ip_address" {
+  value = sakuracloud_server.k8s-worker_node-server[*].ip_address
 }
 
 output "k8s_lb_server_ip_address" {
