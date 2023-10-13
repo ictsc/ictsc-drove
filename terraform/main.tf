@@ -28,11 +28,11 @@ data "sakuracloud_archive" "ubuntu_archive" {
 resource "sakuracloud_ssh_key_gen" "gen_key" {
   name = "k8s_pub_key"
 
-  provisioner "local_exec" {
+  provisioner "local-exec" {
     command = "echo \"${self.private_key}\" > ../id_rsa; chmod 0600 ../id_rsa"
   }
 
-  provisioner "local_exec" {
+  provisioner "local-exec" {
     when    = destroy
     command = "rm -f ../id_rsa"
   }
