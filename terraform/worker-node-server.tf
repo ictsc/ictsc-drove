@@ -6,10 +6,10 @@ resource "sakuracloud_server" "k8s-node-server" {
   disks  = [sakuracloud_disk.k8s-node-disk[count.index].id, sakuracloud_disk.k8s-rook-disk[count.index].id]
   tags   = ["k8s", terraform.workspace, "@nic-double-queue"]
   network_interface {
-    upstream = sakuracloud_internet.k8s-external-switch.switch_id
+    upstream = sakuracloud_internet.k8s_external_switch.switch_id
   }
   network_interface {
-    upstream        = sakuracloud_switch.k8s-internal-switch.id
+    upstream        = sakuracloud_switch.k8s_internal_switch.id
     user_ip_address = "192.168.100.2${count.index}"
   }
   disk_edit_parameter {
@@ -18,8 +18,8 @@ resource "sakuracloud_server" "k8s-node-server" {
     disable_pw_auth = "true"
     ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
     # note_ids        = ["<ID>", "<ID>"]
-    ip_address = sakuracloud_internet.k8s-external-switch.ip_addresses[count.index + length(sakuracloud_internet.k8s-external-switch.ip_addresses) - 4]
-    gateway    = sakuracloud_internet.k8s-external-switch.gateway
+    ip_address = sakuracloud_internet.k8s_external_switch.ip_addresses[count.index + length(sakuracloud_internet.k8s_external_switch.ip_addresses) - 4]
+    gateway    = sakuracloud_internet.k8s_external_switch.gateway
     netmask    = lookup(var.external_subnet, terraform.workspace)
   }
   timeouts {
