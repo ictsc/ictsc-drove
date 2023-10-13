@@ -120,7 +120,7 @@ protocol static static_bgp_v4 {
 ####
 
 # eBGP Peer
-{% for item in groups['node_server'] %}
+{% for item in groups['worker_node'] %}
 protocol bgp node_peer_{{ item | replace('.', '_') }} {
     local {{ groups['bgp_router'][0] }} as ROUTER_ASN;
     neighbor {{ item }} as WORKER_ASN;
