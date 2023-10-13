@@ -38,7 +38,7 @@ def get_workspace():
 def main():
     inventory = {
         "cloud_servers": {"children": ["control_plane", "lb", "worker_node"]},
-        "_meta": {},
+        "_meta": {"hostvars": {}},
     }
     workspace = get_workspace()
     tfstate = fetch_tfstate(workspace)
