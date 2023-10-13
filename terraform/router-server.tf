@@ -1,9 +1,9 @@
-resource "sakuracloud_server" "k8s-router" {
+resource "sakuracloud_server" "k8s_router" {
   count  = lookup(var.router, terraform.workspace)
-  name   = "k8s-router-${count.index + 1}-${terraform.workspace}"
+  name   = "k8s_router_${count.index + 1}_${terraform.workspace}"
   core   = lookup(var.router_cpu, terraform.workspace)
   memory = lookup(var.router_mem, terraform.workspace)
-  disks  = [sakuracloud_disk.k8s-router-disk[count.index].id]
+  disks  = [sakuracloud_disk.k8s_router_disk[count.index].id]
   tags   = ["k8s", terraform.workspace, "@nic-double-queue"]
 
   network_interface {
@@ -11,7 +11,7 @@ resource "sakuracloud_server" "k8s-router" {
   }
 
   disk_edit_parameter {
-    hostname        = "k8s-router-${count.index + 1}-${terraform.workspace}"
+    hostname        = "k8s_router_${count.index + 1}_${terraform.workspace}"
     password        = var.cluster_pass
     disable_pw_auth = "true"
     ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
