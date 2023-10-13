@@ -111,7 +111,7 @@ protocol static static_bgp_v4 {
         };
     };
 
-    route {{ hostvars[groups['bgp_router'][0]]['bgp-address'] }} blackhole;
+    route {{ hostvars[groups['bgp_router'][0]]['bgp_address'] }} blackhole;
 }
 
 

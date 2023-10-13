@@ -112,7 +112,7 @@ def main():
         "VIP": tfstate["outputs"]["vip_address"]["value"]
     }
     inventory["bgp_router"]["vars"] = {  # type: ignore
-        "bgp-address": tfstate["outputs"]["external_address_range"]["value"]
+        "bgp_address": tfstate["outputs"]["external_address_range"]["value"]
     }
     inventory["delegate"] = {
         "hosts": [inventory["control_plane"]["hosts"][0]],
