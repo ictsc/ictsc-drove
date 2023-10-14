@@ -1,0 +1,8 @@
+- name: Reconfigure BIRD
+  ansible.builtin.shell:
+    cmd: |
+      set -eu
+      /usr/sbin/bird -p -c /etc/bird/bird.conf
+      /usr/sbin/birdc configure
+    executable: /bin/bash
+  changed_when: true
