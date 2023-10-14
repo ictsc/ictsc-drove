@@ -1,88 +1,27 @@
 # wait for ssh connection
-- hosts: cloud_servers
+- hosts: all
   name: Wait for SSH connection
   gather_facts: false
-  tasks:
-    - name: Wait for SSH connection
-      ansible.builtin.wait_for_connection:
-        delay: 5
-        timeout: 300
+  roles:
+    - wait_ssh
 
 # common setup phase
-- hosts: cloud_servers
+- hosts: all
   name: Common Setup
   become: true
-  vars_files:
-    - var.yml
-  tasks:
-    - name: Add a ictsc group
-      ansible.builtin.group:
-        name: ictsc
-        state: present
+  roles:
+    - common
 
-    - name: Add a new user
-      ansible.builtin.user:
-        name: "{{ item.name }}"
-        uid: "{{ item.uid }}"
-        password: "{{ item.password | password_hash('sha512') }}"
-        group: "{{ item.name }}"
-        shell: /bin/bash
-        groups: sudo
-        state: present
-      with_items:
-        - "{{ users }}"
-
-    - name: Create .ssh directory
-      ansible.builtin.file:
-        path: /home/{{ item.name }}/.ssh/
-        state: directory
-        owner: "{{ item.name }}"
-        group: sudo
-        mode: "0700"
-      with_items:
-        - "{{ users }}"
-
-    - name: Add authorized_key
-      ansible.posix.authorized_key:
-        user: "{{ item.name }}"
-        key: "{{ lookup('file', '../dev/keys') }}"
-      with_items:
-        - "{{ users }}"
-
-    - name: Add to sudoers
-      ansible.builtin.lineinfile:
-        dest: /etc/sudoers
-        line: "{{ item.name }} ALL=(ALL) NOPASSWD:ALL"
-      with_items:
-        - "{{ users }}"
-
-    - name: Update and Upgrade
-      ansible.builtin.apt:
-        update_cache: true
-        upgrade: "dist"
-
-    - name: Check if a reboot is needed
-      register: reboot_required_file
-      ansible.builtin.stat:
-        path: /var/run/reboot-required
-        get_checksum: false
-
-    - name: Reboot if kernel was updated
-      ansible.builtin.reboot:
-        msg: "Reboot initiated by Ansible for kernel updates"
-        connect_timeout: 5
-        reboot_timeout: 300
-        pre_reboot_delay: 0
-        post_reboot_delay: 30
-        test_command: uptime
-      when: reboot_required_file.stat.exists
+- hosts: bgp_router
+  name: BIRD Setup
+  become: true
+  roles:
+    - bird
 
 # containerd setup phase
 - hosts: cloud_servers
   name: Containerd Setup
   become: true
-  vars_files:
-    - var.yml
   vars:
     sysctl_config:
       net.ipv4.ip_forward: 1
@@ -242,8 +181,6 @@
 - hosts: control_plane:worker_node
   name: Kubernetes setup
   become: true
-  vars_files:
-    - var.yml
   tasks:
     - name: Add gpg key
       ansible.builtin.apt_key:
@@ -295,8 +232,6 @@
 - hosts: lb
   name: Kubernetes api lb setup
   become: true
-  vars_files:
-    - var.yml
   tasks:
     - name: Install haproxy, keepalived
       ansible.builtin.apt:
@@ -344,8 +279,6 @@
   name: Kubeadm setup
   any_errors_fatal: true
   become: true
-  vars_files:
-    - var.yml
   tasks:
     - name: Send kubeadm-config
       ansible.builtin.template:
@@ -452,8 +385,6 @@
 - hosts: delegate_plane
   name: Cilium setup
   any_errors_fatal: true
-  vars_files:
-    - var.yml
   tasks:
     - name: Send bgp-config
       ansible.builtin.template:
