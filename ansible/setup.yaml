@@ -61,7 +61,7 @@
         --certificate-key {{ hostvars[groups['control_plane'][0]]['certs'] }}"
       changed_when: false
       failed_when: false
-      when: groups['control_plane'].index(inventory_hostname) != 0
+      when: inventory_hostname in groups['delegate_plane']
 
 # join worker_node
 - hosts: worker_node
