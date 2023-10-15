@@ -91,47 +91,8 @@
 - hosts: lb
   name: Kubernetes api lb setup
   become: true
-  tasks:
-    - name: Install haproxy, keepalived
-      ansible.builtin.apt:
-        name: "{{ packages }}"
-        state: present
-      vars:
-        packages:
-          - haproxy
-          - keepalived
-
-    - name: Enable haproxy demon
-      ansible.builtin.lineinfile:
-        path: /etc/default/haproxy
-        regexp: "^ENABLED="
-        line: "ENABLED=1"
-
-    - name: Send haproxy.cfg
-      ansible.builtin.template:
-        src: ansible-template/haproxy.cfg.j2
-        dest: /etc/haproxy/haproxy.cfg
-        mode: "0644"
-
-    - name: Send keepalived.conf
-      ansible.builtin.template:
-        src: ansible-template/keepalived.conf.j2
-        dest: /etc/keepalived/keepalived.conf
-        mode: "0644"
-
-    - name: Restart haproxy
-      ansible.builtin.systemd:
-        name: haproxy
-        daemon_reload: true
-        state: restarted
-        enabled: true
-
-    - name: Restart keepalived
-      ansible.builtin.systemd:
-        name: keepalived
-        daemon_reload: true
-        state: restarted
-        enabled: true
+  roles:
+    - lb
 
 # kubeadm setup phase
 - hosts: delegate_plane
