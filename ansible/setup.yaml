@@ -1,11 +1,9 @@
-# wait for ssh connection
 - hosts: all
   name: Wait for SSH connection
   gather_facts: false
   roles:
     - wait_ssh
 
-# common setup phase
 - hosts: all
   name: Common Setup
   become: true
@@ -19,30 +17,26 @@
   roles:
     - bird
 
-# containerd setup phase
 - hosts: cloud_servers
   name: Containerd Setup
   become: true
   roles:
     - containerd
 
-# kubernetes setup phase
 - hosts: control_plane:worker_node
-  name: Kubernetes setup
+  name: Kubernetes Install
   become: true
   roles:
     - k8s_install
 
-# kubernetes api lb setup phase
 - hosts: lb
-  name: Kubernetes api lb setup
+  name: Kubernetes API Load Balancer Setup
   become: true
   roles:
     - lb
 
-# kubeadm setup phase
 - hosts: delegate_plane
-  name: Kubeadm setup
+  name: Kubernetes Setup
   any_errors_fatal: true
   become: true
   roles:
@@ -50,9 +44,8 @@
     - cilium
     - argo_cd
 
-# join other control_plane
 - hosts: control_plane:worker_node
-  name: Join other control_plane
+  name: Join Nodes
   become: true
   roles:
     - k8s_join
