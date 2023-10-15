@@ -22,7 +22,7 @@
 
 - name: Send bgp-config
   ansible.builtin.template:
-    src: ansible-template/bgp-config.yaml.j2
+    src: bgp-config.yaml.j2
     dest: /tmp/bgp-config.yaml
     mode: "0644"
 
