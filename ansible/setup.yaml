@@ -11,7 +11,7 @@
   become: true
   roles:
     - common
-    - role: mrlesmithjr.netplan
+    - mrlesmithjr.netplan
 
 - hosts: router
   name: BIRD Setup
