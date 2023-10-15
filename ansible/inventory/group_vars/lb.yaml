@@ -1,0 +1,8 @@
+# netplanロール用
+netplan_configuration:
+  network:
+    version: 2
+    ethernets:
+      eth1:
+        addresses:
+          - 192.168.100.3{{groups["lb"].index(inventory_hostname)}}/24

@@ -79,8 +79,7 @@ init-ansible:
 .ONESHELL:
 ansible:
 	@cd ansible
-	@pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$$CLUSTER_PASS router_setup.yml
-	@pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$$CLUSTER_PASS setup.yml
+	@pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$$CLUSTER_PASS -v setup.yaml
 
 .PHONY: init-terraform
 .ONESHELL:

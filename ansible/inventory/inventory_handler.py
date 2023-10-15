@@ -61,8 +61,8 @@ def main():
                 inventory["worker_node"] = {"hosts": []}
                 inventory_gp = inventory["worker_node"]
             case "k8s_router_ip_address":
-                inventory["bgp_router"] = {"hosts": []}
-                inventory_gp = inventory["bgp_router"]
+                inventory["router"] = {"hosts": []}
+                inventory_gp = inventory["router"]
             case _:
                 continue
 
@@ -109,7 +109,7 @@ def main():
     inventory["lb"]["vars"] = {  # type: ignore
         "VIP": tfstate["outputs"]["vip_address"]["value"]
     }
-    inventory["bgp_router"]["vars"] = {  # type: ignore
+    inventory["router"]["vars"] = {  # type: ignore
         "bgp_address": tfstate["outputs"]["external_address_range"]["value"]
     }
     inventory["delegate_plane"] = {

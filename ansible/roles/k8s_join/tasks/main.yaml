@@ -1,0 +1,5 @@
+- name: Join cluster
+  ansible.builtin.command: "{{ hostvars[groups['delegate_plane'][0]]['join_command'] }} {{ k8s_join_flag }} --ignore-preflight-errors all"
+  changed_when: false
+  failed_when: false
+  when: inventory_hostname not in groups['delegate_plane']
