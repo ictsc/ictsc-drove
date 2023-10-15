@@ -53,17 +53,17 @@
   with_items:
     - "{{ users }}"
 
-- name: Create .kube directory for ubuntu user
+- name: Create .kube directory for root user
   ansible.builtin.file:
-    path: /home/ubuntu/.kube
+    path: /root/.kube
     state: directory
-    owner: ubuntu
+    owner: root
     mode: "0700"
 
-- name: Copy admin.conf to ubuntu kube config
+- name: Copy admin.conf to root kube config
   ansible.builtin.copy:
     src: /etc/kubernetes/admin.conf
-    dest: /home/ubuntu/.kube/config
+    dest: /root/.kube/config
     remote_src: true
-    owner: ubuntu
+    owner: root
     mode: "0600"
