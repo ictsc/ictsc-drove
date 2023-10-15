@@ -2,7 +2,7 @@
 # Basic configuration
 ####
 
-router id {{ groups['bgp_router'][0] }};
+router id {{ groups['router'][0] }};
 
 log syslog { info, remote, warning, error, auth, fatal, bug };
 log stderr all;
@@ -111,7 +111,7 @@ protocol static static_bgp_v4 {
         };
     };
 
-    route {{ hostvars[groups['bgp_router'][0]]['bgp_address'] }} blackhole;
+    route {{ hostvars[groups['router'][0]]['bgp_address'] }} blackhole;
 }
 
 
@@ -122,7 +122,7 @@ protocol static static_bgp_v4 {
 # eBGP Peer
 {% for item in groups['worker_node'] %}
 protocol bgp node_peer_{{ item | replace('.', '_') }} {
-    local {{ groups['bgp_router'][0] }} as ROUTER_ASN;
+    local {{ groups['router'][0] }} as ROUTER_ASN;
     neighbor {{ item }} as WORKER_ASN;
 
     hold time 30;
