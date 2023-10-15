@@ -1,3 +1,4 @@
+# netplanロール用
 netplan_configuration:
   network:
     version: 2
@@ -6,4 +7,5 @@ netplan_configuration:
         addresses:
           - 192.168.100.1{{groups["control_plane"].index(inventory_hostname)}}/24
 
+# k8s_joinロール用
 k8s_join_flag: --control_plane --certificate-key {{ hostvars[groups['control_plane'][0]]['certs'] }}

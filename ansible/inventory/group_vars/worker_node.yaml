@@ -1,3 +1,4 @@
+# netplanロール用
 netplan_configuration:
   network:
     version: 2
