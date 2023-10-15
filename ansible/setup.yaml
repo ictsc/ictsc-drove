@@ -102,6 +102,7 @@
   roles:
     - k8s_init
     - cilium
+    - argo_cd
 
 # join other control_plane
 - hosts: control_plane
@@ -125,14 +126,3 @@
       ansible.builtin.command: "{{ hostvars[groups['control_plane'][0]]['join_command'] }}"
       changed_when: true
       failed_when: false
-
-# install argocd
-- hosts: delegate_plane
-  name: Install argo CD
-  tasks:
-    - name: Install argocd
-      ansible.builtin.shell: |
-        kubectl create namespace argocd
-        kubectl apply -n argocd \
-        -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-      changed_when: false
