@@ -2,4 +2,4 @@
   ansible.builtin.command: "{{ hostvars[groups['control_plane'][0]]['join_command'] }} {{ k8s_join_flag }}"
   changed_when: false
   failed_when: false
-  when: inventory_hostname in groups['delegate_plane']
+  when: inventory_hostname not in groups['delegate_plane']
