@@ -11,6 +11,7 @@
   become: true
   roles:
     - common
+    - role: mrlesmithjr.netplan
 
 - hosts: router
   name: BIRD Setup
@@ -24,61 +25,6 @@
   become: true
   roles:
     - containerd
-
-# interface setup phase
-- hosts: control_plane
-  name: Netplan setup (control_plane)
-  any_errors_fatal: true
-  roles:
-    - role: mrlesmithjr.netplan
-      become: true
-      netplan_remove_existing: false
-      netplan_enabled: true
-      netplan_config_file: /etc/netplan/60-ansible-config.yaml
-      netplan_renderer: networkd
-      netplan_configuration:
-        network:
-          version: 2
-          ethernets:
-            eth1:
-              addresses:
-                - 192.168.100.1{{groups["control_plane"].index(inventory_hostname)}}/24
-
-- hosts: worker_node
-  name: Netplan setup (worker_node)
-  any_errors_fatal: true
-  roles:
-    - role: mrlesmithjr.netplan
-      become: true
-      netplan_remove_existing: false
-      netplan_enabled: true
-      netplan_config_file: /etc/netplan/60-ansible-config.yaml
-      netplan_renderer: networkd
-      netplan_configuration:
-        network:
-          version: 2
-          ethernets:
-            eth1:
-              addresses:
-                - 192.168.100.2{{groups["worker_node"].index(inventory_hostname)}}/24
-
-- hosts: lb
-  name: Netplan setup (lb)
-  any_errors_fatal: true
-  roles:
-    - role: mrlesmithjr.netplan
-      become: true
-      netplan_remove_existing: false
-      netplan_enabled: true
-      netplan_config_file: /etc/netplan/60-ansible-config.yaml
-      netplan_renderer: networkd
-      netplan_configuration:
-        network:
-          version: 2
-          ethernets:
-            eth1:
-              addresses:
-                - 192.168.100.3{{groups["lb"].index(inventory_hostname)}}/24
 
 # kubernetes setup phase
 - hosts: control_plane:worker_node

@@ -1,0 +1,7 @@
+netplan_configuration:
+  network:
+    version: 2
+    ethernets:
+      eth1:
+        addresses:
+          - 192.168.100.2{{groups["worker_node"].index(inventory_hostname)}}/24

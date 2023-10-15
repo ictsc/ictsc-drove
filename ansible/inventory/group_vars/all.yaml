@@ -4,3 +4,8 @@ users:
       uid: "1011",
       password: "{{ lookup('env', 'CLUSTER_PASS') }}",
     }
+
+netplan_remove_existing: false
+netplan_enabled: true
+netplan_config_file: /etc/netplan/60-ansible-config.yaml
+netplan_renderer: networkd
