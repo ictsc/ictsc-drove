@@ -84,52 +84,8 @@
 - hosts: control_plane:worker_node
   name: Kubernetes setup
   become: true
-  tasks:
-    - name: Add gpg key
-      ansible.builtin.apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-
-    - name: Add k8s apt repository
-      ansible.builtin.apt_repository:
-        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
-
-    - name: Update apt repository
-      ansible.builtin.apt:
-        update_cache: true
-
-    - name: Install "kubeadm kubelet kubectl" packages
-      ansible.builtin.apt:
-        name: "{{ packages }}"
-        state: present
-      vars:
-        packages:
-          - kubeadm
-          - kubelet
-          - kubectl
-
-    - name: Remove swapfile from /etc/fstab
-      ansible.posix.mount:
-        name: swap
-        fstype: swap
-        state: absent
-
-    - name: Disable swap
-      ansible.builtin.command: swapoff -a
-      when: ansible_swaptotal_mb > 0
-      changed_when: false
-
-    - name: Update setting file
-      ansible.builtin.template:
-        src: ./ansible-template/10-kubeadm.conf.j2
-        dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-        mode: "0644"
-
-    - name: Restart kubelet.service
-      ansible.builtin.systemd:
-        name: kubelet
-        daemon_reload: true
-        state: restarted
-        enabled: true
+  roles:
+    - k8s_install
 
 # kubernetes api lb setup phase
 - hosts: lb
