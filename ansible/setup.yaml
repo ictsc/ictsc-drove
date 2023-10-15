@@ -51,24 +51,8 @@
     - argo_cd
 
 # join other control_plane
-- hosts: control_plane
+- hosts: control_plane:worker_node
   name: Join other control_plane
   become: true
-  tasks:
-    - name: Join cluster
-      ansible.builtin.command:
-        "{{ hostvars[groups['control_plane'][0]]['join_command'] }} --control_plane \
-        --certificate-key {{ hostvars[groups['control_plane'][0]]['certs'] }}"
-      changed_when: false
-      failed_when: false
-      when: inventory_hostname in groups['delegate_plane']
-
-# join worker_node
-- hosts: worker_node
-  name: Join cluster
-  become: true
-  tasks:
-    - name: Join cluster
-      ansible.builtin.command: "{{ hostvars[groups['control_plane'][0]]['join_command'] }}"
-      changed_when: true
-      failed_when: false
+  roles:
+    - k8s_join
