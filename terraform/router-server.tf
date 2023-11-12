@@ -1,8 +1,8 @@
 resource "sakuracloud_server" "k8s_router" {
-  count  = lookup(var.router, terraform.workspace)
+  count  = lookup(var.router, terraform.workspace, 0)
   name   = "k8s-router-${count.index + 1}-${terraform.workspace}"
-  core   = lookup(var.router_cpu, terraform.workspace)
-  memory = lookup(var.router_mem, terraform.workspace)
+  core   = lookup(var.router_cpu, terraform.workspace, 0)
+  memory = lookup(var.router_mem, terraform.workspace, 0)
   disks  = [sakuracloud_disk.k8s_router_disk[count.index].id]
   tags   = ["k8s", terraform.workspace, "@nic-double-queue"]
 
@@ -17,7 +17,7 @@ resource "sakuracloud_server" "k8s_router" {
     ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
     ip_address      = sakuracloud_internet.k8s_external_switch.ip_addresses[count.index]
     gateway         = sakuracloud_internet.k8s_external_switch.gateway
-    netmask         = lookup(var.external_subnet, terraform.workspace)
+    netmask         = lookup(var.external_subnet, terraform.workspace, 0)
   }
   timeouts {
     create = "1h"
