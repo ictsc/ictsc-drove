@@ -1,42 +1,42 @@
-- hosts: all
-  name: Wait for SSH connection
+- name: Wait for SSH connection
+  hosts: all
   gather_facts: false
   roles:
     - wait_ssh
 
-- hosts: all
-  name: Common Setup
+- name: Common Setup
+  hosts: all
   become: true
   roles:
     - common
     - mrlesmithjr.netplan
 
-- hosts: router
-  name: BIRD Setup
+- name: BIRD Setup
+  hosts: router
   become: true
   roles:
     - bird
 
-- hosts: cloud_servers
-  name: Containerd Setup
+- name: Containerd Setup
+  hosts: cloud_servers
   become: true
   roles:
     - containerd
 
-- hosts: control_plane:worker_node
-  name: Kubernetes Install
+- name: Kubernetes Install
+  hosts: control_plane:worker_node
   become: true
   roles:
     - k8s_install
 
-- hosts: lb
-  name: Kubernetes API Load Balancer Setup
+- name: Kubernetes API Load Balancer Setup
+  hosts: lb
   become: true
   roles:
     - lb
 
-- hosts: delegate_plane
-  name: Kubernetes Setup
+- name: Kubernetes Setup
+  hosts: delegate_plane
   any_errors_fatal: true
   become: true
   roles:
@@ -44,8 +44,8 @@
     - cilium
     - argo_cd
 
-- hosts: control_plane:worker_node
-  name: Join Nodes
+- name: Join Nodes
+  hosts: control_plane:worker_node
   become: true
   roles:
     - k8s_join
