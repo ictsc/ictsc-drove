@@ -8,11 +8,14 @@ terraform {
   }
 
   backend "s3" {
-    endpoint                    = "s3.isk01.sakurastorage.jp"
-    region                      = "jp-north-1"
-    key                         = "terraform.tfstate"
-    skip_credentials_validation = true
-    skip_region_validation      = true
+    endpoints = {
+      s3 = "https://s3.isk01.sakurastorage.jp"
+    }
+    region                     = "jp-north-1"
+    key                        = "terraform.tfstate"
+    skip_requesting_account_id = true
+    skip_region_validation     = true
+    skip_s3_checksum           = true
   }
 }
 
