@@ -37,7 +37,9 @@ def get_workspace():
 
 def main():
     inventory = {
-        "cloud_servers": {"children": ["control_plane", "lb", "worker_node"]},
+        "control_plane": {"hosts": []},
+        "worker_node": {"hosts": []},
+        "router": {"hosts": []},
         "_meta": {"hostvars": {}},
     }
     workspace = get_workspace()
@@ -51,17 +53,11 @@ def main():
     inventory_gp = {}
     for output_key in tfstate["outputs"]:
         match output_key:
-            case "k8s_lb_ip_address":
-                inventory["lb"] = {"hosts": []}
-                inventory_gp = inventory["lb"]
             case "k8s_control_plane_ip_address":
-                inventory["control_plane"] = {"hosts": []}
                 inventory_gp = inventory["control_plane"]
             case "k8s_worker_node_ip_address":
-                inventory["worker_node"] = {"hosts": []}
                 inventory_gp = inventory["worker_node"]
             case "k8s_router_ip_address":
-                inventory["router"] = {"hosts": []}
                 inventory_gp = inventory["router"]
             case _:
                 continue
@@ -90,23 +86,7 @@ def main():
                     }
                     worker_node += 1
 
-        if output_key == "k8s_lb_ip_address":
-            inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                inventory_gp["hosts"][0]: {
-                    "opposite": inventory_gp["hosts"][1],
-                    "priority": "150",
-                    "state": "Master",
-                    "internal_ip": "192.168.100.31",
-                },
-                inventory_gp["hosts"][1]: {
-                    "opposite": inventory_gp["hosts"][0],
-                    "priority": "101",
-                    "state": "BACKUP",
-                    "internal_ip": "192.168.100.32",
-                },
-            }
-
-    inventory["lb"]["vars"] = {  # type: ignore
+    inventory["control_plane"]["vars"] = {  # type: ignore
         "VIP": tfstate["outputs"]["vip_address"]["value"]
     }
     inventory["router"]["vars"] = {  # type: ignore
