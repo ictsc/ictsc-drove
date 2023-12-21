@@ -17,7 +17,7 @@
   roles:
     - bird
 
-- name: Containerd & K8s Setup
+- name: Containerd & Kubernetes Setup
   hosts: control_plane:worker_node
   become: true
   roles:
@@ -28,9 +28,9 @@
   hosts: control_plane
   become: true
   roles:
-    - lb
+    - kube_vip
 
-- name: Kubernetes Setup
+- name: Kubernetes Bootstrap
   hosts: delegate_plane
   any_errors_fatal: true
   become: true
