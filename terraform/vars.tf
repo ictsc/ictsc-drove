@@ -11,6 +11,7 @@ variable "external_subnet" {
     prd = 28
   }
 }
+
 variable "control_plane" {
   type = map(any)
   default = {
@@ -83,39 +84,6 @@ variable "worker_node_rook_disk" {
     wsp = 100
     dev = 40
     prd = 100
-  }
-}
-
-variable "lb" {
-  type = map(any)
-  default = {
-    wsp = 2
-    dev = 2
-    prd = 2
-  }
-}
-variable "lb_cpu" {
-  type = map(any)
-  default = {
-    wsp = 2
-    dev = 2
-    prd = 2
-  }
-}
-variable "lb_mem" {
-  type = map(any)
-  default = {
-    wsp = 2
-    dev = 2
-    prd = 2
-  }
-}
-variable "lb_disk" {
-  type = map(any)
-  default = {
-    wsp = 20
-    dev = 20
-    prd = 20
   }
 }
 
