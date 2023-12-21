@@ -17,20 +17,15 @@
   roles:
     - bird
 
-- name: Containerd Setup
-  hosts: cloud_servers
-  become: true
-  roles:
-    - containerd
-
-- name: Kubernetes Install
+- name: Containerd & K8s Setup
   hosts: control_plane:worker_node
   become: true
   roles:
+    - containerd
     - k8s_install
 
 - name: Kubernetes API Load Balancer Setup
-  hosts: lb
+  hosts: control_plane
   become: true
   roles:
     - lb
