@@ -90,7 +90,7 @@ init-terraform: show-ws
 		exit 0
 	fi
 	@cd terraform
-	@terraform init -backend-config="bucket=$$TF_STATE_BUCKET"
+	@terraform init -backend-config="bucket=$$TF_STATE_BUCKET" -migrate-state
 
 .PHONY: show-ws
 show-ws:
