@@ -2,6 +2,7 @@ argocd
 birdc
 blackhole
 containerd
+controlplane
 dearmor
 direnv
 ebgp

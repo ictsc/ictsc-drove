@@ -1,0 +1,10 @@
+- name: Join cluster
+  ansible.builtin.shell: |
+    ctr run --rm --net-host ghcr.io/kube-vip/kube-vip:latest vip /kube-vip manifest pod \
+    --interface eth1 \
+    --vip {{ VIP }} \
+    --controlplane \
+    --arp --leaderElection > /etc/kubernetes/manifests/kube-vip.yaml
+  changed_when: false
+  failed_when: false
+  when: inventory_hostname not in groups['delegate_plane']
