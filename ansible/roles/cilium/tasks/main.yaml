@@ -40,7 +40,7 @@
   ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
   register: ret
   until: ret.rc == 0
-  retries: 5
+  retries: 12
   delay: 5
   changed_when: false
 
