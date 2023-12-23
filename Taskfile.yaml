@@ -117,7 +117,7 @@ tasks:
     desc: Ansibleを実行
     dir: ansible
     cmds:
-      - pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$$CLUSTER_PASS -v setup.yaml
+      - pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$CLUSTER_PASS -v setup.yaml
 
   init-terraform:
     desc: Terraformの初期化
@@ -166,5 +166,6 @@ tasks:
 
   destroy:
     desc: 全てのインスタンスを削除
+    dir: terraform
     cmds:
-      - cd terraform && terraform destroy
+      - terraform destroy
