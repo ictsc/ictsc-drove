@@ -1,20 +1,28 @@
-apiVersion: v1
-kind: ConfigMap
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumBGPPeeringPolicy
 metadata:
   name: bgp-config
   namespace: kube-system
-data:
-  config.yaml: |
-    peers:
+spec:
+  virtualRouters:
+    - localASN: 65021
+      exportPodCIDR: true
+      neighbors:
 {% for address in groups['router'] %}
-      - peer-address: {{ address }}
-        peer-asn: 65020
-        my-asn: 65021
+        - peerAddress: {{ address }}/32
+          peerASN: 65020
+          gracefulRestart:
+            enabled: true
+            restartTimeSeconds: 120
 {% endfor %}
-    address-pools:
-      - name: default
-        protocol: bgp
-        addresses:
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: default-pool
+  namespace: kube-system
+spec:
+  cidrs:
 {% for item in groups['router'] %}
-          - {{ hostvars[item]['bgp_address'] }}
+    - cidr: {{ hostvars[item]['bgp_address'] }}
 {% endfor %}
