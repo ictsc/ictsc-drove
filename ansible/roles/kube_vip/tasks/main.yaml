@@ -1,4 +1,4 @@
-- name: Put kube-vip Config
+- name: Put kube-vip config
   ansible.builtin.shell: |
     ctr image pull ghcr.io/kube-vip/kube-vip:latest
     ctr run --rm --net-host ghcr.io/kube-vip/kube-vip:latest vip /kube-vip manifest pod \
