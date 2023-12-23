@@ -20,6 +20,16 @@
     packages:
       - helm
 
+- name: Add Cilium chart repo
+  ansible.builtin.shell: |
+    helm repo add cilium https://helm.cilium.io/
+    helm repo update
+  changed_when: false
+
+- name: Deploy Cilium
+  ansible.builtin.command: helm upgrade --install cilium cilium/cilium --namespace kube-system --set bgpControlPlane.enabled=true
+  changed_when: false
+
 - name: Send bgp-config
   ansible.builtin.template:
     src: bgp-config.yaml.j2
@@ -28,18 +38,10 @@
 
 - name: Apply bgp-config
   ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
-  changed_when: false
-
-- name: Add Cilium chart repo
-  ansible.builtin.shell: |
-    helm repo add cilium https://helm.cilium.io/
-    helm repo update
-  changed_when: false
-
-- name: Deploy Cilium
-  ansible.builtin.shell: |
-    helm upgrade --install cilium cilium/cilium --version 1.12.6 \
-    --namespace kube-system --set bgp.enabled=true --set bgp.announce.loadbalancerIP=true --set bgp.announce.podCIDR=true
+  register: ret
+  until: ret.rc == 0
+  retries: 12
+  delay: 5
   changed_when: false
 
 - name: Restart pods
