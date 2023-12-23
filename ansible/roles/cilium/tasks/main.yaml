@@ -30,6 +30,16 @@
   ansible.builtin.command: helm upgrade --install cilium cilium/cilium --namespace kube-system --set bgpControlPlane.enabled=true
   changed_when: false
 
+- name: Restart pods
+  ansible.builtin.shell:
+    executable: /bin/bash
+    cmd: |
+      set -o pipefail
+      kubectl get pods --all-namespaces -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork \
+      --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
+  changed_when: false
+  failed_when: false
+
 - name: Send bgp-config
   ansible.builtin.template:
     src: bgp-config.yaml.j2
@@ -43,13 +53,3 @@
   retries: 12
   delay: 5
   changed_when: false
-
-- name: Restart pods
-  ansible.builtin.shell:
-    executable: /bin/bash
-    cmd: |
-      set -o pipefail
-      kubectl get pods --all-namespaces -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork \
-      --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
-  changed_when: false
-  failed_when: false
