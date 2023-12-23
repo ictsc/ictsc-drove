@@ -1,6 +1,7 @@
 argocd
 birdc
 blackhole
+cmds
 containerd
 controlplane
 dearmor
