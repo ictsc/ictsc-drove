@@ -1,6 +1,6 @@
 resource "sakuracloud_server" "k8s_router" {
   count  = lookup(var.router, terraform.workspace, 0)
-  name   = "k8s-router-${count.index + 1}-${terraform.workspace}"
+  name   = "k8s-${terraform.workspace}-router-${count.index + 1}"
   core   = lookup(var.router_cpu, terraform.workspace, 0)
   memory = lookup(var.router_mem, terraform.workspace, 0)
   disks  = [sakuracloud_disk.k8s_router_disk[count.index].id]
@@ -14,7 +14,7 @@ resource "sakuracloud_server" "k8s_router" {
     user_ip_address = "192.168.100.${count.index}"
   }
   disk_edit_parameter {
-    hostname        = "k8s-router-${count.index + 1}-${terraform.workspace}"
+    hostname        = "k8s-${terraform.workspace}-router-${count.index + 1}"
     password        = var.cluster_pass
     disable_pw_auth = "true"
     ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
