@@ -5,7 +5,7 @@ netplan_configuration:
     ethernets:
       eth1:
         addresses:
-          - 192.168.100.3{{groups["router"].index(inventory_hostname)}}/24
+          - 192.168.100.{{groups["router"].index(inventory_hostname)}}/24
 
 # k8s_joinロール用
 k8s_join_flag: --config /tmp/kubeadm-config.yaml

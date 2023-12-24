@@ -50,7 +50,11 @@ def main():
     # import pprint
     # print(tfstate["outputs"])
 
+    router = 0
+    control_plane = 0
+    worker_node = 0
     inventory_gp = {}
+
     for output_key in tfstate["outputs"]:
         match output_key:
             case "k8s_control_plane_ip_address":
@@ -62,27 +66,29 @@ def main():
             case _:
                 continue
 
-        ip_addresses = tfstate["outputs"][output_key]["value"]
-        worker_node = 0
-        control_plane = 0
-
-        for ip in ip_addresses:
-            # inventory filter list
-            # private reject
-            if ip[:11] == "192.168.100":
+        for ip_address in tfstate["outputs"][output_key]["value"]:
+            # not handle private ip address
+            if ip_address[:11] == "192.168.100":
                 continue
 
-            inventory_gp["hosts"].append(ip)
+            inventory_gp["hosts"].append(ip_address)
 
             match output_key:
+                case "k8s_router_ip_address":
+                    inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
+                        ip_address: {"internal_ip": f"192.168.100.{str(router)}"}
+                    }
+                    router += 1
                 case "k8s_control_plane_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                        ip: {"internal_ip": f"192.168.100.1{str(control_plane)}"}
+                        ip_address: {
+                            "internal_ip": f"192.168.100.1{str(control_plane)}"
+                        }
                     }
                     control_plane += 1
                 case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                        ip: {"internal_ip": f"192.168.100.2{str(worker_node)}"}
+                        ip_address: {"internal_ip": f"192.168.100.2{str(worker_node)}"}
                     }
                     worker_node += 1
 
