@@ -12,7 +12,7 @@
 
 - name: Run kubeadm init
   ansible.builtin.command: kubeadm init --config=/tmp/kubeadm-config.yml
-  when: groups['control_plane'].index(inventory_hostname) == 0 and kubeadm_dry_run.rc == 0
+  when: kubeadm_dry_run.rc == 0
   changed_when: false
   # skip init if already initialized
 
