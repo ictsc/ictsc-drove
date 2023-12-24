@@ -9,4 +9,4 @@ netplan_configuration:
 
 # k8s_installロール用
 # join時にtaintを付与するため、kubeletのインストール時に設定
-kubelet_extra_args: --register-with-taints unusableKey=:NoSchedule
+k8s_install_kubelet_extra_args: --register-with-taints unusableKey=:NoSchedule
