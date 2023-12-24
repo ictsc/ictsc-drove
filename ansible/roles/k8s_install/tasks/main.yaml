@@ -1,10 +1,10 @@
 - name: Add gpg key
   ansible.builtin.apt_key:
-    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    url: https://pkgs.k8s.io/core:/stable:/{{ k8s_install_version }}/deb/Release.key
 
 - name: Add k8s apt repository
   ansible.builtin.apt_repository:
-    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    repo: deb https://pkgs.k8s.io/core:/stable:/{{ k8s_install_version }}/deb/ /
 
 - name: Update apt repository
   ansible.builtin.apt:
@@ -31,10 +31,13 @@
   when: ansible_swaptotal_mb > 0
   changed_when: false
 
-- name: Update setting file
-  ansible.builtin.template:
-    src: 10-kubeadm.conf.j2
-    dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+- name: Put kubelet extra args
+  ansible.builtin.lineinfile:
+    path: /etc/default/kubelet
+    regexp: "^KUBELET_EXTRA_ARGS="
+    line: "KUBELET_EXTRA_ARGS=--node-ip={{ internal_ip }} {{ k8s_install_kubelet_extra_args }}"
+    state: present
+    create: true
     mode: "0644"
 
 - name: Restart kubelet.service

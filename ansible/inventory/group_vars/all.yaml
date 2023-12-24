@@ -8,3 +8,7 @@ netplan_remove_existing: false
 netplan_enabled: true
 netplan_config_file: /etc/netplan/60-ansible-config.yaml
 netplan_renderer: networkd
+
+# インストールするKubernetesのバージョン
+# 最新版はv1.29だが、kube-vipがまだ対応しておらず、api-serverへのアクセスでエラーを吐くためv1.28を指定する
+k8s_install_version: v1.28

@@ -82,6 +82,12 @@
     regexp: "SystemdCgroup = false"
     replace: "SystemdCgroup = true"
 
+- name: Replace sandbox image
+  ansible.builtin.replace:
+    dest: "/etc/containerd/config.toml"
+    regexp: 'sandbox_image = "registry.k8s.io/pause:3.6"'
+    replace: 'sandbox_image = "registry.k8s.io/pause:3.9"'
+
 - name: Set containerd service to start on boot
   ansible.builtin.systemd:
     name: containerd
