@@ -7,5 +7,6 @@ netplan_configuration:
         addresses:
           - 192.168.100.{{groups["router"].index(inventory_hostname)}}/24
 
-# k8s_joinロール用
-k8s_join_flag: --config /tmp/kubeadm-config.yaml
+# k8s_installロール用
+# join時にtaintを付与するため、kubeletのインストール時に設定
+kubelet_extra_args: --register-with-taints unusableKey=:NoSchedule

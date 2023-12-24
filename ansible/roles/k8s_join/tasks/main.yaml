@@ -1,15 +1,3 @@
-- name: Put out default join config
-  ansible.builtin.shell: kubeadm config print join-defaults > /tmp/kubeadm-config.yaml
-  changed_when: false
-  when: inventory_hostname in groups['router']
-
-- name: Set taints to config
-  ansible.builtin.replace:
-    path: /tmp/kubeadm-config.yaml
-    regexp: '^\s+taints:.*$'
-    replace: "  taints:\n    - effect: NoSchedule\n      key: unusableKey"
-  when: inventory_hostname in groups['router']
-
 - name: Join cluster
   ansible.builtin.command: "{{ hostvars[groups['delegate_plane'][0]]['join_command'] }} {{ k8s_join_flag }} --ignore-preflight-errors all"
   changed_when: false
