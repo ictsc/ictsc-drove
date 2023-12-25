@@ -5,6 +5,8 @@ blackhole
 cmds
 containerd
 controlplane
+cpython
+datasource
 dearmor
 direnv
 ebgp

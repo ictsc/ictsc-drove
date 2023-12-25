@@ -13,5 +13,31 @@
       "matchCurrentVersion": "!/^0/",
       "automerge": true
     }
+  ],
+  "regexManagers": [
+    {
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "python/cpython",
+      "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+)(\\.\\d+)$",
+      "fileMatch": ["(^|/)Pipfile$"],
+      "matchStrings": ["python_version = \"(?<currentValue>.+)\""]
+    },
+    {
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "mrlesmithjr/ansible-netplan",
+      "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
+      "fileMatch": ["(^|/)Pipfile$"],
+      "matchStrings": [
+        "ansible-galaxy install mrlesmithjr\\.netplan:(?<currentValue>.+);"
+      ]
+    },
+    {
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "ansible-collections/vyos.vyos",
+      "fileMatch": ["(^|/)Pipfile$"],
+      "matchStrings": [
+        "ansible-galaxy collection install vyos\\.vyos:(?<currentValue>.+);"
+      ]
+    }
   ]
 }
