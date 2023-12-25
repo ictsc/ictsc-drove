@@ -14,7 +14,7 @@ ansible-lint = "==6.22.1"
 
 [packages]
 minio = "==7.0.0"
-ansible = "==9.1.1"
+ansible = "==9.1.0"
 
 [requires]
 python_version = "3.12"
