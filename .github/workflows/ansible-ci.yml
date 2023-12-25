@@ -25,7 +25,7 @@ jobs:
         run: pip install pipenv
       - name: Set env cache
         id: pipenv-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
@@ -49,7 +49,7 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
       - name: Set env cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
@@ -72,7 +72,7 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
       - name: Set env cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
