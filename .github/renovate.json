@@ -26,7 +26,7 @@
       "fileMatch": ["(^|/)Pipfile$", "(^|/).github/workflows/ansible-ci.yml"],
       "matchStrings": [
         "python_version = \"(?<currentValue>.+)\"",
-        "python-version = (?<currentValue>.+)"
+        "python-version: (?<currentValue>.+)"
       ]
     }
   ]
