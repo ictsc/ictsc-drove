@@ -20,6 +20,7 @@
   ],
   "customManagers": [
     {
+      "description": "Python version in Pipfile and GitHub Actions",
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "python/cpython",
       "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+)(\\.\\d+)$",
@@ -28,6 +29,26 @@
         "python_version = \"(?<currentValue>.+)\"",
         "python-version: (?<currentValue>.+)"
       ]
+    },
+    {
+      "description": "ghcr image dependencies",
+      "fileMatch": [".+\\.ya?ml$"],
+      "matchStrings": [
+        "ghcr\\.io/(?<depName>[^\\s:]+):(?<currentValue>[^\\s]+)"
+      ],
+      "datasourceTemplate": "docker",
+      "registryUrlTemplate": "https://ghcr.io",
+      "depNameTemplate": "ghcr.io/{{{depName}}}"
+    },
+    {
+      "description": "GitHub URL dependencies",
+      "fileMatch": [".+\\.ya?ml$"],
+      "matchStrings": [
+        "https://github\\.com/(?<depName>[^/]+/[^/]+)//.*?\\?ref=(?<currentValue>\\S+)",
+        "https://raw\\.githubusercontent\\.com/(?<depName>[^/]+/[^/]+)/(?<currentValue>[^/]+)",
+        "https://github\\.com/(?<depName>[^/]+/[^/]+)/releases/download/(?<currentValue>[^/]+)"
+      ],
+      "datasourceTemplate": "github-releases"
     }
   ]
 }
