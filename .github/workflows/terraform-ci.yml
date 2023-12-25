@@ -40,7 +40,7 @@ jobs:
         id: fmt
         run: terraform fmt
       - name: Push
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Run terraform format"
           branch: ${{ github.head_ref }}
