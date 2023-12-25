@@ -31,9 +31,7 @@ jobs:
           key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
       - name: Install pipenv dependencies
         if: steps.pipenv-cache.outputs.cache-hit != 'true'
-        run: |
-          pipenv install -d
-          pipenv run init
+        run: pipenv install -d
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -56,7 +54,7 @@ jobs:
           path: ~/.local/share/virtualenvs
           key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
       - name: Run lint
-        run: pipenv run lint
+        run: pipenv run init && pipenv run lint
   format:
     name: Format
     runs-on: ubuntu-latest
