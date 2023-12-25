@@ -14,7 +14,7 @@
       "automerge": true
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "python/cpython",
@@ -28,7 +28,7 @@
       "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
       "fileMatch": ["(^|/)Pipfile$"],
       "matchStrings": [
-        "ansible-galaxy install mrlesmithjr\\.netplan:(?<currentValue>.+);"
+        "ansible-galaxy install mrlesmithjr\\.netplan:(?<currentValue>\\d+\\.\\d+\\.\\d+);"
       ]
     },
     {
@@ -36,7 +36,7 @@
       "depNameTemplate": "ansible-collections/vyos.vyos",
       "fileMatch": ["(^|/)Pipfile$"],
       "matchStrings": [
-        "ansible-galaxy collection install vyos\\.vyos:(?<currentValue>.+);"
+        "ansible-galaxy collection install vyos\\.vyos:(?<currentValue>\\d+\\.\\d+\\.\\d+);"
       ]
     }
   ]
