@@ -66,8 +66,6 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -backend-config="bucket=$TF_STATE_BUCKET"
-      - name: Select dev env
-        run: terraform workspace select dev || terraform workspace new dev
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
