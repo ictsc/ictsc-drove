@@ -4,21 +4,22 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-autoflake = "*"
-pip = "*"
+pip = "==23.0.0"
+flake8 = "==6.0.0"
+mypy = "==1.8.0"
+autoflake = "==2.0.0"
 black = "==23.12.1"
+isort = "==5.13.2"
+ansible-lint = "==6.22.1"
 
 [packages]
-pyyaml = "*"
-oyaml = "*"
-minio = "*"
-ansible = "==9.1.0"
-ansible-pylibssh = "*"
-passlib = "*"
+minio = "==7.0.0"
+ansible = "==9.1.1"
 
 [requires]
 python_version = "3.12"
 
 [scripts]
-format = "sh -c \"autoflake -i --remove-all-unused-imports --remove-unused-variables -r .; black -l 110 -t py39 .;\""
-ansible-setup = "ansible-galaxy install mrlesmithjr.netplan:0.4.0; pipenv run ansible-galaxy collection install vyos.vyos:4.1.0;"
+lint = "sh -c 'flake8 --ignore E231 --max-line-length=100; mypy .; ansible-lint -s --exclude inventory/**/*.yaml'"
+format = "sh -c 'autoflake -i --remove-all-unused-imports --remove-unused-variables -r .; black .; isort .'"
+playbook = "ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$CLUSTER_PASS -v setup.yaml"
