@@ -12,7 +12,7 @@ black = "==21.7b0"
 pyyaml = "*"
 oyaml = "*"
 minio = "*"
-ansible = "==7.7.0"
+ansible = "==9.1.0"
 ansible-pylibssh = "*"
 passlib = "*"
 

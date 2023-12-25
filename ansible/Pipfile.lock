@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e3602e135a5a9eb345ef8584031da731f6014c971090c35934bc1c47dd5e92fa"
+            "sha256": "c250abdddd08819ebc88d93faf3cbe6d8d203234bffc4d432746c70853bfb847"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,20 +18,20 @@
     "default": {
         "ansible": {
             "hashes": [
-                "sha256:4f8d346db1b6cec0f30b77935b3dce5633d76881186da839b58b34b48a089b92",
-                "sha256:9c206ba515f13a0cc9c919d496218ba26df581755bdc39be85b074066c699a02"
+                "sha256:5ad94991fb0e0e53a770a9ffcf1b68047f61b2282d948a7d2682ecd8fb8fa1bf",
+                "sha256:bd88f16ca4b4dadfec78723f982c0f04e5481c6be497ccb43ea3b40fded39126"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.9'",
-            "version": "==7.7.0"
+            "markers": "python_version >= '3.10'",
+            "version": "==9.1.0"
         },
         "ansible-core": {
             "hashes": [
-                "sha256:4e1bb334f0c3226ab48c599efe49cd5fe03f25d4558bc06c274ade2ba3e2576a",
-                "sha256:65e96d04dce1e5dd415b4681d464f7f9a949d515f623145c4a8bc3468e75f3b0"
+                "sha256:494f002edcb17b02baef661ff27b8c9c750a534bdc0537ab29dc02e680817d92",
+                "sha256:e4ab559e7e525b1c6f99084fca873bb014775d5ecbe845b7c07b8e9d6c9c048b"
             ],
-            "markers": "python_version >= '3.9'",
-            "version": "==2.14.13"
+            "markers": "python_version >= '3.10'",
+            "version": "==2.16.2"
         },
         "ansible-pylibssh": {
             "hashes": [
@@ -444,10 +444,10 @@
         },
         "resolvelib": {
             "hashes": [
-                "sha256:c6ea56732e9fb6fca1b2acc2ccc68a0b6b8c566d8f3e78e0443310ede61dbd37",
-                "sha256:d9b7907f055c3b3a2cfc56c914ffd940122915826ff5fb5b1de0c99778f4de98"
+                "sha256:04ce76cbd63fded2078ce224785da6ecd42b9564b1390793f64ddecbe997b309",
+                "sha256:d2da45d1a8dfee81bdd591647783e340ef3bcb104b54c383f70d422ef5cc7dbf"
             ],
-            "version": "==0.8.1"
+            "version": "==1.0.1"
         },
         "urllib3": {
             "hashes": [
