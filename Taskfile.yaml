@@ -110,14 +110,31 @@ tasks:
           INSTALL_DOC: https://pipenv-ja.readthedocs.io/ja/translate-ja/install.html#installing-pipenv
     cmds:
       - pipenv install -d
-      - pipenv run ansible-galaxy install mrlesmithjr.netplan
+      - pipenv run init
       - chmod +x inventory/inventory_handler.py
+
+  lint-ansible:
+    desc: AnsibleのLintを実行
+    internal: true
+    dir: ansible
+    cmds:
+      - pipenv run lint
+
+  format-ansible:
+    desc: Ansibleのフォーマットを実行
+    internal: true
+    dir: ansible
+    cmds:
+      - pipenv run format
 
   ansible:
     desc: Ansibleを実行
     dir: ansible
+    deps:
+      - lint-ansible
+      - format-ansible
     cmds:
-      - pipenv run ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$CLUSTER_PASS -v setup.yaml
+      - pipenv run playbook
 
   init-terraform:
     desc: Terraformの初期化

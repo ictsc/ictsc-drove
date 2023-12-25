@@ -45,4 +45,5 @@ swapoff
 swaptotal
 tflint
 tfstate
+virtualenvs
 vyos

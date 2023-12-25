@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import json
 import os
 import subprocess
-import json
+
 from minio import Minio  # type: ignore
 
 
@@ -92,10 +93,10 @@ def main():
                     }
                     worker_node += 1
 
-    inventory["control_plane"]["vars"] = {  # type: ignore
+    inventory["control_plane"]["vars"] = {
         "VIP": tfstate["outputs"]["vip_address"]["value"]
     }
-    inventory["router"]["vars"] = {  # type: ignore
+    inventory["router"]["vars"] = {
         "bgp_address": tfstate["outputs"]["external_address_range"]["value"]
     }
     inventory["delegate_plane"] = {
