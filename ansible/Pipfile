@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 autoflake = "*"
 pip = "*"
-black = "==21.7b0"
+black = "==23.12.1"
 
 [packages]
 pyyaml = "*"
