@@ -1,4 +1,5 @@
 argocd
+automerge
 birdc
 blackhole
 cmds
