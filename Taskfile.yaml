@@ -167,11 +167,32 @@ tasks:
     cmds:
       - terraform workspace select prod
 
+  lint-terraform:
+    desc: TerraformのLintを実行
+    internal: true
+    dir: terraform
+    deps:
+      - task: check-binary
+        vars:
+          BINARY: tflint
+          INSTALL_DOC: https://github.com/terraform-linters/tflint?tab=readme-ov-file#installation
+    cmds:
+      - TFLINT_LOG=debug tflint
+
+  format-terraform:
+    desc: Terraformのフォーマットを実行
+    internal: true
+    dir: terraform
+    cmds:
+      - terraform fmt
+
   terraform:
     desc: Terraformを実行
     dir: terraform
     deps:
       - show-ws
+      - lint-terraform
+      - format-terraform
     cmds:
       - terraform apply -auto-approve
 
