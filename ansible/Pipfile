@@ -21,4 +21,4 @@ python_version = "3.11"
 
 [scripts]
 format = "sh -c \"autoflake -i --remove-all-unused-imports --remove-unused-variables -r .; black -l 110 -t py39 .;\""
-ansible-setup = "ansible-galaxy install mrlesmithjr.netplan:0.3.0; pipenv run ansible-galaxy collection install vyos.vyos:2.6.0;"
+ansible-setup = "ansible-galaxy install mrlesmithjr.netplan:0.4.0; pipenv run ansible-galaxy collection install vyos.vyos:2.6.0;"
