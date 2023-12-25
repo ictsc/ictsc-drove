@@ -110,6 +110,7 @@ tasks:
           INSTALL_DOC: https://pipenv-ja.readthedocs.io/ja/translate-ja/install.html#installing-pipenv
     cmds:
       - pipenv install -d
+      - pipenv run init
       - chmod +x inventory/inventory_handler.py
 
   lint-ansible:

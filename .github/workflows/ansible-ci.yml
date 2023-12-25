@@ -31,7 +31,9 @@ jobs:
           key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
       - name: Install pipenv dependencies
         if: steps.pipenv-cache.outputs.cache-hit != 'true'
-        run: pipenv install -d
+        run: |
+          pipenv install -d
+          pipenv run init
   lint:
     name: Lint
     runs-on: ubuntu-latest
