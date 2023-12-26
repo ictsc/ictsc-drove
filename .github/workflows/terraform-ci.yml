@@ -6,13 +6,14 @@ on:
       - main
   pull_request:
 
+defaults:
+  run:
+    working-directory: terraform
+
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: terraform
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,9 +29,6 @@ jobs:
   format:
     name: Format
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: terraform
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,9 +45,6 @@ jobs:
   plan:
     name: Plan
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: terraform
     env:
       SAKURACLOUD_ACCESS_TOKEN: ${{ secrets.SAKURACLOUD_ACCESS_TOKEN }}
       SAKURACLOUD_ACCESS_TOKEN_SECRET: ${{ secrets.SAKURACLOUD_ACCESS_TOKEN_SECRET }}
