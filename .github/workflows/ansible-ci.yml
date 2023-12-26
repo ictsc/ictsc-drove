@@ -17,20 +17,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
+        id: python-setup
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
-          architecture: x64
+          cache: pipenv
+          cache-dependency-path: "**/Pipfile.lock"
       - name: Install pipenv
         run: pip install pipenv
-      - name: Set env cache
-        id: pipenv-cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.local/share/virtualenvs
-          key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
       - name: Install pipenv dependencies
-        if: steps.pipenv-cache.outputs.cache-hit != 'true'
+        if: steps.python-setup.outputs.cache-hit != 'true'
         run: pipenv install -d
   lint:
     name: Lint
@@ -46,13 +42,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
+          cache: pipenv
+          cache-dependency-path: "**/Pipfile.lock"
       - name: Install pipenv
         run: pip install pipenv
-      - name: Set env cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.local/share/virtualenvs
-          key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
       - name: Run lint
         run: pipenv run init && pipenv run lint
   format:
@@ -69,13 +62,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
+          cache: pipenv
+          cache-dependency-path: "**/Pipfile.lock"
       - name: Install pipenv
         run: pip install pipenv
-      - name: Set env cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.local/share/virtualenvs
-          key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
       - name: Run format
         run: pipenv run format
       - name: Push
