@@ -79,7 +79,7 @@ jobs:
           script: |
             const output = `#### Terraform Initialization \`${{ steps.init.outcome }}\`
             #### Terraform Plan \`${{ steps.plan.outcome }}\`
-            #### Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`
+            #### Pusher: ${{ github.actor }}, Action: \`${{ github.event_name }}\`
 
             <details><summary>Show Plan</summary>
 
