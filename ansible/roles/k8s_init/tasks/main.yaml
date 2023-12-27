@@ -5,7 +5,7 @@
   failed_when: false
 
 - name: Run kubeadm init
-  ansible.builtin.command: kubeadm init --control-plane-endpoint {{ VIP }}:6443 --upload-certs
+  ansible.builtin.command: kubeadm init --control-plane-endpoint {{ VIP }}:6443 --skip-phases=addon/kube-proxy --upload-certs
   when: kubeadm_dry_run.rc == 0
   changed_when: false
   # skip init if already initialized

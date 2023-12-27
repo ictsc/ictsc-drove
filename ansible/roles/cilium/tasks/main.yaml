@@ -27,7 +27,9 @@
   changed_when: false
 
 - name: Deploy Cilium
-  ansible.builtin.shell: helm upgrade --install cilium cilium/cilium --namespace kube-system --set bgpControlPlane.enabled=true
+  ansible.builtin.shell: |
+    helm upgrade --install cilium cilium/cilium --namespace kube-system \
+      --set kubeProxyReplacement=true --set k8sServiceHost={{ VIP }} --set k8sServicePort=6443 --set bgpControlPlane.enabled=true
   changed_when: false
 
 - name: Restart pods
