@@ -176,7 +176,7 @@ tasks:
           BINARY: tflint
           INSTALL_DOC: https://github.com/terraform-linters/tflint?tab=readme-ov-file#installation
     cmds:
-      - TFLINT_LOG=debug tflint
+      - tflint
 
   format-terraform:
     desc: Terraformのフォーマットを実行
