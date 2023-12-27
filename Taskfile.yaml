@@ -141,7 +141,6 @@ tasks:
     internal: true
     dir: terraform
     deps:
-      - show-ws
       - task: check-binary
         vars:
           BINARY: terraform
