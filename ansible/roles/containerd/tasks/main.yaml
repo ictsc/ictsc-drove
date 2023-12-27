@@ -72,8 +72,7 @@
     mode: "0755"
 
 - name: Configure containerd
-  ansible.builtin.shell: |
-    containerd config default > /etc/containerd/config.toml
+  ansible.builtin.command: containerd config default > /etc/containerd/config.toml
   changed_when: true
 
 - name: Enable systemd_cgroup conf

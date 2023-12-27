@@ -27,7 +27,7 @@
   changed_when: false
 
 - name: Deploy Cilium
-  ansible.builtin.command: helm upgrade --install cilium cilium/cilium --namespace kube-system --set bgpControlPlane.enabled=true
+  ansible.builtin.shell: helm upgrade --install cilium cilium/cilium --namespace kube-system --set bgpControlPlane.enabled=true
   changed_when: false
 
 - name: Restart pods
@@ -36,7 +36,7 @@
     cmd: |
       set -o pipefail
       kubectl get pods --all-namespaces -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork \
-      --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
+        --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
   changed_when: false
   failed_when: false
 
