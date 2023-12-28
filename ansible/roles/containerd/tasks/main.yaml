@@ -3,7 +3,7 @@
     content: |
       overlay
       br_netfilter
-    dest: /etc/modules-load.d/containerd.conf
+    dest: /etc/modules-load.d/k8s.conf
     mode: "0644"
   with_items:
     - "{{ users }}"
@@ -26,32 +26,13 @@
     ignoreerrors: true
   with_dict: "{{ containerd_sysctl_config }}"
 
-- name: Install "apt-transport-https ca-certificates curl software-properties-common" packages
-  ansible.builtin.apt:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - software-properties-common
+- name: Add gpg key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
 
-- name: Get docker's official GPG key
-  ansible.builtin.get_url:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    dest: /tmp/docker.gpg
-    mode: "0644"
-    force: true
-
-- name: Add docker's official GPG key
-  ansible.builtin.shell: gpg --dearmor --batch --yes -o /etc/apt/keyrings/docker.gpg < /tmp/docker.gpg
-  changed_when: false
-
-- name: Add docker repository
+- name: Add Docker apt repository
   ansible.builtin.apt_repository:
-    repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable
-    state: present
+    repo: deb https://download.docker.com/linux/ubuntu jammy stable
 
 - name: Update apt repository
   ansible.builtin.apt:
