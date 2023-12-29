@@ -1,25 +1,3 @@
-- name: Add helm's official GPG key
-  ansible.builtin.apt_key:
-    url: https://helm.baltorepo.com/organization/signing.asc
-    state: present
-
-- name: Add helm repository
-  ansible.builtin.apt_repository:
-    repo: deb https://baltocdn.com/helm/stable/debian/ all main
-    state: present
-
-- name: Update apt repository
-  ansible.builtin.apt:
-    update_cache: true
-
-- name: Install helm
-  ansible.builtin.apt:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
-      - helm
-
 - name: Add Cilium chart repo
   ansible.builtin.shell: |
     helm repo add cilium https://helm.cilium.io/
