@@ -1,0 +1,16 @@
+fullnameOverride: argocd
+
+repoServer:
+  extraContainers:
+    - name: plugin
+      # renovate:image
+      image: "lucj/argocd-plugin-helmfile:1.0"
+      command: ["/var/run/argocd/argocd-cmp-server"]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
