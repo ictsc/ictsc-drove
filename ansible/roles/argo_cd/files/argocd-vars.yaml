@@ -2,7 +2,7 @@ fullnameOverride: argocd
 
 repoServer:
   extraContainers:
-    - name: plugin
+    - name: helmfile-plugin
       # renovate:image
       image: "lucj/argocd-plugin-helmfile:1.0"
       command: ["/var/run/argocd/argocd-cmp-server"]
