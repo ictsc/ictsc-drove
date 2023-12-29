@@ -1,0 +1,9 @@
+resources:
+  - name: my-app
+  - name: my-app2
+    kind: StatefulSet
+  - name: my-app3
+    minReplicas: 3
+    maxReplicas: 10
+  - name: my-app4
+    targetCPUAverageValue: 300m
