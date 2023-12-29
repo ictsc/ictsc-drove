@@ -1,6 +1,7 @@
 resources:
   - name: my-app
   - name: my-app2
+    hpa: false
     kind: StatefulSet
   - name: my-app3
     minReplicas: 3

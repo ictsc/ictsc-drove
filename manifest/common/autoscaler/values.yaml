@@ -5,6 +5,7 @@
 resources:
   # スケールしたいリソースを配列で指定
   # - name: my-app-dep             // (required) リソース名
+  #   hpa: false                   // trueの場合HPAとVPA、falseの場合VPAのみが作成される
   #   kind: Deployment             // Deployment | StatefulSet
   #   minReplicas: 2               // 2よりも小さい場合、2に統一される
   #   maxReplicas: 100             // 2よりも小さい場合、2に統一される
@@ -12,6 +13,7 @@ resources:
 
 # resourcesのフィールドを省略したときに適用されるデフォルト値
 defaults:
+  hpa: true
   kind: Deployment
   minReplicas: 2
   maxReplicas: 100
