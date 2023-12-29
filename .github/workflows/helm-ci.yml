@@ -27,7 +27,7 @@ jobs:
         uses: helm/chart-testing-action@v2.6.0
       - name: Output list of subdirectories
         id: list
-        run: echo "CHARTS=$(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev)" >>"$GITHUB_OUTPUT"
+        run: echo "CHARTS=$(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev | tr '\n' ' ')" >>"$GITHUB_OUTPUT"
       - name: Run pre-validation scripts
         run: |
           for dir in  ${{ steps.list.outputs.CHARTS }}; do
@@ -61,7 +61,7 @@ jobs:
         uses: helm/kind-action@v1.8.0
       - name: Output list of subdirectories
         id: list
-        run: echo "CHARTS=$(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev)" >>"$GITHUB_OUTPUT"
+        run: echo "CHARTS=$(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev | tr '\n' ' ')" >>"$GITHUB_OUTPUT"
       - name: Run pre-validation scripts
         run: |
           for dir in  ${{ steps.list.outputs.CHARTS }}; do
