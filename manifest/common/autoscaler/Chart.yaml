@@ -4,3 +4,5 @@ description: Horizontal Pod Autoscaler & Vertical Pod Autoscaler Template
 type: application
 version: 0.1.0
 icon: https://icttoracon.net/wp-content/uploads/2023/04/favicon-75x75.png
+maintainers:
+  - name: ICTSC Kubernetes Team
