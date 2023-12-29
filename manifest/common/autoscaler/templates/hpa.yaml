@@ -1,4 +1,4 @@
-{{- range $i, $resouce := .Values.resources -}}
+{{- range $i, $resource := .Values.resources -}}
 {{- if ne $i 0 }}
 ---
 {{- end }}
@@ -19,5 +19,5 @@ spec:
         name: cpu
         target:
           type: AverageValue
-          averageValuue: {{ coalesce .targetCPUAverageValue $.Values.defaults.targetCPUAverageValue }}
+          averageValue: {{ coalesce .targetCPUAverageValue $.Values.defaults.targetCPUAverageValue }}
 {{- end }}
