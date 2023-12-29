@@ -6,6 +6,13 @@ on:
       - main
   pull_request:
 
+defaults:
+  run:
+    working-directory: manifest/common
+
+env:
+  CHARTS: ${{ fromJSON('["autoscaler"]') }}
+
 jobs:
   lint:
     name: Lint
@@ -13,8 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Set up Helm
         uses: azure/setup-helm@v3
       - name: Setup Python
@@ -25,15 +30,13 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.6.0
       - name: Run chart-testing (lint)
-        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
+        run: ct lint --chart-dirs ${{ join(env.CHARTS) }}
   test:
     name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Set up Helm
         uses: azure/setup-helm@v3
       - name: Setup Python
@@ -46,4 +49,4 @@ jobs:
       - name: Create kind cluster
         uses: helm/kind-action@v1.8.0
       - name: Run chart-testing (install)
-        run: ct install --target-branch ${{ github.event.repository.default_branch }}
+        run: ct install --chart-dirs ${{ join(env.CHARTS) }}
