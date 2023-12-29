@@ -1,4 +1,6 @@
+applicationset
 argocd
+argoproj
 automerge
 autoscaler
 birdc
@@ -7,6 +9,7 @@ cmds
 containerd
 controlplane
 cpython
+crds
 datasource
 dearmor
 direnv
@@ -14,7 +17,11 @@ ebgp
 endfor
 envrc
 ethernets
+finalizer
+finalizers
 fstype
+fullname
+helmfile
 HOSTNETWORK
 hostvars
 ictsc
@@ -24,6 +31,7 @@ kubeadm
 kubelet
 lineinfile
 loadbalancer
+lucj
 minio
 mrlesmithjr
 netfilter
@@ -32,6 +40,7 @@ networkd
 nofilter
 nonlocal
 NOPASSWD
+noqa
 ONESHELL
 pipefail
 pipenv

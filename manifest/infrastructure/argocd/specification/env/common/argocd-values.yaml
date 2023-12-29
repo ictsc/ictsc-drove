@@ -1,0 +1,28 @@
+fullnameOverride: argocd
+
+redis-ha:
+  enabled: true
+
+controller:
+  replicas: 1
+
+server:
+  replicas: 2
+
+repoServer:
+  replicas: 2
+  extraContainers:
+    - name: plugin
+      image: lucj/argocd-plugin-helmfile:latest
+      command: ["/var/run/argocd/argocd-cmp-server"]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+
+applicationSet:
+  replicas: 2
