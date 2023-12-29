@@ -1,0 +1,8 @@
+resources:
+  - name: argocd-server
+  - name: argocd-repo-server
+  - name: argocd-applicationset-controller
+  - name: argocd-notifications-controller
+  - name: argocd-redis-ha-server
+    kind: StatefulSet
+  - name: argocd-redis-ha-haproxy
