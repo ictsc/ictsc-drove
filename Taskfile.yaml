@@ -206,3 +206,32 @@ tasks:
     dir: terraform
     cmds:
       - terraform destroy
+
+  lint-helm:
+    desc: HelmのLintを実行
+    cmds:
+      - |
+        for dir in $(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev); do
+          helm lint "$dir" --strict
+        done
+
+  lint-helmfile:
+    desc: HelmfileのLintを実行
+    cmds:
+      - |
+        for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
+          helmfile lint -f "$dir"
+        done
+
+  helmfile:
+    desc: Helmfileを元にマニフェストを生成
+    cmds:
+      - |
+        array=()
+        for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
+          helmfile template -e dev --include-crds -f "$dir" --output-dir ../generated --output-dir-template {{ "\"{{ .OutputDir }}/dev\"" }} &
+          array+=($!)
+          helmfile template -e prod --include-crds -f "$dir" --output-dir ../generated --output-dir-template {{ "\"{{ .OutputDir }}/prod\"" }} &
+          array+=($!)
+        done
+        wait ${array[@]}
