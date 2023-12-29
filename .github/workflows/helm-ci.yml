@@ -53,8 +53,8 @@ jobs:
       - name: Run pre-validation scripts
         run: |
           for dir in $(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev); do
-            if [ -f "$dir"/pre-validation.sh ]; then
-              sh "$dir"/pre-validation.sh
+            if [ -f "$dir"/ci/pre-validation.sh ]; then
+              sh "$dir"/ci/pre-validation.sh
             fi
           done
       - name: Run chart-testing (install)
