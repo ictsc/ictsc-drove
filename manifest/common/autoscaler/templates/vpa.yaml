@@ -7,7 +7,7 @@ kind: VerticalPodAutoscaler
 metadata:
   name: {{ .name }}-vpa
 spec:
-  scaleTargetRef:
+  targetRef:
     apiVersion: apps/v1
     kind: {{ coalesce .kind $.Values.defaults.kind }}
     name: {{ required "A valid name is required." .name }}
