@@ -31,6 +31,7 @@
   become: true
   roles:
     - k8s_init
+    - helm
     - cilium
     - argo_cd
 
