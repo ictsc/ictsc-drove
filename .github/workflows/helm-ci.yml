@@ -51,12 +51,15 @@ jobs:
         uses: helm/kind-action@v1.8.0
       - name: Run pre-validation scripts
         run: |
+          array=()
           for dir in $(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev); do
             if [ -f "$dir"/ci/pre-validation.sh ]; then
-              sh "$dir"/ci/pre-validation.sh
+              nohup sh "$dir"/ci/pre-validation.sh &
+              array+=($!)
             fi
           done
+          wait ${array[@]}
       - name: Run chart-testing (install)
         run: |
           CHARTS="$(find . -name Chart.yaml | rev | cut -f2- -d'/' | tr '\n' ',' | rev | cut -b2-)"
-          ct lint --target-branch ${{ github.event.repository.default_branch }} --charts "$CHARTS" --chart-dirs "$CHARTS"
+          ct install --target-branch ${{ github.event.repository.default_branch }} --charts "$CHARTS" --chart-dirs "$CHARTS"
