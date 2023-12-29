@@ -1,0 +1,21 @@
+{{- range $i, $resource := .Values.resources -}}
+{{- if ne $i 0 }}
+---
+{{- end }}
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ .name }}-vpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: {{ coalesce .kind $.Values.defaults.kind }}
+    name: {{ required "A valid name is required." .name }}
+  updatePolicy:
+    updateMode: Auto
+  resourcePolicy:
+    containerPolicies:
+      - containerName: "*"
+        maxAllowed:
+          cpu: 500m
+{{- end }}
