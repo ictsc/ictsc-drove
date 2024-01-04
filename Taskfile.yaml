@@ -229,9 +229,9 @@ tasks:
       - |
         array=()
         for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
-          helmfile template -e dev --include-crds -f "$dir" --output-dir ../generated --output-dir-template {{ "\"{{ .OutputDir }}/dev\"" }} &
+          helmfile template -e dev --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/dev\"" }} &
           array+=($!)
-          helmfile template -e prod --include-crds -f "$dir" --output-dir ../generated --output-dir-template {{ "\"{{ .OutputDir }}/prod\"" }} &
+          helmfile template -e prod --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/prod\"" }} &
           array+=($!)
         done
         wait ${array[@]}
