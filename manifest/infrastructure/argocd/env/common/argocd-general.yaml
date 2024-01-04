@@ -1,5 +1,23 @@
 fullnameOverride: argocd
 
+global:
+  logging:
+    format: json
+
+configs:
+  cm:
+    url: argocd.drove.ictsc.net
+    dex.config: |
+      connectors:
+        - type: github
+          id: github
+          name: GitHub
+          config:
+            clientID: aabbccddeeff00112233
+            clientSecret: $dex.github.clientSecret
+            orgs:
+              - name: your-github-org
+
 redis-ha:
   enabled: true
 
