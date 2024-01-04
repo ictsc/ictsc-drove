@@ -11,7 +11,8 @@ releases:
     chart: argo-cd/argo-cd
     version: 5.29.1
     values:
-      - env/common/argocd-general.yaml
+      - env/common/argocd-*.yaml
+      - env/{{ .Environment.Name }}/argocd-*.yaml
   - name: autoscaler
     namespace: argocd
     chart: ../../common/autoscaler
