@@ -14,3 +14,6 @@ repoServer:
           name: var-files
         - mountPath: /home/argocd/cmp-server/plugins
           name: plugins
+      env:
+        - name: ENV_NAME
+          value: {{ workspace }}
