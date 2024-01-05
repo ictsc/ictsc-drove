@@ -1,0 +1,2 @@
+resources:
+  - ./infrastructure/application.yaml
