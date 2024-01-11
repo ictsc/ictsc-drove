@@ -5,8 +5,8 @@
   changed_when: false
 
 - name: Copy ArgoCD values file
-  ansible.builtin.copy:
-    src: argocd-vars.yaml
+  ansible.builtin.template:
+    src: argocd-vars.yaml.j2
     dest: /tmp/argocd-vars.yaml
     mode: "0644"
 
