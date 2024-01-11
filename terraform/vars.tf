@@ -28,8 +28,8 @@ variable "control_plane_cpu" {
 variable "control_plane_mem" {
   type = map(any)
   default = {
-    dev = 2
-    prd = 2
+    dev = 4
+    prd = 4
   }
 }
 variable "control_plane_disk" {
@@ -57,8 +57,8 @@ variable "worker_node_cpu" {
 variable "worker_node_mem" {
   type = map(any)
   default = {
-    dev = 2
-    prd = 2
+    dev = 4
+    prd = 4
   }
 }
 variable "worker_node_disk" {
@@ -86,15 +86,15 @@ variable "router" {
 variable "router_cpu" {
   type = map(any)
   default = {
-    dev = 2
-    prd = 2
+    dev = 1
+    prd = 1
   }
 }
 variable "router_mem" {
   type = map(any)
   default = {
-    dev = 2
-    prd = 2
+    dev = 1
+    prd = 1
   }
 }
 variable "router_disk" {
