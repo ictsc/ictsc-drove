@@ -5,8 +5,6 @@
       br_netfilter
     dest: /etc/modules-load.d/k8s.conf
     mode: "0644"
-  with_items:
-    - "{{ users }}"
 
 - name: Load kernel modules
   community.general.modprobe:
