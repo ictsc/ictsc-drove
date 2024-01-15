@@ -13,7 +13,7 @@ spec:
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: root
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
