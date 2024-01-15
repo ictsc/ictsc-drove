@@ -46,11 +46,17 @@ jobs:
         id: fmt
         run: terraform fmt
       - name: Push
+        id: push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Run terraform format"
           branch: ${{ github.head_ref }}
-          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          commit_user_name: ictsc-actions[bot]
+          commit_user_email: 154957684+ictsc-actions[bot]@users.noreply.github.com
+          commit_author: ictsc-actions[bot] <154957684+ictsc-actions[bot]@users.noreply.github.com>
+      - name: Exit with Error If Files Are Changed
+        if: steps.push.outputs.changes_detected == 'true'
+        run: exit 1
   plan:
     name: Plan
     runs-on: ubuntu-latest
