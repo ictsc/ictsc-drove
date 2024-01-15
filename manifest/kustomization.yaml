@@ -1,2 +1,4 @@
 resources:
   - ./infrastructure/application.yaml
+
+  - ./namespace.yaml

@@ -19,3 +19,5 @@ releases:
     version: 0.1.0
     values:
       - env/common/autoscaler.yaml
+  - name: local-charts
+    chart: ./local
