@@ -6,42 +6,20 @@ global:
 
 configs:
   cm:
-    url: argocd.drove.ictsc.net
+    admin.enabled: false
     dex.config: |
       connectors:
         - type: github
           id: github
           name: GitHub
           config:
-            clientID: aabbccddeeff00112233
-            clientSecret: $dex.github.clientSecret
+            clientID: Iv1.eb9e9a2c66234f5e
+            clientSecret: $github-app:clientSecret
             orgs:
-              - name: your-github-org
-
-redis-ha:
-  enabled: true
-
-controller:
-  replicas: 1
-
-server:
-  replicas: 2
-
-repoServer:
-  replicas: 2
-  extraContainers:
-    - name: helmfile-plugin
-      # renovate:image
-      image: "lucj/argocd-plugin-helmfile:v0.0.12"
-      command: ["/var/run/argocd/argocd-cmp-server"]
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 999
-      volumeMounts:
-        - mountPath: /var/run/argocd
-          name: var-files
-        - mountPath: /home/argocd/cmp-server/plugins
-          name: plugins
-
-applicationSet:
-  replicas: 2
+              - name: ictsc
+                teams:
+                  - ictsc2023
+  rbac:
+    policy.csv: |
+      g, ictsc:Admins, role:admin
+      g, ictsc:ictsc2023, role:readonly
