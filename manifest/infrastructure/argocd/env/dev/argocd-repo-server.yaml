@@ -1,8 +1,4 @@
-server:
-  replicas: 2
-
 repoServer:
-  replicas: 2
   extraContainers:
     - name: helmfile-plugin
       # renovate:image
@@ -16,6 +12,6 @@ repoServer:
           name: var-files
         - mountPath: /home/argocd/cmp-server/plugins
           name: plugins
-
-applicationSet:
-  replicas: 2
+      env:
+        - name: ENV_NAME
+          value: prod

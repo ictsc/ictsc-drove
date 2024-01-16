@@ -1,0 +1,17 @@
+repoServer:
+  extraContainers:
+    - name: helmfile-plugin
+      # renovate:image
+      image: "lucj/argocd-plugin-helmfile:v0.0.12"
+      command: ["/var/run/argocd/argocd-cmp-server"]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+      env:
+        - name: ENV_NAME
+          value: prod
