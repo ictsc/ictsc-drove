@@ -1,0 +1,9 @@
+dex:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  livenessProbe:
+    enabled: true
+  readinessProbe:
+    enabled: true
