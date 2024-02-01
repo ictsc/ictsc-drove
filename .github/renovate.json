@@ -42,14 +42,14 @@
   "customManagers": [
     {
       "description": "Python version in Pipfile and GitHub Actions",
-      "datasourceTemplate": "github-tags",
-      "depNameTemplate": "python/cpython",
-      "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+)(\\.\\d+)$",
       "fileMatch": ["(^|/)Pipfile$", "(^|/).github/workflows/ansible-ci.yml"],
       "matchStrings": [
         "python_version = \"(?<currentValue>.+)\"",
         "python-version: (?<currentValue>.+)"
-      ]
+      ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "python/cpython",
+      "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+)(\\.\\d+)$"
     },
     {
       "description": "ghcr image dependencies",
