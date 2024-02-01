@@ -8,11 +8,7 @@
     ignoreerrors: true
   with_dict: "{{ bird_sysctl_config }}"
 
-- name: Update apt repository
-  ansible.builtin.apt:
-    update_cache: true
-
-- name: Install BIRD2
+- name: Install BIRD
   ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
@@ -20,32 +16,32 @@
     packages:
       - bird2
 
-- name: Upload BIRD configuration file
-  ansible.builtin.template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: "0644"
-  with_items:
-    - src: bird.conf.j2
-      dest: /tmp/bird.conf
-  register: bird_pre_config_updated
-
-- name: Validate pre BIRD configuration file syntax
-  ansible.builtin.shell:
-    cmd: |
-      set -eu
-      /usr/sbin/bird -p -c /tmp/bird.conf
-    executable: /bin/bash
-  changed_when: false
-
-- name: Copy BIRD configuration file to the running BIRD system
-  ansible.builtin.copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: "0644"
-    remote_src: true
-    backup: true
-  with_items:
-    - src: /tmp/bird.conf
-      dest: /etc/bird/bird.conf
-  notify: Reconfigure BIRD
+- name: Configure BIRD
+  block:
+    - name: Upload BIRD configuration file
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0644"
+      with_items:
+        - src: bird.conf.j2
+          dest: /tmp/bird.conf
+      register: bird_pre_config_updated
+    - name: Validate pre BIRD configuration file syntax
+      ansible.builtin.shell:
+        cmd: |
+          set -eu
+          /usr/sbin/bird -p -c /tmp/bird.conf
+        executable: /bin/bash
+      changed_when: false
+    - name: Copy BIRD configuration file to the running BIRD system
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "0644"
+        remote_src: true
+        backup: true
+      with_items:
+        - src: /tmp/bird.conf
+          dest: /etc/bird/bird.conf
+      notify: Reconfigure BIRD
