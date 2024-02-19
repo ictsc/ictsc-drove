@@ -7,7 +7,7 @@ verify_ssl = true
 pip = "==24.0"
 flake8 = "==7.0.0"
 mypy = "==1.8.0"
-autoflake = "==2.2.1"
+autoflake = "==2.3.0"
 black = "==24.2.0"
 isort = "==5.13.2"
 ansible-lint = "==24.2.0"
