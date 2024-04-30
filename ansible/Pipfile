@@ -13,7 +13,7 @@ isort = "==5.13.2"
 ansible-lint = "==24.2.3"
 
 [packages]
-minio = "==7.2.6"
+minio = "==7.2.7"
 ansible = "==9.5.1"
 
 [requires]
