@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pip = "==24.1"
+pip = "==24.1.1"
 flake8 = "==7.1.0"
 mypy = "==1.10.1"
 autoflake = "==2.3.1"
