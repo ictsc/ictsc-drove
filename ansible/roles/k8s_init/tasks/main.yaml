@@ -1,63 +1,45 @@
-- name: Dry-run kubeadm init
-  ansible.builtin.command: kubeadm init --dry-run
-  register: kubeadm_dry_run
-  changed_when: false
-  failed_when: false
-
 - name: Run kubeadm init
-  ansible.builtin.command: kubeadm init --control-plane-endpoint {{ VIP }}:6443 --skip-phases=addon/kube-proxy --upload-certs
-  when: kubeadm_dry_run.rc == 0
-  changed_when: false
-  # skip init if already initialized
+  block:
+    - name: Dry-run kubeadm init
+      ansible.builtin.command: kubeadm init --dry-run
+      register: kubeadm_dry_run
+      changed_when: false
+      failed_when: false
+    - name: Run kubeadm init
+      ansible.builtin.command: kubeadm init --control-plane-endpoint {{ VIP }}:6443 --skip-phases=addon/kube-proxy --upload-certs
+      when: kubeadm_dry_run.rc == 0
+      changed_when: false
+      # skip init if already initialized
 
-- name: Get kubeadm cert
-  ansible.builtin.command: kubeadm init phase upload-certs --upload-certs
-  register: certs_raw
-  changed_when: false
-
-- name: Set cert
-  ansible.builtin.set_fact:
-    certs: "{{ certs_raw.stdout_lines[-1] }}"
-
-- name: Get join command
-  ansible.builtin.command: kubeadm token create --print-join-command
-  register: join_command_raw
-  changed_when: false
-
-- name: Set join command
-  ansible.builtin.set_fact:
-    join_command: "{{ join_command_raw.stdout_lines[0] }}"
-
-- name: Create .kube directory for ictsc user
-  ansible.builtin.file:
-    path: /home/{{ item.name }}/.kube
-    state: directory
-    owner: "{{ item.name }}"
-    mode: "0700"
-  with_items:
-    - "{{ users }}"
-
-- name: Copy admin.conf to ictsc kube config
-  ansible.builtin.copy:
-    src: /etc/kubernetes/admin.conf
-    dest: /home/{{ item.name }}/.kube/config
-    remote_src: true
-    owner: "{{ item.name }}"
-    mode: "0600"
-  with_items:
-    - "{{ users }}"
-
-- name: Create .kube directory for root user
-  ansible.builtin.file:
-    path: /root/.kube
-    state: directory
-    owner: root
-    mode: "0700"
-
-- name: Copy admin.conf to root kube config
-  ansible.builtin.copy:
-    src: /etc/kubernetes/admin.conf
-    dest: /root/.kube/config
-    remote_src: true
-    owner: root
-    mode: "0600"
+- name: Setup kube config
+  block:
+    - name: Create .kube directory for registered users
+      ansible.builtin.file:
+        path: /home/{{ item.name }}/.kube
+        state: directory
+        owner: "{{ item.name }}"
+        mode: "0700"
+      with_items:
+        - "{{ users }}"
+    - name: Copy admin.conf to registered users kube config
+      ansible.builtin.copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/{{ item.name }}/.kube/config
+        remote_src: true
+        owner: "{{ item.name }}"
+        mode: "0600"
+      with_items:
+        - "{{ users }}"
+    - name: Create .kube directory for root user
+      ansible.builtin.file:
+        path: /root/.kube
+        state: directory
+        owner: root
+        mode: "0700"
+    - name: Copy admin.conf to root kube config
+      ansible.builtin.copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /root/.kube/config
+        remote_src: true
+        owner: root
+        mode: "0600"

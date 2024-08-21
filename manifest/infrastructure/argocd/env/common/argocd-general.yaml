@@ -1,0 +1,25 @@
+fullnameOverride: argocd
+
+global:
+  logging:
+    format: json
+
+configs:
+  cm:
+    admin.enabled: false
+    dex.config: |
+      connectors:
+        - type: github
+          id: github
+          name: GitHub
+          config:
+            clientID: Iv1.eb9e9a2c66234f5e
+            clientSecret: $github-app:clientSecret
+            orgs:
+              - name: ictsc
+                teams:
+                  - ictsc2023
+  rbac:
+    policy.csv: |
+      g, ictsc:Admins, role:admin
+      g, ictsc:ictsc2023, role:readonly

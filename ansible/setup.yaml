@@ -31,8 +31,7 @@
   become: true
   roles:
     - k8s_init
-    - cilium
-    - argo_cd
+    - components
 
 - name: Join Nodes
   hosts: all

@@ -77,6 +77,8 @@ tasks:
         read TF_STATE_ACCESS_KEY
         echo "さくらのオブジェクトストレージのシークレットキーを入力してください"
         read TF_STATE_SECRET_KEY
+        echo "GitHub Appのクライアントシークレットキーを入力してください"
+        read GITHUB_APP_CLIENT_SECRET
         {
           echo "export SAKURACLOUD_ACCESS_TOKEN=$SAKURACLOUD_ACCESS_TOKEN";
           echo "export SAKURACLOUD_ACCESS_TOKEN_SECRET=$SAKURACLOUD_ACCESS_TOKEN_SECRET";
@@ -90,6 +92,8 @@ tasks:
           echo "export TF_STATE_SECRET_KEY=$TF_STATE_SECRET_KEY";
           echo "export AWS_ACCESS_KEY_ID=\"\${TF_STATE_ACCESS_KEY}\"";
           echo "export AWS_SECRET_ACCESS_KEY=\"\${TF_STATE_SECRET_KEY}\"";
+          echo "";
+          echo "export GITHUB_APP_CLIENT_SECRET=$GITHUB_APP_CLIENT_SECRET";
         } > .envrc
         echo ".envrcを作成しました"
 
@@ -206,3 +210,33 @@ tasks:
     dir: terraform
     cmds:
       - terraform destroy
+
+  lint-helm:
+    desc: HelmのLintを実行
+    cmds:
+      - |
+        for dir in $(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev); do
+          helm lint "$dir" --strict
+        done
+
+  lint-helmfile:
+    desc: HelmfileのLintを実行
+    cmds:
+      - |
+        for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
+          helmfile lint -f "$dir"
+        done
+
+  helmfile:
+    desc: Helmfileを元にマニフェストを生成
+    cmds:
+      - |
+        array=()
+        for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
+          rm -rf "$dir"/generated
+          helmfile template -e dev --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/dev\"" }} &
+          array+=($!)
+          helmfile template -e prod --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/prod\"" }} &
+          array+=($!)
+        done
+        wait ${array[@]}

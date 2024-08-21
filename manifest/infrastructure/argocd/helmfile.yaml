@@ -1,0 +1,23 @@
+bases:
+  - environments.yaml
+
+repositories:
+  - name: argo-cd
+    url: https://argoproj.github.io/argo-helm
+
+releases:
+  - name: argocd
+    namespace: argocd
+    chart: argo-cd/argo-cd
+    version: 5.29.1
+    values:
+      - env/common/argocd-*.yaml
+      - env/{{ .Environment.Name }}/argocd-*.yaml
+  - name: autoscaler
+    namespace: argocd
+    chart: ../../common/autoscaler
+    version: 0.1.0
+    values:
+      - env/common/autoscaler.yaml
+  - name: local-charts
+    chart: ./local

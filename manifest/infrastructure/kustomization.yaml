@@ -1,0 +1,5 @@
+resources:
+  - ./argocd/application.yaml
+
+  - ./namespace.yaml
+  - ./hierarchy.yaml
