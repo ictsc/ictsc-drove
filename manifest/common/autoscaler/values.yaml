@@ -5,16 +5,14 @@
 resources:
   # スケールしたいリソースを配列で指定
   # - name: my-app-dep             // (required) リソース名
-  #   hpa: false                   // trueの場合HPAとVPA、falseの場合VPAのみが作成される
   #   kind: Deployment             // Deployment | StatefulSet
   #   minReplicas: 2               // 2よりも小さい場合、2に統一される
   #   maxReplicas: 100             // 2よりも小さい場合、2に統一される
-  #   targetCPUAverageValue: 100m  // 必ず500m以下にすること VPAが500mで制限をかけるのでHPAがPodを減らしにかかる
+  #   targetCPUAverageValue: 100m  // HPAが目指す平均CPU使用コア数
 
 # resourcesのフィールドを省略したときに適用されるデフォルト値
 defaults:
-  hpa: true
   kind: Deployment
   minReplicas: 2
   maxReplicas: 100
-  targetCPUAverageValue: 200m
+  targetCPUAverageValue: 500m

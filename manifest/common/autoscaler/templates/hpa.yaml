@@ -1,5 +1,4 @@
 {{- range $i, $resource := .Values.resources -}}
-{{- if ternary .hpa $.Values.defaults.hpa (ne .hpa nil) }}
 {{- if ne $i 0 }}
 ---
 {{- end }}
@@ -21,5 +20,4 @@ spec:
         target:
           type: AverageValue
           averageValue: {{ coalesce .targetCPUAverageValue $.Values.defaults.targetCPUAverageValue }}
-{{- end }}
 {{- end }}

@@ -3,5 +3,4 @@ resources:
   - ./rookcephcluster/application.yaml
   - ./rookceph/application.yaml
 
-  - ./namespace.yaml
   - ./hierarchy.yaml

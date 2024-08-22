@@ -4,17 +4,18 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pip = "==24.1.2"
-flake8 = "==7.1.0"
-mypy = "==1.11.0"
+pip = "==24.2"
+flake8 = "==7.1.1"
+mypy = "==1.11.1"
 autoflake = "==2.3.1"
-black = "==24.4.2"
+black = "==24.8.0"
 isort = "==5.13.2"
 ansible-lint = "==24.7.0"
+passlib = "==1.7.4"
 
 [packages]
-minio = "==7.2.7"
-ansible = "==10.2.0"
+minio = "==7.2.8"
+ansible = "==10.3.0"
 
 [requires]
 python_version = "3.12"

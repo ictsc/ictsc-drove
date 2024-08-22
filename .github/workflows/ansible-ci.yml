@@ -11,14 +11,13 @@ defaults:
     working-directory: ansible
 
 jobs:
-  init:
-    name: Initialize pipenv
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        id: python-setup
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
@@ -27,29 +26,12 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
       - name: Install pipenv dependencies
-        if: steps.python-setup.outputs.cache-hit != 'true'
         run: pipenv install -d
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    needs: init
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
-          cache: pipenv
-          cache-dependency-path: "**/Pipfile.lock"
-      - name: Install pipenv
-        run: pip install pipenv
       - name: Run lint
         run: pipenv run init && pipenv run lint
   format:
     name: Format
     runs-on: ubuntu-latest
-    needs: init
     steps:
       - name: Generate a token
         id: token
@@ -69,6 +51,8 @@ jobs:
           cache-dependency-path: "**/Pipfile.lock"
       - name: Install pipenv
         run: pip install pipenv
+      - name: Install pipenv dependencies
+        run: pipenv install -d
       - name: Run format
         run: pipenv run format
       - name: Push
