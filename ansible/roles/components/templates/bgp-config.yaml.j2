@@ -1,20 +1,41 @@
-apiVersion: "cilium.io/v2alpha1"
-kind: CiliumBGPPeeringPolicy
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPClusterConfig
 metadata:
-  name: bgp-config
-  namespace: kube-system
+  name: cilium-bgp
 spec:
-  virtualRouters:
-    - localASN: 65021
-      exportPodCIDR: true
-      neighbors:
+  bgpInstances:
+    - name: "default"
+      localASN: 65021
+      peers:
 {% for address in groups['router'] %}
-        - peerAddress: {{ address }}/32
+        - name: {{ address }}
           peerASN: 65020
-          gracefulRestart:
-            enabled: true
-            restartTimeSeconds: 120
+          peerAddress: {{ address }}
+          peerConfigRef:
+            name: "cilium-peer"
 {% endfor %}
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeerConfig
+metadata:
+  name: cilium-peer
+spec:
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 15
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPAdvertisement
+metadata:
+  name: bgp-advertisements
+  labels:
+    advertise: bgp
+spec:
+  advertisements:
+    - advertisementType: "Service"
+      service:
+        addresses:
+          - LoadBalancerIP
 ---
 apiVersion: "cilium.io/v2alpha1"
 kind: CiliumLoadBalancerIPPool
@@ -22,7 +43,7 @@ metadata:
   name: default-pool
   namespace: kube-system
 spec:
-  cidrs:
+  blocks:
 {% for item in groups['router'] %}
     - cidr: {{ hostvars[item]['bgp_address'] }}
 {% endfor %}
