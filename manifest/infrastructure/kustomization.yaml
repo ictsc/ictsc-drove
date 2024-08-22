@@ -1,5 +1,7 @@
 resources:
   - ./argocd/application.yaml
+  - ./rookcephcluster/application.yaml
+  - ./rookceph/application.yaml
 
   - ./namespace.yaml
   - ./hierarchy.yaml
