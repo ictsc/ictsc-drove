@@ -57,3 +57,6 @@ tflint
 tfstate
 virtualenvs
 vyos
+rookcephcluster
+rookceph
+ceph
