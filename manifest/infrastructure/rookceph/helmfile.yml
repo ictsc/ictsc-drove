@@ -1,9 +1,0 @@
-repositories:
-  - name: rook-ceph
-    url: https://charts.rook.io/release
-
-releases:
-  - name: rookceph
-    namespace: rookceph
-    chart: rook-release/rook-ceph
-    version: 1.15.0
