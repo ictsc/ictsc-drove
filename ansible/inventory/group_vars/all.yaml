@@ -10,4 +10,4 @@ netplan_config_file: /etc/netplan/60-ansible-config.yaml
 netplan_renderer: networkd
 
 # インストールするKubernetesのバージョン
-k8s_install_version: v1.29
+k8s_install_version: v1.31

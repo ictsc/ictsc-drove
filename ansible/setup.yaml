@@ -31,10 +31,15 @@
   become: true
   roles:
     - k8s_init
-    - components
 
 - name: Join Nodes
   hosts: all
   become: true
   roles:
     - k8s_join
+
+- name: Kubernetes Bootstrap
+  hosts: delegate_plane
+  become: true
+  roles:
+    - components
