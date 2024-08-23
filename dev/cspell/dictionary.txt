@@ -10,6 +10,7 @@ containerd
 controlplane
 cpython
 crds
+daemonset
 datasource
 dearmor
 direnv
