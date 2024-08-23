@@ -1,0 +1,5 @@
+resources:
+  - ./hnc/application.yaml
+  - ./metrics-api/application.yaml
+
+  - ./hierarchy.yaml

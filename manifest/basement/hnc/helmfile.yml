@@ -1,0 +1,12 @@
+repositories:
+  - name: hnc
+    url: https://jouve.github.io/charts/
+
+releases:
+  - name: hnc
+    namespace: hnc
+    chart: 
+    version: 0.6.8
+  - name: local-charts
+    chart: ./local
+
