@@ -1,0 +1,17 @@
+repositories:
+  - name: rook-ceph
+    url: https://charts.rook.io/release
+
+releases:
+  - name: rook-ceph-operator
+    namespace: rook-ceph
+    chart: rook-release/rook-ceph
+    version: 1.15.0
+  - name: rook-ceph-cluster
+    namespace: rook-ceph
+    chart: rook-release/rook-ceph-cluster
+    version: 1.15.0
+    needs:
+      - rook-ceph-operator
+  - name: local-charts
+    chart: ./local
