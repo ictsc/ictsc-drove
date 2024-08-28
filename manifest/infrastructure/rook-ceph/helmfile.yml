@@ -3,7 +3,7 @@ repositories:
     url: https://charts.rook.io/release
 
 releases:
-- name: rook-ceph-operator
+  - name: rook-ceph-operator
     namespace: rook-ceph
     chart: rook-release/rook-ceph
     version: 1.15.0
