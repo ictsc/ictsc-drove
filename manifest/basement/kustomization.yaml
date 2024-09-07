@@ -1,6 +1,4 @@
 resources:
-  - https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/download/v1.1.0/default.yaml
   - ./hnc/application.yaml
-  - ./metrics-api/application.yaml
 
   - ./hierarchy.yaml

@@ -4,4 +4,4 @@ metadata:
   name: hierarchy
   namespace: hnc
 spec:
-  parent: infrastructure
+  parent: basement
