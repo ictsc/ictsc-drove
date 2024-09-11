@@ -10,7 +10,7 @@ releases:
   - name: rook-ceph-cluster
     namespace: rook-ceph
     chart: rook-release/rook-ceph-cluster
-    version: 1.15.0
+    version: v1.15.1
     needs:
       - rook-ceph-operator
   - name: local-charts
