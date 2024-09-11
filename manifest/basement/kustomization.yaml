@@ -1,0 +1,4 @@
+resources:
+  - ./hnc/application.yaml
+
+  - ./hierarchy.yaml
