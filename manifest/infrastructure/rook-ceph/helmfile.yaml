@@ -1,5 +1,5 @@
 repositories:
-  - name: rook-ceph
+  - name: rook-release
     url: https://charts.rook.io/release
 
 releases:
