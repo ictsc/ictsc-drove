@@ -10,8 +10,6 @@
   roles:
     - common
     - mrlesmithjr.netplan
-    - containerd
-    - k8s_install
 
 - name: BIRD Setup
   hosts: router
@@ -19,26 +17,20 @@
   roles:
     - bird
 
-- name: Kubernetes API Load Balancer Setup
+- name: Kube-vip Setup
   hosts: control_plane
   become: true
   roles:
     - kube_vip
 
-- name: Kubernetes Bootstrap
-  hosts: delegate_plane
+- name: K3s Setup
+  hosts: all
   any_errors_fatal: true
   become: true
   roles:
-    - k8s_init
+    - k3s
 
-- name: Join Nodes
-  hosts: all
-  become: true
-  roles:
-    - k8s_join
-
-- name: Kubernetes Bootstrap
+- name: Components Bootstrap
   hosts: delegate_plane
   become: true
   roles:
