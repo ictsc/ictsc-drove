@@ -1,11 +1,13 @@
 - name: Wait for SSH connection
   hosts: all
+  any_errors_fatal: true
   gather_facts: false
   roles:
     - wait_ssh
 
 - name: Common setup
   hosts: all
+  any_errors_fatal: true
   become: true
   roles:
     - common
@@ -14,6 +16,7 @@
 
 - name: BIRD setup
   hosts: router
+  any_errors_fatal: true
   become: true
   roles:
     - bird
@@ -33,18 +36,21 @@
 
 - name: Join control plane
   hosts: control_plane
+  any_errors_fatal: true
   become: true
   roles:
     - k3s_join_server
 
 - name: Join worker node
   hosts: worker_node
+  any_errors_fatal: true
   become: true
   roles:
     - k3s_join_agent
 
 - name: ArgoCD & application Bootstrap
   hosts: delegate_plane
+  any_errors_fatal: true
   become: true
   roles:
     - argocd
