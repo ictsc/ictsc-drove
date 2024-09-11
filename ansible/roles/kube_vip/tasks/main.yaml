@@ -16,7 +16,7 @@
     ctr image pull ghcr.io/kube-vip/kube-vip:v0.8.3
     ctr run --rm --net-host ghcr.io/kube-vip/kube-vip:v0.8.3 vip /kube-vip manifest daemonset \
       --interface eth0 --address {{ VIP }} \
-      --inCluster --taint --controlplane --services --arp --leaderElection
+      --inCluster --taint --controlplane --services --arp --leaderElection \
       > /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
   changed_when: false
   failed_when: false
