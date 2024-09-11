@@ -7,6 +7,7 @@ netplan_configuration:
         addresses:
           - 192.168.100.{{groups["router"].index(inventory_hostname)}}/24
 
-# k8s_installロール用
-# join時にtaintを付与するため、kubeletのインストール時に設定
-k8s_install_kubelet_extra_args: --register-with-taints unusableKey=:NoSchedule
+# k3sロール用
+k3s_join_command: agent
+k3s_join_config:
+  node-taint: unusableKey=:NoSchedule

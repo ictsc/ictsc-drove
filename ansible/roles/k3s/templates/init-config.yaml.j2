@@ -1,0 +1,13 @@
+flannel-backend: none
+disable:
+  - servicelb
+  - traefik
+  - local-storage
+  - metrics-server
+disable-cloud-controller: true
+disable-kube-proxy: true
+disable-network-policy: true
+disable-helm-controller: true
+
+tls-san: {{ VIP }}
+cluster-init: true
