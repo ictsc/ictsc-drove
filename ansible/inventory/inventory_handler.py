@@ -38,6 +38,7 @@ def get_workspace():
 
 def main():
     inventory = {
+        "all": {},
         "control_plane": {"hosts": []},
         "worker_node": {"hosts": []},
         "router": {"hosts": []},
@@ -93,9 +94,7 @@ def main():
                     }
                     worker_node += 1
 
-    inventory["control_plane"]["vars"] = {
-        "VIP": tfstate["outputs"]["vip_address"]["value"]
-    }
+    inventory["all"]["vars"] = {"VIP": tfstate["outputs"]["vip_address"]["value"]}
     inventory["router"]["vars"] = {
         "bgp_address": tfstate["outputs"]["external_address_range"]["value"]
     }
