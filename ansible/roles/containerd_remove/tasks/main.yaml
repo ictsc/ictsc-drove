@@ -1,0 +1,7 @@
+- name: Remove containerd
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+      - containerd.io

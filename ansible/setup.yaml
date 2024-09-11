@@ -21,7 +21,10 @@
   hosts: control_plane
   become: true
   roles:
+    # kube-vipはバイナリを配布していないので、ひとまずの対応としてcontainerdをインストール
+    - containerd
     - kube_vip
+    - containerd_remove
 
 - name: K3s Setup
   hosts: all
