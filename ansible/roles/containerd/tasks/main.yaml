@@ -1,0 +1,73 @@
+- name: Kernel settings
+  block:
+    - name: Setup kernel module settings
+      ansible.builtin.copy:
+        content: |
+          overlay
+          br_netfilter
+        dest: /etc/modules-load.d/k8s.conf
+        mode: "0644"
+      with_items:
+        - "{{ users }}"
+    - name: Load kernel modules
+      community.general.modprobe:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - overlay
+        - br_netfilter
+    - name: Set kernel params
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        sysctl_set: true
+        state: present
+        reload: true
+        ignoreerrors: true
+      with_dict: "{{ containerd_sysctl_config }}"
+
+- name: Install containerd
+  block:
+    - name: Add gpg key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+    - name: Add Docker apt repository
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+    - name: Update apt repository
+      ansible.builtin.apt:
+        update_cache: true
+    - name: Install containerd
+      ansible.builtin.apt:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - containerd.io
+
+- name: Customize containerd
+  block:
+    - name: Create settings directory
+      ansible.builtin.file:
+        path: /etc/containerd
+        state: directory
+        mode: "0755"
+    - name: Export containerd config
+      ansible.builtin.shell: containerd config default > /etc/containerd/config.toml
+      changed_when: true
+    - name: Enable systemd_cgroup conf
+      ansible.builtin.replace:
+        dest: "/etc/containerd/config.toml"
+        regexp: "SystemdCgroup = false"
+        replace: "SystemdCgroup = true"
+    - name: Replace sandbox image
+      ansible.builtin.replace:
+        dest: "/etc/containerd/config.toml"
+        regexp: 'sandbox_image = "registry.k8s.io/pause:3.6"'
+        replace: 'sandbox_image = "registry.k8s.io/pause:3.9"'
+    - name: Set containerd service to start on boot
+      ansible.builtin.systemd:
+        name: containerd
+        daemon_reload: true
+        state: restarted
+        enabled: true
