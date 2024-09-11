@@ -10,15 +10,6 @@
         helm upgrade --install cilium cilium/cilium --namespace kube-system \
           --set kubeProxyReplacement=true --set k8sServiceHost={{ VIP }} --set k8sServicePort=6443 --set bgpControlPlane.enabled=true
       changed_when: false
-    - name: Restart pods
-      ansible.builtin.shell:
-        executable: /bin/bash
-        cmd: |
-          set -o pipefail
-          kubectl get pods -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork \
-            --namespace kube-system --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
-      changed_when: false
-      failed_when: false
 
 - name: Setup BGP
   block:
