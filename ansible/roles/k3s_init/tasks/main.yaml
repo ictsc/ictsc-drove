@@ -1,3 +1,40 @@
+- name: Register VIP
+  block:
+    - name: Check VIP communicability
+      ansible.builtin.wait_for:
+        host: "{{ VIP }}"
+        port: 6443
+        timeout: 1
+  rescue:
+    - name: Create cluster
+      ansible.builtin.command: sh /tmp/k3s.sh
+      changed_when: false
+      failed_when: false
+    - name: Wait for VIP connection establishment
+      ansible.builtin.wait_for:
+        host: "{{ VIP }}"
+        port: 6443
+    - name: Evacuate kube-vip config
+      ansible.builtin.copy:
+        src: /var/lib/rancher/k3s/server/manifests/{{ item }}
+        dest: /tmp/{{ item }}
+        mode: "0644"
+      with_items:
+        - kube-vip.yaml
+        - kube-vip-rbac.yaml
+    - name: Uninstall K3s
+      ansible.builtin.command: k3s-uninstall.sh
+      changed_when: false
+      failed_when: false
+    - name: Put back kube-vip config
+      ansible.builtin.copy:
+        src: /tmp/{{ item }}
+        dest: /var/lib/rancher/k3s/server/manifests/{{ item }}
+        mode: "0644"
+      with_items:
+        - kube-vip.yaml
+        - kube-vip-rbac.yaml
+
 - name: Initialize cluster
   block:
     - name: Create init config
@@ -6,7 +43,7 @@
         dest: /tmp/init-config.yaml
         mode: "0644"
     - name: Create cluster
-      ansible.builtin.command: k3s server --config=/tmp/init-config.yaml
+      ansible.builtin.command: sh /tmp/k3s.sh server --config=/tmp/init-config.yaml
       changed_when: false
       failed_when: false
 
@@ -15,7 +52,7 @@
     - name: Replace server address in kube config
       ansible.builtin.replace:
         dest: /etc/rancher/k3s/k3s.yaml
-        regexp: "^server:"
+        regexp: "server:.*$"
         replace: "server: https://{{ VIP }}:6443"
     - name: Create .kube directory for registered users
       ansible.builtin.file:
