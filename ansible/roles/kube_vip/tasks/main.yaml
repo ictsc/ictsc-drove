@@ -1,3 +1,10 @@
+- name: Create manifest directory
+  ansible.builtin.file:
+    path: /var/lib/rancher/k3s/server/manifests
+    state: directory
+    owner: root
+    mode: "0755"
+
 - name: Put RBAC config
   ansible.builtin.get_url:
     url: https://kube-vip.io/manifests/rbac.yaml
