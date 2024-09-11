@@ -9,5 +9,4 @@ netplan_configuration:
 
 # k3sロール用
 k3s_join_command: agent
-k3s_join_config:
-  node-taint: unusableKey=:NoSchedule
+k3s_join_config: "node-taint: unusableKey=:NoSchedule"

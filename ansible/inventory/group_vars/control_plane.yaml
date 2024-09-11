@@ -9,5 +9,4 @@ netplan_configuration:
 
 # k3sロール用
 k3s_join_command: server
-k3s_join_config:
-  tls-san: "{{ VIP }}"
+k3s_join_config: "tls-san: {{ VIP }}"
