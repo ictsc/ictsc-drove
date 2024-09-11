@@ -7,6 +7,6 @@ netplan_configuration:
         addresses:
           - 192.168.100.{{groups["router"].index(inventory_hostname)}}/24
 
-# k3sロール用
-k3s_join_command: agent
-k3s_join_config: "node-taint: unusableKey=:NoSchedule"
+# k3s_joinロール用
+k3s_join_type: agent
+k3s_join_flag: --node-taint unusableKey=:NoSchedule

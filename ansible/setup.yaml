@@ -34,19 +34,12 @@
     - helm
     - cilium
 
-- name: Join control plane
-  hosts: control_plane
+- name: Join nodes
+  hosts: all
   any_errors_fatal: true
   become: true
   roles:
-    - k3s_join_server
-
-- name: Join worker node
-  hosts: worker_node
-  any_errors_fatal: true
-  become: true
-  roles:
-    - k3s_join_agent
+    - k3s_join
 
 - name: ArgoCD & application Bootstrap
   hosts: delegate_plane

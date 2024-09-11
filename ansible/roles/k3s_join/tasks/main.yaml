@@ -1,0 +1,19 @@
+- name: Register token
+  when: inventory_hostname in groups['delegate_plane']
+  ansible.builtin.command: cat /var/lib/rancher/k3s/server/node-token
+  register: token
+  changed_when: false
+  failed_when: false
+
+- name: Join nodes
+  when: inventory_hostname not in groups['delegate_plane']
+  block:
+    - name: Create join config
+      ansible.builtin.template:
+        src: join-config.yaml.j2
+        dest: /tmp/join-config.yaml
+        mode: "0644"
+    - name: Join cluster
+      ansible.builtin.command: sh /tmp/k3s.sh {{ k3s_join_type }} {{ k3s_join_flag }} --config=/tmp/join-config.yaml
+      changed_when: false
+      failed_when: false

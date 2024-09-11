@@ -1,3 +1,4 @@
+write-kubeconfig-mode: "0644"
 flannel-backend: none
 disable:
   - servicelb
@@ -8,7 +9,7 @@ disable-cloud-controller: true
 disable-kube-proxy: true
 disable-network-policy: true
 disable-helm-controller: true
-
 tls-san: {{ VIP }}
+
 server: "https://{{ VIP }}:6443"
 token: {{ hostvars[groups['delegate_plane'][0]]['token']['stdout'] }}
