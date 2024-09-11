@@ -27,6 +27,11 @@
       ansible.builtin.command: k3s-uninstall.sh
       changed_when: false
       failed_when: false
+    - name: Create manifest directory
+      ansible.builtin.file:
+        path: /var/lib/rancher/k3s/server/manifests
+        state: directory
+        mode: "0755"
     - name: Put back kube-vip config
       ansible.builtin.copy:
         src: /tmp/{{ item }}
