@@ -19,6 +19,7 @@
         src: /var/lib/rancher/k3s/server/manifests/{{ item }}
         dest: /tmp/{{ item }}
         mode: "0644"
+        remote_src: true
       with_items:
         - kube-vip.yaml
         - kube-vip-rbac.yaml
@@ -31,6 +32,7 @@
         src: /tmp/{{ item }}
         dest: /var/lib/rancher/k3s/server/manifests/{{ item }}
         mode: "0644"
+        remote_src: true
       with_items:
         - kube-vip.yaml
         - kube-vip-rbac.yaml
