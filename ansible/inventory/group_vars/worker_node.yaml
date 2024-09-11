@@ -6,6 +6,3 @@ netplan_configuration:
       eth1:
         addresses:
           - 192.168.100.2{{groups["worker_node"].index(inventory_hostname)}}/24
-
-# k3sロール用
-k3s_join_command: agent

@@ -1,0 +1,12 @@
+- name: Join nodes
+  when: inventory_hostname not in groups['delegate_plane']
+  block:
+    - name: Create join config
+      ansible.builtin.template:
+        src: join-config.yaml.j2
+        dest: /tmp/join-config.yaml
+        mode: "0644"
+    - name: Join cluster
+      ansible.builtin.command: k3s server --config=/tmp/join-config.yaml
+      changed_when: false
+      failed_when: false

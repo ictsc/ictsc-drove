@@ -1,11 +1,4 @@
-- name: Install K3s
-  ansible.builtin.get_url:
-    url: https://github.com/k3s-io/k3s/releases/download/v1.31.0+k3s1/k3s
-    dest: /usr/local/bin/k3s
-    mode: "0755"
-
-- name: Initialize K3s cluster
-  when: inventory_hostname in groups['delegate_plane']
+- name: Initialize cluster
   block:
     - name: Create init config
       ansible.builtin.template:
@@ -16,27 +9,8 @@
       ansible.builtin.command: k3s server --config=/tmp/init-config.yaml
       changed_when: false
       failed_when: false
-    - name: Register token
-      ansible.builtin.command: cat /var/lib/rancher/k3s/server/node-token
-      register: token
-      changed_when: false
-      failed_when: false
 
-- name: Join nodes
-  when: inventory_hostname not in groups['delegate_plane']
-  block:
-    - name: Create join config
-      ansible.builtin.template:
-        src: join-config.yaml.j2
-        dest: /tmp/join-config.yaml
-        mode: "0644"
-    - name: Join cluster
-      ansible.builtin.command: k3s {{ k3s_join_command }} --config=/tmp/join-config.yaml
-      changed_when: false
-      failed_when: false
-
-- name: Setup kube config
-  when: inventory_hostname in groups['control_plane']
+- name: Register kube config
   block:
     - name: Replace server address in kube config
       ansible.builtin.replace:

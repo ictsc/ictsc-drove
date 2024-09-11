@@ -1,0 +1,2 @@
+server: "https://{{ VIP }}:6443"
+token: {{ hostvars[groups['delegate_plane'][0]]['token']['stdout'] }}

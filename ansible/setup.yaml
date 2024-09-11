@@ -4,37 +4,48 @@
   roles:
     - wait_ssh
 
-- name: Common Setup
+- name: Common setup
   hosts: all
   become: true
   roles:
     - common
     - mrlesmithjr.netplan
+    - k3s_install
 
-- name: BIRD Setup
+- name: BIRD setup
   hosts: router
   become: true
   roles:
     - bird
 
-- name: Kube-vip Setup
-  hosts: control_plane
+- name: K3s bootstrap
+  hosts: delegate_plane
+  any_errors_fatal: true
   become: true
   roles:
     # kube-vipはバイナリを配布していないので、ひとまずの対応としてcontainerdをインストール
     - containerd
     - kube_vip
     - containerd_remove
+    - k3s_init
+    - helm
+    - cilium
 
-- name: K3s Setup
-  hosts: all
-  any_errors_fatal: true
+- name: Join control plane
+  hosts: control_plane
   become: true
   roles:
-    - k3s
+    - k3s_join_server
 
-- name: Components Bootstrap
+- name: Join worker node
+  hosts: worker_node
+  become: true
+  roles:
+    - k3s_join_agent
+
+- name: ArgoCD & application Bootstrap
   hosts: delegate_plane
   become: true
   roles:
-    - components
+    - argocd
+    - application
