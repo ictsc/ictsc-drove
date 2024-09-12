@@ -6,9 +6,10 @@
         helm repo update
       changed_when: false
     - name: Deploy Cilium
+      # https://github.com/cilium/cilium/issues/19038#issuecomment-1767985772
       ansible.builtin.shell: |
         helm upgrade --install cilium cilium/cilium --namespace kube-system \
-          --set kubeProxyReplacement=true --set k8sServiceHost={{ VIP }} --set k8sServicePort=6443 --set bgpControlPlane.enabled=true
+          --set kubeProxyReplacement=true --set k8sServiceHost=127.0.0.1 --set k8sServicePort=6443 --set bgpControlPlane.enabled=true
       changed_when: false
 
 - name: Setup BGP
@@ -22,6 +23,6 @@
       ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
       register: ret
       until: ret.rc == 0
-      retries: 12
+      retries: 120
       delay: 5
       changed_when: false
