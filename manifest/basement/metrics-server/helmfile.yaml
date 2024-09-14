@@ -7,5 +7,7 @@ releases:
     namespace: metrics-server
     chart: metrics-server/metrics-server
     version: 3.12.1
+    values:
+      - values.yaml
   - name: local-charts
     chart: ./local
