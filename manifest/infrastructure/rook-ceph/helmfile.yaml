@@ -6,7 +6,7 @@ releases:
   - name: rook-ceph-operator
     namespace: rook-ceph
     chart: rook-release/rook-ceph
-    version: v1.15.1
+    version: v1.15.2
   - name: rook-ceph-cluster
     namespace: rook-ceph
     chart: rook-release/rook-ceph-cluster
