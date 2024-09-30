@@ -9,7 +9,7 @@ releases:
   - name: argocd
     namespace: argocd
     chart: argo-cd/argo-cd
-    version: 7.6.6
+    version: 7.6.7
     values:
       - env/common/argocd-*.yaml
       - env/{{ .Environment.Name }}/argocd-*.yaml
