@@ -1,3 +1,5 @@
+ansible_ssh_user: ubuntu
+ansible_ssh_private_key_file: ../id_rsa
 users:
   - name: "ictsc"
     uid: "1011"
