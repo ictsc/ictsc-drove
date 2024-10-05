@@ -23,7 +23,7 @@
   hosts: control_plane
   become: true
   roles:
-    - kube_vip
+    - lb
 
 - name: Kubernetes Bootstrap
   hosts: delegate_plane
