@@ -77,10 +77,6 @@
     - name: Apply Hierarchical Namespace Controller
       ansible.builtin.shell: |
         kubectl apply -f https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/download/v1.1.0/default.yaml
-      register: ret
-      until: ret.rc == 0
-      retries: 12
-      delay: 5
       changed_when: false
     - name: Create infrastructure namespace
       ansible.builtin.command: kubectl create namespace infrastructure
