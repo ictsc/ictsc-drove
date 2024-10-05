@@ -1,11 +1,13 @@
 - name: Wait for SSH connection
   hosts: all
+  any_errors_fatal: true
   gather_facts: false
   roles:
     - wait_ssh
 
-- name: Common Setup
+- name: Common setup
   hosts: all
+  any_errors_fatal: true
   become: true
   roles:
     - common
@@ -13,14 +15,16 @@
     - containerd
     - k8s_install
 
-- name: BIRD Setup
+- name: BIRD setup
   hosts: router
+  any_errors_fatal: true
   become: true
   roles:
     - bird
 
 - name: Kubernetes API Load Balancer Setup
   hosts: control_plane
+  any_errors_fatal: true
   become: true
   roles:
     - lb
@@ -34,12 +38,14 @@
 
 - name: Join Nodes
   hosts: all
+  any_errors_fatal: true
   become: true
   roles:
     - k8s_join
 
 - name: Kubernetes Bootstrap
   hosts: delegate_plane
+  any_errors_fatal: true
   become: true
   roles:
     - components
