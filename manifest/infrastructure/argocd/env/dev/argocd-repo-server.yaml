@@ -14,4 +14,4 @@ repoServer:
           name: plugins
       env:
         - name: ENV_NAME
-          value: prod
+          value: dev
