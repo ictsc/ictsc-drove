@@ -5,8 +5,9 @@ metadata:
   namespace: kube-system
 spec:
   containers:
-    - image: haproxy:2.8
-      name: haproxy
+    - name: haproxy
+      # renovate:image
+      image: "haproxy:2.8.11"
       resources: {}
       livenessProbe:
         failureThreshold: 8

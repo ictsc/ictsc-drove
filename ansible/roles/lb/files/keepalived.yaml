@@ -5,8 +5,9 @@ metadata:
   namespace: kube-system
 spec:
   containers:
-    - image: osixia/keepalived:2.0.20
-      name: keepalived
+    - name: keepalived
+      # renovate:image
+      image: "osixia/keepalived:2.0.20"
       resources: {}
       securityContext:
         capabilities:
