@@ -4,7 +4,7 @@ resource "sakuracloud_server" "k8s_router" {
   core   = lookup(var.router_cpu, terraform.workspace, 0)
   memory = lookup(var.router_mem, terraform.workspace, 0)
   disks  = [sakuracloud_disk.k8s_router_disk[count.index].id]
-  tags   = ["k8s", terraform.workspace, "@nic-double-queue"]
+  tags   = ["k8s", terraform.workspace]
 
   network_interface {
     upstream = sakuracloud_internet.k8s_external_switch.switch_id
