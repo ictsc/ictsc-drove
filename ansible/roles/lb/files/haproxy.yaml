@@ -17,12 +17,12 @@ spec:
           scheme: HTTPS
       volumeMounts:
         - mountPath: /usr/local/etc/haproxy/haproxy.cfg
-          name: haproxy_conf
+          name: config
           readOnly: true
   hostNetwork: true
   volumes:
     - hostPath:
         path: /etc/haproxy/haproxy.cfg
         type: File
-      name: haproxy_conf
+      name: config
 status: {}
