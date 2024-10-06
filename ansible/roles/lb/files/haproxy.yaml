@@ -7,7 +7,7 @@ spec:
   containers:
     - name: haproxy
       # renovate:image
-      image: "haproxy:2.8.11"
+      image: "haproxy:2.9.11"
       resources: {}
       livenessProbe:
         failureThreshold: 8
