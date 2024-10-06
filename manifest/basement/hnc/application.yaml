@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/basement/hnc-system
+    path: manifest/basement/hnc
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
