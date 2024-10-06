@@ -7,7 +7,7 @@ resource "sakuracloud_switch" "k8s_internal_switch" {
   }
 }
 
-resource "sakuracloud_vpc_router" "standard" {
+resource "sakuracloud_vpc_router" "k8s_internal_router" {
   name                = "k8s-${terraform.workspace}-internal-router"
   tags                = ["k8s", terraform.workspace]
   internet_connection = true
