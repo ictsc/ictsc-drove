@@ -79,19 +79,19 @@ def main():
             match output_key:
                 case "k8s_router_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                        ip_address: {"internal_ip": f"192.168.100.{str(router)}"}
+                        ip_address: {"internal_ip": f"192.168.100.1{str(router)}"}
                     }
                     router += 1
                 case "k8s_control_plane_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.1{str(control_plane)}"
+                            "internal_ip": f"192.168.100.2{str(control_plane)}"
                         }
                     }
                     control_plane += 1
                 case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
-                        ip_address: {"internal_ip": f"192.168.100.2{str(worker_node)}"}
+                        ip_address: {"internal_ip": f"192.168.100.3{str(worker_node)}"}
                     }
                     worker_node += 1
 

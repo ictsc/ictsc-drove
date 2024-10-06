@@ -11,7 +11,7 @@ resource "sakuracloud_server" "k8s_router" {
   }
   network_interface {
     upstream        = sakuracloud_switch.k8s_internal_switch.id
-    user_ip_address = "192.168.100.${count.index}"
+    user_ip_address = "192.168.100.1${count.index}"
   }
   disk_edit_parameter {
     hostname        = "k8s-${terraform.workspace}-router-${count.index + 1}"
