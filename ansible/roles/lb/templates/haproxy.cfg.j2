@@ -49,6 +49,6 @@ backend api_server_backend
     mode tcp
     balance     roundrobin
 
-{% for index in groups['control_plane'] %}
-    server control_plane_{{ index }} {{ gropus['control_plane'][index] }}:6443 check verify none
+{% for address in groups['control_plane'] %}
+    server control_plane_{{ loop.index }} {{ address }}:6443 check verify none
 {% endfor %}
