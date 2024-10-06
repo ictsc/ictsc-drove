@@ -22,6 +22,6 @@ python_version = "3.12"
 
 [scripts]
 init = "ansible-galaxy install mrlesmithjr.netplan"
-lint = "sh -c 'flake8 --ignore E231 --max-line-length=100; mypy .; ansible-lint -s --exclude inventory/**/*.yaml'"
+lint = "sh -c 'flake8 --ignore E231 --ignore W503 --max-line-length=100; mypy .; ansible-lint -s --exclude inventory/**/*.yaml'"
 format = "sh -c 'autoflake -i --remove-all-unused-imports --remove-unused-variables -r .; black .; isort .'"
 playbook = "ansible-playbook -e ansible_sudo_pass=$CLUSTER_PASS -v setup.yaml"
