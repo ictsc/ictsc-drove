@@ -11,8 +11,16 @@ releases:
     chart: argo-cd/argo-cd
     version: 7.6.8
     values:
-      - env/common/argocd-*.yaml
-      - env/{{ .Environment.Name }}/argocd-*.yaml
+      - env/common/argocd-application-set.yaml
+      - env/common/argocd-controller.yaml
+      - env/common/argocd-dex.yaml
+      - env/common/argocd-general.yaml
+      - env/common/argocd-notifications.yaml
+      - env/common/argocd-redis.yaml
+      - env/common/argocd-repo-server.yaml
+      - env/common/argocd-server.yaml
+      - env/{{ .Environment.Name }}/argocd-general.yaml
+      - env/{{ .Environment.Name }}/argocd-repo-server.yaml
   - name: autoscaler
     namespace: argocd
     chart: ../../common/autoscaler
