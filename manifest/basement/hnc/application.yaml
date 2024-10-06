@@ -11,11 +11,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/basement/hnc
+    path: manifest/basement/hnc-system
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: hnc
+    namespace: hnc-system
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
