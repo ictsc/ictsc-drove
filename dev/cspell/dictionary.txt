@@ -44,6 +44,7 @@ nonlocal
 NOPASSWD
 noqa
 ONESHELL
+osixia
 pipefail
 pipenv
 Pipfile
