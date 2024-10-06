@@ -79,10 +79,15 @@
         kubectl apply -f https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/download/v1.1.0/default.yaml
       changed_when: false
     - name: Create infrastructure namespace
-      ansible.builtin.command: kubectl create namespace infrastructure
+      ansible.builtin.shell: kubectl get ns infrastructure || kubectl create ns infrastructure
+      register: ret
+      until: ret.rc == 0
+      retries: 12
+      delay: 5
       changed_when: false
     - name: Create GitHub App secret
       ansible.builtin.shell: |
+        kubectl get secret github-app -n infrastructure || \
         kubectl create secret generic github-app -n infrastructure \
           --from-literal=client-secret="{{ lookup('env', 'GITHUB_APP_CLIENT_SECRET') }}"
       changed_when: false
