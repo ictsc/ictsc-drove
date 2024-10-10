@@ -1,45 +1,52 @@
-- name: Wait for SSH connection
-  hosts: all
+- name: Private address setup
+  hosts: router:control_plane
+  any_errors_fatal: true
   gather_facts: false
   roles:
     - wait_ssh
+    - mrlesmithjr.netplan
 
-- name: Common Setup
+- name: Common setup
   hosts: all
+  any_errors_fatal: true
   become: true
   roles:
+    - wait_ssh
     - common
-    - mrlesmithjr.netplan
     - containerd
     - k8s_install
 
-- name: BIRD Setup
+- name: BIRD setup
   hosts: router
+  any_errors_fatal: true
   become: true
   roles:
     - bird
 
-- name: Kubernetes API Load Balancer Setup
+- name: Kubernetes API loadbalancer setup
   hosts: control_plane
+  any_errors_fatal: true
   become: true
   roles:
-    - kube_vip
+    - lb
 
-- name: Kubernetes Bootstrap
+- name: Kubernetes bootstrap
   hosts: delegate_plane
   any_errors_fatal: true
   become: true
   roles:
     - k8s_init
 
-- name: Join Nodes
+- name: Join nodes
   hosts: all
+  any_errors_fatal: true
   become: true
   roles:
     - k8s_join
 
-- name: Kubernetes Bootstrap
+- name: Application bootstrap
   hosts: delegate_plane
+  any_errors_fatal: true
   become: true
   roles:
     - components

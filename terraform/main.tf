@@ -1,5 +1,6 @@
 terraform {
-  required_version = ">= 0.12.5"
+  required_version = "> 1.9.0"
+
   required_providers {
     sakuracloud = {
       source  = "sacloud/sakuracloud"
@@ -20,15 +21,12 @@ terraform {
   }
 }
 
-# Configure the SakuraCloud Provider
 provider "sakuracloud" {}
 
-# ubuntu archive
 data "sakuracloud_archive" "ubuntu_archive" {
   os_type = "ubuntu2204"
 }
 
-# pub key
 resource "sakuracloud_ssh_key_gen" "gen_key" {
   name = "k8s-pub-key"
 

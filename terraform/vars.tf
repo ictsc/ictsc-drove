@@ -6,8 +6,8 @@ variable "cluster_pass" {
 variable "external_subnet" {
   type = map(any)
   default = {
-    dev = 27
-    prd = 27
+    dev = 28
+    prd = 28
   }
 }
 

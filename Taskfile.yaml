@@ -223,20 +223,17 @@ tasks:
     desc: HelmfileのLintを実行
     cmds:
       - |
-        for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
-          helmfile lint -f "$dir"
+        for file in $(find . -name helmfile.yaml); do
+          helmfile lint -e dev -f "$file"
+          helmfile lint -e prod -f "$file"
         done
 
   helmfile:
     desc: Helmfileを元にマニフェストを生成
     cmds:
       - |
-        array=()
         for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
           rm -rf "$dir"/generated
-          helmfile template -e dev --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/dev\"" }} &
-          array+=($!)
-          helmfile template -e prod --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/prod\"" }} &
-          array+=($!)
+          helmfile template -e dev --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/dev\"" }}
+          helmfile template -e prod --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/prod\"" }}
         done
-        wait ${array[@]}

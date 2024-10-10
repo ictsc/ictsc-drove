@@ -5,6 +5,7 @@ automerge
 autoscaler
 birdc
 blackhole
+ceph
 cmds
 containerd
 controlplane
@@ -21,6 +22,7 @@ finalizer
 finalizers
 fstype
 fullname
+healthz
 helmfile
 HOSTNETWORK
 hostvars
@@ -42,6 +44,7 @@ nonlocal
 NOPASSWD
 noqa
 ONESHELL
+osixia
 pipefail
 pipenv
 Pipfile
@@ -57,4 +60,3 @@ tflint
 tfstate
 virtualenvs
 vyos
-ceph

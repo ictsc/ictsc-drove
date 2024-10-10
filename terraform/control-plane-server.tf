@@ -4,14 +4,14 @@ resource "sakuracloud_server" "k8s_control_plane" {
   core   = lookup(var.control_plane_cpu, terraform.workspace, 0)
   memory = lookup(var.control_plane_mem, terraform.workspace, 0)
   disks  = [sakuracloud_disk.k8s_control_plane_disk[count.index].id]
-  tags   = ["k8s", terraform.workspace, "@nic-double-queue"]
+  tags   = ["k8s", terraform.workspace]
 
   network_interface {
     upstream = sakuracloud_internet.k8s_external_switch.switch_id
   }
   network_interface {
     upstream        = sakuracloud_switch.k8s_internal_switch.id
-    user_ip_address = "192.168.100.1${count.index}"
+    user_ip_address = "192.168.100.2${count.index}"
   }
   disk_edit_parameter {
     hostname        = "k8s-${terraform.workspace}-control-plane-${count.index + 1}"

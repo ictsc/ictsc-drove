@@ -1,0 +1,41 @@
+- name: Create static pod manifest directory
+  ansible.builtin.file:
+    path: /etc/kubernetes/manifests
+    state: directory
+    mode: "0755"
+
+- name: Setup keepalived settings
+  block:
+    - name: Create settings directory
+      ansible.builtin.file:
+        path: /etc/keepalived
+        state: directory
+        mode: "0755"
+    - name: Send keepalived.conf
+      ansible.builtin.template:
+        src: keepalived.conf.j2
+        dest: /etc/keepalived/keepalived.conf
+        mode: "0644"
+    - name: Send keepalived static pod conf
+      ansible.builtin.copy:
+        src: keepalived.yaml
+        dest: /etc/kubernetes/manifests/keepalived.yaml
+        mode: "0644"
+
+- name: Setup haproxy settings
+  block:
+    - name: Create settings directory
+      ansible.builtin.file:
+        path: /etc/haproxy
+        state: directory
+        mode: "0755"
+    - name: Send haproxy.cfg
+      ansible.builtin.template:
+        src: haproxy.cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+        mode: "0644"
+    - name: Send haproxy static pod conf
+      ansible.builtin.copy:
+        src: haproxy.yaml
+        dest: /etc/kubernetes/manifests/haproxy.yaml
+        mode: "0644"

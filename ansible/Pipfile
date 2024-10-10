@@ -8,20 +8,20 @@ pip = "==24.2"
 flake8 = "==7.1.1"
 mypy = "==1.11.2"
 autoflake = "==2.3.1"
-black = "==24.8.0"
+black = "==24.10.0"
 isort = "==5.13.2"
-ansible-lint = "==24.9.0"
+ansible-lint = "==24.9.2"
 passlib = "==1.7.4"
 
 [packages]
-minio = "==7.2.8"
-ansible = "==10.4.0"
+minio = "==7.2.9"
+ansible = "==10.5.0"
 
 [requires]
-python_version = "3.12"
+python_version = "3.13"
 
 [scripts]
 init = "ansible-galaxy install mrlesmithjr.netplan"
-lint = "sh -c 'flake8 --ignore E231 --max-line-length=100; mypy .; ansible-lint -s --exclude inventory/**/*.yaml'"
+lint = "sh -c 'flake8 --ignore E231 --ignore W503 --max-line-length=100; mypy .; ansible-lint -s --exclude inventory/**/*.yaml'"
 format = "sh -c 'autoflake -i --remove-all-unused-imports --remove-unused-variables -r .; black .; isort .'"
-playbook = "ansible-playbook -u ubuntu --private-key=../id_rsa -e ansible_sudo_pass=$CLUSTER_PASS -v setup.yaml"
+playbook = "ansible-playbook -e ansible_sudo_pass=$CLUSTER_PASS -v setup.yaml"

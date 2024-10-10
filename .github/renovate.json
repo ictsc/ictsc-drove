@@ -63,9 +63,9 @@
     },
     {
       "description": "Docker image dependencies",
-      "fileMatch": [".+\\.ya?ml$"],
+      "fileMatch": [".+\\.ya?ml$", ".+\\.ya?ml.j2$"],
       "matchStrings": [
-        "# renovate:image-full\n.*?\"(?<depName>[^\\s:]+):(?<currentValue>.+)\"\n"
+        "# renovate:image\n.*?\"(?<depName>[^\\s:]+):(?<currentValue>.+)\"\n"
       ],
       "datasourceTemplate": "docker"
     },

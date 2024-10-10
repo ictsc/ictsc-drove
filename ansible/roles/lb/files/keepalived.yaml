@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: keepalived
+  namespace: kube-system
+spec:
+  containers:
+    - name: keepalived
+      # renovate:image
+      image: "osixia/keepalived:2.0.20"
+      resources: {}
+      securityContext:
+        capabilities:
+          add:
+            - NET_ADMIN
+            - NET_BROADCAST
+            - NET_RAW
+      volumeMounts:
+        - mountPath: /usr/local/etc/keepalived/keepalived.conf
+          name: config
+          readOnly: true
+  hostNetwork: true
+  volumes:
+    - hostPath:
+        path: /etc/keepalived/keepalived.conf
+        type: File
+      name: config
+status: {}

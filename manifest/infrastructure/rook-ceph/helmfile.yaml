@@ -1,3 +1,6 @@
+bases:
+  - environments.yaml
+
 repositories:
   - name: rook-release
     url: https://charts.rook.io/release
@@ -6,11 +9,11 @@ releases:
   - name: rook-ceph-operator
     namespace: rook-ceph
     chart: rook-release/rook-ceph
-    version: v1.15.1
+    version: v1.15.3
   - name: rook-ceph-cluster
     namespace: rook-ceph
     chart: rook-release/rook-ceph-cluster
-    version: v1.15.1
+    version: v1.15.3
     needs:
       - rook-ceph-operator
   - name: local-charts

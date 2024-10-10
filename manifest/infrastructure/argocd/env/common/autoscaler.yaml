@@ -3,6 +3,9 @@ resources:
   - name: argocd-repo-server
   - name: argocd-applicationset-controller
   - name: argocd-notifications-controller
+    min-replicas: 1
   - name: argocd-redis-ha-server
     kind: StatefulSet
+    min-replicas: 3
   - name: argocd-redis-ha-haproxy
+    min-replicas: 3
