@@ -1,3 +1,6 @@
+bases:
+  - environments.yaml
+
 repositories:
   - name: metrics-server
     url: https://kubernetes-sigs.github.io/metrics-server/
@@ -8,6 +11,6 @@ releases:
     chart: metrics-server/metrics-server
     version: 3.12.1
     values:
-      - values.yaml
+      - env/common/values.yaml
   - name: local-charts
     chart: ./local
