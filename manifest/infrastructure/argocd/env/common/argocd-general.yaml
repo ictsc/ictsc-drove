@@ -18,8 +18,8 @@ configs:
             orgs:
               - name: ictsc
                 teams:
-                  - ictsc2023
+                  - ictsc2024
   rbac:
     policy.csv: |
       g, ictsc:Admins, role:admin
-      g, ictsc:ictsc2023, role:readonly
+      g, ictsc:ictsc2024, role:readonly
