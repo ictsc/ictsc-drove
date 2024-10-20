@@ -7,19 +7,51 @@ dashboard:
 
 cephClusterSpec:
   resources:
-    mon:
-      requests:
-        cpu: 50m
-        memory: 32Mi
     mgr:
+      limits:
+        memory: "1Gi"
       requests:
-        cpu: 50m
-        memory: 32Mi
+        cpu: "25m"
+        memory: "32Mi"
+    mon:
+      limits:
+        memory: "2Gi"
+      requests:
+        cpu: "50m"
+        memory: "64Mi"
     osd:
+      limits:
+        memory: "4Gi"
       requests:
-        cpu: 50m
-        memory: 32Mi
+        cpu: "50m"
+        memory: "256Mi"
+    mgr-sidecar:
+      limits:
+        memory: "100Mi"
+      requests:
+        cpu: "10m"
+        memory: "16Mi"
     crashcollector:
+      limits:
+        memory: "60Mi"
       requests:
-        cpu: 50m
-        memory: 32Mi
+        cpu: "10m"
+        memory: "16Mi"
+    logcollector:
+      limits:
+        memory: "1Gi"
+      requests:
+        cpu: "10m"
+        memory: "16Mi"
+    cleanup:
+      limits:
+        memory: "1Gi"
+      requests:
+        cpu: "25m"
+        memory: "32Mi"
+    exporter:
+      limits:
+        memory: "128Mi"
+      requests:
+        cpu: "10m"
+        memory: "16Mi"
