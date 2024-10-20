@@ -6,6 +6,10 @@ providers:
   kubernetesGateway:
     enabled: false
 
+logs:
+  access:
+    enabled: true
+
 metrics:
   addInternals: true
   prometheus:
