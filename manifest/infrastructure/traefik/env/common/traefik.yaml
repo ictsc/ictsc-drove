@@ -14,12 +14,14 @@ providers:
 
 metrics:
   addInternals: true
-  service:
-    enabled: true
-  serviceMonitor:
-    enabled: true
-  prometheusRule:
-    enabled: true
+  prometheus:
+    service:
+      enabled: true
+    disableAPICheck: true
+    serviceMonitor:
+      enabled: true
+    prometheusRule:
+      enabled: true
 
 ports:
   websecure:
