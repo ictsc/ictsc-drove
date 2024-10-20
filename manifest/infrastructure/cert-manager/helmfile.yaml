@@ -9,7 +9,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: 1.11.2
+    version: v1.16.1
     values:
       - env/common/cert-manager.yaml
   - name: local-charts
