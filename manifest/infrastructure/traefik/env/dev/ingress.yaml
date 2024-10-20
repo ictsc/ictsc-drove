@@ -1,0 +1,6 @@
+name: traefik-dashboard
+domain: traefik.drove-dev.ictsc.net
+routes:
+  - match: HOST(`traefik.drove-dev.ictsc.net`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    kind: TraefikService
+    service: api@internal
