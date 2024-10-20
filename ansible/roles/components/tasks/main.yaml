@@ -19,7 +19,13 @@
         packages:
           - helm
 
-- name: Setup cilium
+- name: Check if Cilium is installed
+  ansible.builtin.command: kubectl get -n kube-system deploy cilium-operator
+  register: cilium_installed
+  changed_when: false
+  failed_when: false
+- name: Setup Cilium
+  when: cilium_installed.rc != 0
   block:
     - name: Add Cilium chart repo
       ansible.builtin.shell: |
@@ -56,7 +62,13 @@
       delay: 5
       changed_when: false
 
+- name: Check if ArgoCD is installed
+  ansible.builtin.command: kubectl get -n argocd deploy argocd-server
+  register: argocd_installed
+  changed_when: false
+  failed_when: false
 - name: Setup ArgoCD
+  when: argocd_installed.rc != 0
   block:
     - name: Add ArgoCD chart repo
       ansible.builtin.shell: |
