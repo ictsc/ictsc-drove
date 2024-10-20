@@ -5,6 +5,7 @@ global:
     format: json
 
 configs:
+  params.server.insecure: true
   cm:
     admin.enabled: false
     dex.config: |
