@@ -10,10 +10,14 @@ releases:
     namespace: rook-ceph
     chart: rook-release/rook-ceph
     version: v1.15.4
+    values:
+      - env/common/operator.yaml
   - name: rook-ceph-cluster
     namespace: rook-ceph
     chart: rook-release/rook-ceph-cluster
     version: v1.15.4
+    values:
+      - env/common/cluster.yaml
     needs:
       - rook-ceph-operator
   - name: local-charts
