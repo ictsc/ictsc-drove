@@ -4,8 +4,6 @@ bases:
 repositories:
   - name: traefik
     url: https://traefik.github.io/charts
-  - name: jetstack
-    url: https://charts.jetstack.io
 
 releases:
   - name: traefik
