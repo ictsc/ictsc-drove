@@ -19,9 +19,6 @@ metrics:
     enabled: true
 
 ports:
-  web:
-    exposed:
-      default: false
   websecure:
     http3:
       enabled: true
