@@ -11,8 +11,8 @@ spec:
     apiVersion: apps/v1
     kind: {{ coalesce .kind $.Values.defaults.kind }}
     name: {{ required "A valid name is required." .name }}
-  minReplicas: {{ coalesce .minReplicas $.Values.defaults.minReplicas | max 2 }}
-  maxReplicas: {{ coalesce .maxReplicas $.Values.defaults.maxReplicas | max 2 }}
+  minReplicas: {{ coalesce .minReplicas $.Values.defaults.minReplicas }}
+  maxReplicas: {{ coalesce .maxReplicas $.Values.defaults.maxReplicas }}
   metrics:
     - type: Resource
       resource:
