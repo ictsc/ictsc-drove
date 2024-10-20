@@ -6,12 +6,15 @@ spec:
   entryPoints:
     - websecure
   routes:
-{{- range $i, $resource := .Values.routes -}}
-    - match: {{ coalesce .match printf "Host(`%s`)" .Values.domain }}
+{{- range $i, $route := .Values.routes }}
+    - match: {{ coalesce .match (printf "Host(`%s`)" $.Values.domain) }}
       kind: Rule
       services:
-        - name: {{ required "A valid service is required." .service }}
+        - kind: {{ coalesce .kind "Service" }}
+          name: {{ required "A valid service is required." .service }}
+{{- if not .kind }}
           port: {{ coalesce .port 80 }}
+{{- end }}
 {{- end }}
   tls:
     secretName: {{ .Values.name }}-cert
