@@ -1,0 +1,25 @@
+monitoring:
+  enabled: true
+  createPrometheusRules: true
+
+dashboard:
+  ssl: false
+
+cephClusterSpec:
+  resources:
+    mon:
+      requests:
+        cpu: 50m
+        memory: 32Mi
+    mgr:
+      requests:
+        cpu: 50m
+        memory: 32Mi
+    osd:
+      requests:
+        cpu: 50m
+        memory: 32Mi
+    crashcollector:
+      requests:
+        cpu: 50m
+        memory: 32Mi
