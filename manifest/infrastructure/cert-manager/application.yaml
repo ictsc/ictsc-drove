@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik-application
+  name: cert-manager-application
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,12 +9,12 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/infrastructure/traefik
+    path: manifest/infrastructure/cert-manager
     targetRevision: main
     plugin: {}
   destination:
     server: https://kubernetes.default.svc
-    namespace: traefik
+    namespace: cert-manager
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
