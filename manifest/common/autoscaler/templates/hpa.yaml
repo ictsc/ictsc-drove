@@ -5,12 +5,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .name }}-hpa
+  name: {{ required "A valid name is required." .name }}-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: {{ coalesce .kind $.Values.defaults.kind }}
-    name: {{ required "A valid name is required." .name }}
+    name: {{ .name }}
   minReplicas: {{ coalesce .minReplicas $.Values.defaults.minReplicas }}
   maxReplicas: {{ coalesce .maxReplicas $.Values.defaults.maxReplicas }}
   metrics:
