@@ -1,10 +1,11 @@
-resources:
-  - name: my-app
-  - name: my-app2
-    hpa: false
-    kind: StatefulSet
-  - name: my-app3
-    minReplicas: 3
-    maxReplicas: 10
-  - name: my-app4
-    targetCPUAverageValue: 300m
+name: example
+domain: example.ictsc.net
+routes:
+  - match: HOST(`example.ictsc.net`)
+    kind: TraefikService
+    service: api@internal
+  - match: HOST(`example2.ictsc.net`)
+    service: example2
+  - match: HOST(`example3.ictsc.net`)
+    service: example3
+    port: 8080
