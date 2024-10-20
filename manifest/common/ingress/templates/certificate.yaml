@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: {{ required "A valid name is required." .Values.name }}-cert
+spec:
+  secretName: {{ .Values.name }}-cert
+  dnsNames:
+    - {{ required "A valid domain is required." .Values.domain }}
+  issuerRef:
+    name: common-issuer
+    kind: ClusterIssuer

@@ -216,7 +216,7 @@ tasks:
     cmds:
       - |
         for dir in $(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev); do
-          helm lint "$dir" --strict
+          helm lint "$dir" --strict --values "$dir"/ci/ci-values.yaml
         done
 
   lint-helmfile:

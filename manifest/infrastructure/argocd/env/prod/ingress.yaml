@@ -1,0 +1,4 @@
+name: argocd
+domain: argocd.drove.ictsc.net
+routes:
+  - service: argocd-server

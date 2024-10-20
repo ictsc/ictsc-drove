@@ -20,5 +20,11 @@ releases:
       - env/common/cluster.yaml
     needs:
       - rook-ceph-operator
+  - name: ingress
+    namespace: traefik
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local

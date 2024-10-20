@@ -2,12 +2,6 @@
 deployment:
   replicas: 2
 
-ingressRoute:
-  dashboard:
-    enabled: true
-  healthcheck:
-    enabled: true
-
 providers:
   kubernetesGateway:
     enabled: false

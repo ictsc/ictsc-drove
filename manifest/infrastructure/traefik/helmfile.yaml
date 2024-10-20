@@ -18,5 +18,11 @@ releases:
     version: 0.1.0
     values:
       - env/common/autoscaler.yaml
+  - name: ingress
+    namespace: traefik
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local
