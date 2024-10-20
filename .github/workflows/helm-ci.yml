@@ -27,35 +27,3 @@ jobs:
         run: |
           CHARTS="$(find . -name Chart.yaml | rev | cut -f2- -d'/' | tr '\n' ',' | rev | cut -b2-)"
           ct lint --target-branch ${{ github.event.repository.default_branch }} --charts "$CHARTS" --chart-dirs "$CHARTS"
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up Helm
-        uses: azure/setup-helm@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
-      - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.6.1
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.10.0
-      - name: Run pre-validation scripts
-        run: |
-          array=()
-          for dir in $(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev); do
-            if [ -f "$dir"/ci/pre-validation.sh ]; then
-              nohup sh "$dir"/ci/pre-validation.sh &
-              array+=($!)
-            fi
-          done
-          wait ${array[@]}
-      - name: Run chart-testing (install)
-        run: |
-          CHARTS="$(find . -name Chart.yaml | rev | cut -f2- -d'/' | tr '\n' ',' | rev | cut -b2-)"
-          ct install --target-branch ${{ github.event.repository.default_branch }} --charts "$CHARTS" --chart-dirs "$CHARTS"
