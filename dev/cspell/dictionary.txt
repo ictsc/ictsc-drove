@@ -38,6 +38,7 @@ kubeadm
 kubelet
 lineinfile
 loadbalancer
+logcollector
 lucj
 minio
 mrlesmithjr
