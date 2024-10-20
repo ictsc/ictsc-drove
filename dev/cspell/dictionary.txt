@@ -30,6 +30,7 @@ HOSTNETWORK
 hostvars
 ictsc
 ignoreerrors
+jetstack
 keyrings
 kubeadm
 kubelet
@@ -65,5 +66,7 @@ swapoff
 swaptotal
 tflint
 tfstate
+traefik
 virtualenvs
 vyos
+websecure

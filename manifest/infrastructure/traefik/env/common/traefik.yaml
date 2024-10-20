@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/traefik/traefik-helm-chart/refs/heads/master/traefik/values.schema.json
+ingressRoute:
+  dashboard:
+    enabled: true
+  healthcheck:
+    enabled: true
+
+providers:
+  kubernetesGateway:
+    enabled: false
+
+metrics:
+  addInternals: true
+  service:
+    enabled: true
+  serviceMonitor:
+    enabled: true
+  prometheusRule:
+    enabled: true
+
+ports:
+  web:
+    exposed:
+      default: false
+  websecure:
+    http3:
+      enabled: true
