@@ -1,5 +1,7 @@
 resources:
   - ./argocd/application.yaml
   - ./rook-ceph/application.yaml
+  - ./traefik/application.yaml
+  - ./cert-manager/application.yaml
 
   - ./hierarchy.yaml

@@ -1,0 +1,22 @@
+bases:
+  - environments.yaml
+
+repositories:
+  - name: traefik
+    url: https://traefik.github.io/charts
+
+releases:
+  - name: traefik
+    namespace: traefik
+    chart: traefik/traefik
+    version: 32.1.1
+    values:
+      - env/common/traefik.yaml
+  - name: autoscaler
+    namespace: traefik
+    chart: ../../common/autoscaler
+    version: 0.1.0
+    values:
+      - env/common/autoscaler.yaml
+  - name: local-charts
+    chart: ./local

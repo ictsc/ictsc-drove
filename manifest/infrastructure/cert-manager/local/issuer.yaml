@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: common-issuer
+spec:
+  acme:
+    email: cert-manager@icttoracon.net
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: common-issuer-key
+    solvers:
+      - http01:
+          ingress:
+            ingressClassName: traefik
