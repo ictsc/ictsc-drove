@@ -35,7 +35,8 @@
     - name: Deploy Cilium
       ansible.builtin.shell: |
         helm upgrade --install cilium cilium/cilium --namespace kube-system \
-          --set kubeProxyReplacement=true --set k8sServiceHost={{ VIP }} --set k8sServicePort=8443 --set bgpControlPlane.enabled=true
+          --set kubeProxyReplacement=true --set k8sServiceHost={{ VIP }} --set k8sServicePort=8443 \
+          --set l2announcements.enabled=true --set k8sClientRateLimit.qps=40 --set k8sClientRateLimit.burst=50
       changed_when: false
     - name: Restart pods
       ansible.builtin.shell:
@@ -47,15 +48,15 @@
       changed_when: false
       failed_when: false
 
-- name: Setup BGP
+- name: Setup L2 announcement
   block:
-    - name: Send bgp-config
+    - name: Send announcement config
       ansible.builtin.template:
-        src: bgp-config.yaml.j2
-        dest: /tmp/bgp-config.yaml
+        src: announcement-config.yaml.j2
+        dest: /tmp/announcement-config.yaml
         mode: "0644"
-    - name: Apply bgp-config
-      ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
+    - name: Apply announcement config
+      ansible.builtin.command: kubectl apply -f /tmp/announcement-config.yaml
       register: ret
       until: ret.rc == 0
       retries: 12

@@ -1,5 +1,5 @@
 - name: Private address setup
-  hosts: router:control_plane
+  hosts: control_plane
   any_errors_fatal: true
   gather_facts: false
   roles:
@@ -15,13 +15,6 @@
     - common
     - containerd
     - k8s_install
-
-- name: BIRD setup
-  hosts: router
-  any_errors_fatal: true
-  become: true
-  roles:
-    - bird
 
 - name: Kubernetes API loadbalancer setup
   hosts: control_plane
