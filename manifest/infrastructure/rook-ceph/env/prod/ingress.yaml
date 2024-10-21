@@ -2,4 +2,4 @@ name: ceph-dashboard
 domain: ceph.drove.ictsc.net
 routes:
   - service: rook-ceph-mgr-dashboard
-    port: 8443
+    port: http-dashboard
