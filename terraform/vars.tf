@@ -75,32 +75,3 @@ variable "worker_node_rook_disk" {
     prd = 20
   }
 }
-
-variable "router" {
-  type = map(any)
-  default = {
-    dev = 1
-    prd = 1
-  }
-}
-variable "router_cpu" {
-  type = map(any)
-  default = {
-    dev = 1
-    prd = 1
-  }
-}
-variable "router_mem" {
-  type = map(any)
-  default = {
-    dev = 1
-    prd = 1
-  }
-}
-variable "router_disk" {
-  type = map(any)
-  default = {
-    dev = 20
-    prd = 20
-  }
-}
