@@ -21,6 +21,7 @@ configs:
             orgs:
               - name: ictsc
                 teams:
+                  - Admins
                   - ictsc2024
   rbac:
     policy.csv: |
