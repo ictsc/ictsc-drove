@@ -10,12 +10,9 @@ spec:
     - match: {{ coalesce .match (printf "Host(`%s`)" $.Values.domain) }}
       kind: Rule
       services:
-        - kind: {{ coalesce .kind "Service" }}
-          name: {{ required "A valid service is required." .service }}
-{{- if not .kind }}
-          scheme: http
+        - name: {{ required "A valid service is required." .service }}
           port: {{ coalesce .port 80 }}
-{{- end }}
+          scheme: http
 {{- end }}
   tls:
     secretName: {{ .Values.name }}-cert
