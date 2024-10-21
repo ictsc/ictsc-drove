@@ -10,29 +10,29 @@ csi:
     - name : csi-provisioner
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-resizer
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-attacher
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-snapshotter
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-rbdplugin
@@ -44,139 +44,139 @@ csi:
     - name : csi-omap-generator
       resource:
         requests:
-          memory: 32Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 1Gi
     - name : liveness-prometheus
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
   csiRBDPluginResource: |
     - name : driver-registrar
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-rbdplugin
       resource:
         requests:
-          memory: 32Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 1Gi
     - name : liveness-prometheus
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
   csiCephFSProvisionerResource: |
     - name : csi-provisioner
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-resizer
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-attacher
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-snapshotter
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-cephfsplugin
       resource:
         requests:
-          memory: 32Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 1Gi
     - name : liveness-prometheus
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
   csiCephFSPluginResource: |
     - name : driver-registrar
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-cephfsplugin
       resource:
         requests:
-          memory: 32Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 1Gi
     - name : liveness-prometheus
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
   csiNFSProvisionerResource: |
     - name : csi-provisioner
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-nfsplugin
       resource:
         requests:
-          memory: 32Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 1Gi
     - name : csi-attacher
       resource:
         requests:
-          memory: 32Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 1Gi
   csiNFSPluginResource: |
     - name : driver-registrar
       resource:
         requests:
-          memory: 16Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 256Mi
     - name : csi-nfsplugin
       resource:
         requests:
-          memory: 32Mi
-          cpu: 20m
+          memory: 0
+          cpu: 0
         limits:
           memory: 1Gi
 

@@ -50,6 +50,7 @@ nofilter
 nonlocal
 NOPASSWD
 noqa
+objectstore
 omap
 ONESHELL
 osixia
