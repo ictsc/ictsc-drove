@@ -18,8 +18,6 @@ metrics:
     disableAPICheck: true
     serviceMonitor:
       enabled: true
-    prometheusRule:
-      enabled: true
 
 ports:
   websecure:
