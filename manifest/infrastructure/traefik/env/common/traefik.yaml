@@ -19,6 +19,9 @@ metrics:
     serviceMonitor:
       enabled: true
 
+additionalArguments:
+  - "--api.insecure=true"
+
 ports:
   websecure:
     http3:
