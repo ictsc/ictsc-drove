@@ -1,4 +1,4 @@
-apiVersion: "cilium.io/v2alpha1"
+apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
   name: cilium-announcement
@@ -9,10 +9,9 @@ spec:
         operator: Exists
   interfaces:
     - ^eth[0-9]+
-  externalIPs: true
   loadBalancerIPs: true
 ---
-apiVersion: "cilium.io/v2alpha1"
+apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: default-pool
@@ -20,4 +19,4 @@ metadata:
 spec:
   blocks:
     - start: {{ min_ip_address }}
-      end: {{ max_ip_address }}
+      stop: {{ max_ip_address }}
