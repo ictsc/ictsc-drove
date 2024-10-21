@@ -48,15 +48,15 @@
       changed_when: false
       failed_when: false
 
-- name: Setup BGP
+- name: Setup L2 announcement
   block:
-    - name: Send bgp-config
+    - name: Send announcement config
       ansible.builtin.template:
-        src: bgp-config.yaml.j2
-        dest: /tmp/bgp-config.yaml
+        src: announcement-config.yaml.j2
+        dest: /tmp/announcement-config.yaml
         mode: "0644"
-    - name: Apply bgp-config
-      ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
+    - name: Apply announcement config
+      ansible.builtin.command: kubectl apply -f /tmp/announcement-config.yaml
       register: ret
       until: ret.rc == 0
       retries: 12
