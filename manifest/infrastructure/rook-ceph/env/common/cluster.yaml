@@ -2,10 +2,9 @@ monitoring:
   enabled: true
   createPrometheusRules: true
 
-dashboard:
-  ssl: false
-
 cephClusterSpec:
+  dashboard:
+    ssl: false
   resources:
     mgr:
       limits:
