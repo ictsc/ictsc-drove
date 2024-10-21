@@ -13,6 +13,7 @@ spec:
         - kind: {{ coalesce .kind "Service" }}
           name: {{ required "A valid service is required." .service }}
 {{- if not .kind }}
+					scheme: http
           port: {{ coalesce .port 80 }}
 {{- end }}
 {{- end }}
