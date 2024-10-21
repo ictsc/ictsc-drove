@@ -76,14 +76,14 @@ def main():
                 case "k8s_control_plane_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.{str(control_plane+1)}"
+                            "internal_ip": f"192.168.100.{str(control_plane + 1)}"
                         }
                     }
                     control_plane += 1
                 case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.3{str(worker_node+101)}"
+                            "internal_ip": f"192.168.100.3{str(worker_node + 101)}"
                         }
                     }
                     worker_node += 1
