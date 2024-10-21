@@ -11,14 +11,14 @@ resource "sakuracloud_server" "k8s_control_plane" {
   }
   network_interface {
     upstream        = sakuracloud_switch.k8s_internal_switch.id
-    user_ip_address = "192.168.100.2${count.index}"
+    user_ip_address = "192.168.100.${count.index + 1}"
   }
   disk_edit_parameter {
     hostname        = "k8s-${terraform.workspace}-control-plane-${count.index + 1}"
     password        = var.cluster_pass
     disable_pw_auth = "true"
     ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
-    ip_address      = sakuracloud_internet.k8s_external_switch.ip_addresses[count.index + lookup(var.router, terraform.workspace, 0)]
+    ip_address      = sakuracloud_internet.k8s_external_switch.ip_addresses[count.index]
     gateway         = sakuracloud_internet.k8s_external_switch.gateway
     netmask         = lookup(var.external_subnet, terraform.workspace, 0)
   }
