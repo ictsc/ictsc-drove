@@ -36,9 +36,8 @@ extraObjects:
       type: ClusterIP
       selector:
         app.kubernetes.io/name: traefik
-        app.kubernetes.io/instance: traefik-default
       ports:
-        - port: 8080
+        - port: 80
           name: traefik
           targetPort: 9000
           protocol: TCP
