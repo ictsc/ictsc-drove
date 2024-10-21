@@ -15,7 +15,7 @@ configs:
           name: GitHub
           config:
             clientID: Iv1.eb9e9a2c66234f5e
-            clientSecret: $github-app:clientSecret
+            clientSecret: $github-app:client-secret
             orgs:
               - name: ictsc
                 teams:
