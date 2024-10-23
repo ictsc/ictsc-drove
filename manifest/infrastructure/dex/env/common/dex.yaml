@@ -1,7 +1,10 @@
 replicaCount: 2
 
 config:
-  issuer: http://dex.dex:5556
+  storage:
+    type: kubernetes
+    config:
+      inCluster: true
 
 envVars:
   - name: CLIENT_SECRET

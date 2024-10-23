@@ -1,4 +1,5 @@
 config:
+  issuer: http://dex.dex:5556
   connectors:
     - type: github
       id: github
