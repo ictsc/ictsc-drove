@@ -3,6 +3,6 @@ resources:
   - ./rook-ceph/application.yaml
   - ./traefik/application.yaml
   - ./cert-manager/application.yaml
-  - ./auth/application.yaml
+  - ./dex/application.yaml
 
   - ./hierarchy.yaml
