@@ -21,9 +21,9 @@ spec:
 {{- range $i, $domain := .Values.domains }}
             - --cookie-domain={{ . }}
 {{- end }}
-            - --default-provider=dex-client
+            - --default-provider=oidc
             - --providers.oidc.issuer-url={{ .Values.issuer }}
-            - --providers.oidc.client-id=forward-auth
+            - --providers.oidc.client-id=dex-client
           env:
             - name: PROVIDERS_OIDC_CLIENT_SECRET
               valueFrom:
