@@ -20,6 +20,7 @@ spec:
     {{- if .auth }}
       middlewares:
         - name: forward-auth
+          namespace: traefik
     {{- end }}
   {{- end }}
   tls:
