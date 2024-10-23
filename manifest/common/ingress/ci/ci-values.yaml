@@ -14,8 +14,8 @@ ingresses:
     domain: example4.ictsc.net
     routes:
       - service: example4
-        auth: admin
+        auth: true
       - match: HOST(`example5.ictsc.net`)
         service: example5
         port: 8080
-        auth: ictsc
+        auth: true

@@ -10,4 +10,4 @@ ingresses:
   #     - match:    // マッチ条件 (default: ドメインが設定したdomainに一致)
   #       service:  // (required) ルーティング先のサービス名
   #       port:     // ルーティング先のポート番号 (default: 80)
-  #       auth:     // 認証設定 [admin, ictsc, nil] (default: nil)
+  #       auth:     // 認証設定 [true, false] (default: false)
