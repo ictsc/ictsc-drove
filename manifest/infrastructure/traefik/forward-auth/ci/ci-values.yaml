@@ -1,0 +1,4 @@
+issuer: http://dex.dex:5556
+domains:
+  - drove-dev.ictsc.net
+  - drove.ictsc.net

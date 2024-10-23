@@ -1,0 +1,8 @@
+# Default values for ingress.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# (required) 認証サーバのURL
+issuer:
+# (required) クッキーを発行したいドメインを配列で指定
+domains:
