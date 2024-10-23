@@ -1,7 +1,7 @@
 {{- range $i, $resource := .Values.resources -}}
-{{- if ne $i 0 }}
+  {{- if ne $i 0 }}
 ---
-{{- end }}
+  {{- end }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
