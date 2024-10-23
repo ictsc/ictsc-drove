@@ -1,5 +1,5 @@
 config:
-  issuer: http://dex-admin.dex:5556
+  issuer: https://dex-admin.drove.ictsc.net
   connectors:
     - type: github
       id: github
