@@ -3,6 +3,8 @@ deployment:
   replicas: 2
 
 providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
   kubernetesGateway:
     enabled: false
 
