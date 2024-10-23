@@ -15,4 +15,4 @@ defaults:
   kind: Deployment
   minReplicas: 2
   maxReplicas: 100
-  targetCPUAverageValue: 500m
+  targetCPUAverageValue: 100m
