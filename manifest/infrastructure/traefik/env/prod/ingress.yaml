@@ -4,4 +4,4 @@ ingresses:
     routes:
       - service: traefik-api
         port: traefik
-        auth: ictsc
+        auth: true
