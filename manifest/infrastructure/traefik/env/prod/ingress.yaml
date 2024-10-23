@@ -1,5 +1,6 @@
-name: traefik-dashboard
-domain: traefik.drove.ictsc.net
-routes:
-  - service: traefik-api
-    port: traefik
+ingresses:
+  - name: traefik-dashboard
+    domain: traefik.drove.ictsc.net
+    routes:
+      - service: traefik-api
+        port: traefik

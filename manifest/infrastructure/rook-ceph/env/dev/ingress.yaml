@@ -1,5 +1,6 @@
-name: ceph-dashboard
-domain: ceph.drove-dev.ictsc.net
-routes:
-  - service: rook-ceph-mgr-dashboard
-    port: http-dashboard
+ingresses:
+  - name: ceph-dashboard
+    domain: ceph.drove-dev.ictsc.net
+    routes:
+      - service: rook-ceph-mgr-dashboard
+        port: http-dashboard
