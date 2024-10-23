@@ -4,3 +4,4 @@ ingresses:
     routes:
       - service: rook-ceph-mgr-dashboard
         port: http-dashboard
+        auth: ictsc
