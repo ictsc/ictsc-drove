@@ -2,13 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# (required) 作りたいIngressのサービス名
-name:
-# (required) 設定したいドメイン
-domain:
-
-routes:
-  # ルート設定を配列で指定
-  # - match:    // マッチ条件 (default: ドメインが設定したdomainに一致)
-  #   service:  // (required) ルーティング先のサービス名
-  #   port:     // ルーティング先のポート番号 (default: 80)
+ingresses:
+  # イングレス設定を配列で指定
+  # - name:         // (required) 作りたいIngressのサービス名
+  #   domain:       // (required) 設定したいドメイン
+  #   routes:       // ルート設定を配列で指定
+  #     - match:    // マッチ条件 (default: ドメインが設定したdomainに一致)
+  #       service:  // (required) ルーティング先のサービス名
+  #       port:     // ルーティング先のポート番号 (default: 80)
