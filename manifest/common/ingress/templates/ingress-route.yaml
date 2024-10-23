@@ -17,6 +17,16 @@ spec:
         - name: {{ required "A valid service is required." .service }}
           port: {{ coalesce .port 80 }}
           scheme: http
+      {{- if .auth }}
+      middlewares:
+      {{- end }}
+      {{- if eq .auth "admin" }}
+        - name: forward-auth-admin
+      {{- else if eq .auth "ictsc" }}
+        - name: forward-auth
+      {{- else if not .auth }}
+        {{ fail "auth should be admin, ictsc or nil" }}
+      {{- end }}
 {{- end }}
   tls:
     secretName: {{ .name }}-cert

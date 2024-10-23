@@ -10,7 +10,12 @@ ingresses:
       - match: HOST(`example3.ictsc.net`)
         service: example3
         port: 8080
-  - name: example2
-    domain: example2.ictsc.net
+  - name: example4
+    domain: example4.ictsc.net
     routes:
-      - service: example2
+      - service: example4
+        auth: admin
+      - match: HOST(`example5.ictsc.net`)
+        service: example5
+        port: 8080
+        auth: ictsc
