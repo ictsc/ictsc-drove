@@ -14,7 +14,7 @@ ansible-lint = "==24.9.2"
 passlib = "==1.7.4"
 
 [packages]
-minio = "==7.2.9"
+minio = "==7.2.10"
 ansible = "==10.5.0"
 
 [requires]
