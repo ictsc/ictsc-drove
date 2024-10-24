@@ -1,4 +1,5 @@
 toolbox:
+  enabled: true
   resources:
     limits:
       memory: "1Gi"
