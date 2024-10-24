@@ -1,3 +1,11 @@
+toolbox:
+  resources:
+    limits:
+      memory: "1Gi"
+    requests:
+      cpu: 0
+      memory: 0
+
 monitoring:
   enabled: true
   createPrometheusRules: true
