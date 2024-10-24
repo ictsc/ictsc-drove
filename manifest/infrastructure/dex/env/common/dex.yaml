@@ -5,6 +5,8 @@ config:
     type: kubernetes
     config:
       inCluster: true
+  oauth2:
+    skipApprovalScreen: true
 
 envVars:
   - name: CLIENT_SECRET
