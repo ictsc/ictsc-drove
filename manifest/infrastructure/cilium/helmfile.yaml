@@ -1,0 +1,24 @@
+bases:
+  - environments.yaml
+
+repositories:
+  - name: cilium
+    url: https://helm.cilium.io/
+
+releases:
+  - name: cilium
+    namespace: cilium
+    chart: cilium/cilium
+    version: 1.16.3
+    values:
+      - env/common/cilium.yaml
+    needs:
+      - cilium
+  - name: ingress
+    namespace: cilium
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
+  - name: local-charts
+    chart: ./local
