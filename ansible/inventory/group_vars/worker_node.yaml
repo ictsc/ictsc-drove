@@ -1,0 +1,8 @@
+# netplanロール用
+netplan_configuration:
+  network:
+    version: 2
+    ethernets:
+      eth0:
+        addresses:
+          - "{{ internal_ipv6 }}/{{ ipv6_subnet }}"

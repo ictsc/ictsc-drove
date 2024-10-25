@@ -12,6 +12,7 @@
   become: true
   roles:
     - wait_ssh
+    - mrlesmithjr.netplan
     - common
     - containerd
     - k8s_install
