@@ -1,7 +1,7 @@
 ingresses:
-  - name: ceph-dashboard
-    domain: ceph.drove-dev.ictsc.net
+  - name: hubble
+    domain: hubble.drove-dev.ictsc.net
     routes:
-      - service: rook-ceph-mgr-dashboard
-        port: http-dashboard
+      - service: hubble-ui
+        port: http
         auth: true
