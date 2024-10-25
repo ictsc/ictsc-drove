@@ -48,15 +48,15 @@
       changed_when: false
       failed_when: false
 
-- name: Setup L2 announcement
+- name: Setup IP pool
   block:
-    - name: Send announcement config
+    - name: Send IP pool config
       ansible.builtin.template:
-        src: announcement-config.yaml.j2
-        dest: /tmp/announcement-config.yaml
+        src: pool.yaml.j2
+        dest: /tmp/pool.yaml
         mode: "0644"
-    - name: Apply announcement config
-      ansible.builtin.command: kubectl apply -f /tmp/announcement-config.yaml
+    - name: Apply IP pool config
+      ansible.builtin.command: kubectl apply -f /tmp/pool.yaml
       register: ret
       until: ret.rc == 0
       retries: 12

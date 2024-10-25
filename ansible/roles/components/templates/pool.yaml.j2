@@ -1,0 +1,9 @@
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: default-pool
+  namespace: cilium
+spec:
+  blocks:
+    - start: {{ min_ip_address }}
+      stop: {{ max_ip_address }}
