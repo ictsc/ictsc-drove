@@ -1,0 +1,3 @@
+resources:
+  - name: cilium-operator
+  - name: hubble-ui
