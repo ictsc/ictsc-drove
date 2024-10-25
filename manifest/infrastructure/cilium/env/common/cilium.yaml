@@ -1,7 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/values.schema.json
 
-#--set kubeProxyReplacement=true
-
 k8sServiceHost: auto
 k8sClientRateLimit:
   qps: 40
@@ -35,3 +33,35 @@ hubble:
   ui:
     enabled: true
     replicas: 2
+
+ipv6:
+  enabled: true
+kubeProxyReplacement: true
+
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    trustCRDsExist: true
+dashboards:
+  enabled: true
+  annotations:
+    folder: Cilium
+
+envoy:
+  enabled: true
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+operator:
+  replicas: 2
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  dashboards:
+    enabled: true
+    annotations:
+      folder: Cilium
