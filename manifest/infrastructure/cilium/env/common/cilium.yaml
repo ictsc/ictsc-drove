@@ -1,4 +1,4 @@
-# yaml-language-server: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/values.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/values.schema.json
 
 #--set kubeProxyReplacement=true
 
