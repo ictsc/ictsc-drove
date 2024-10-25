@@ -17,8 +17,10 @@ spec:
         - name: {{ required "A valid service is required." .service }}
           port: {{ coalesce .port 80 }}
           scheme: http
-    {{- if .auth }}
       middlewares:
+        - name: compress
+          namespace: traefik
+    {{- if .auth }}
         - name: forward-auth
           namespace: traefik
     {{- end }}
