@@ -38,6 +38,7 @@ def get_workspace():
 
 def main():
     inventory = {
+        "all": {},
         "control_plane": {"hosts": []},
         "worker_node": {"hosts": []},
         "_meta": {"hostvars": {}},
@@ -76,18 +77,26 @@ def main():
                 case "k8s_control_plane_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.{str(control_plane + 1)}"
+                            "internal_ip": f"192.168.100.{str(control_plane + 1)}",
+                            "internal_ipv6": f"{tfstate["outputs"]["ipv6_prefix"]["value"]}"
+                            + f"1:{format(control_plane + 1, 'x')}",
                         }
                     }
                     control_plane += 1
                 case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.3{str(worker_node + 101)}"
+                            "internal_ip": f"192.168.100.3{str(worker_node + 101)}",
+                            "internal_ipv6": f"{tfstate["outputs"]["ipv6_prefix"]["value"]}"
+                            + f"1:{format(worker_node + 101, 'x')}",
                         }
                     }
                     worker_node += 1
 
+    inventory["all"]["vars"] = {
+        "ipv6_prefix": tfstate["outputs"]["ipv6_prefix"]["value"],
+        "ipv6_subnet": tfstate["outputs"]["ipv6_subnet"]["value"],
+    }
     inventory["control_plane"]["vars"] = {
         "VIP": tfstate["outputs"]["vip_address"]["value"]
     }
