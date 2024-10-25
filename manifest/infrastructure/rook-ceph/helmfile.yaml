@@ -21,7 +21,7 @@ releases:
     needs:
       - rook-ceph-operator
   - name: ingress
-    namespace: traefik
+    namespace: rook-ceph
     chart: ../../common/ingress
     version: 0.1.0
     values:

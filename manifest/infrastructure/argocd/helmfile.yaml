@@ -28,7 +28,7 @@ releases:
     values:
       - env/common/autoscaler.yaml
   - name: ingress
-    namespace: traefik
+    namespace: argocd
     chart: ../../common/ingress
     version: 0.1.0
     values:
