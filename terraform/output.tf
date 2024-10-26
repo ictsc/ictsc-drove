@@ -14,8 +14,8 @@ output "ipv6_prefix" {
   value = sakuracloud_internet.k8s_external_switch.ipv6_prefix
 }
 
-output "ipv6_subnet" {
-  value = 128 - sakuracloud_internet.k8s_external_switch.ipv6_prefix_len
+output "ipv6_prefix_len" {
+  value = sakuracloud_internet.k8s_external_switch.ipv6_prefix_len
 }
 
 output "k8s_control_plane_ip_address" {
