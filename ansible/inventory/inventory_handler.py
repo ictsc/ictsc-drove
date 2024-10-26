@@ -58,7 +58,6 @@ def main():
     # 例: 2001:db8:407:1013:: -> 2001:db8:407:1013
     ipv6_prefix = tfstate["outputs"]["ipv6_prefix"]["value"][:-2]
 
-
     for output_key in tfstate["outputs"]:
         match output_key:
             case "k8s_control_plane_ip_address":
@@ -98,7 +97,7 @@ def main():
                     worker_node += 1
 
     inventory["all"]["vars"] = {
-        "ipv6_prefix": tfstate["outputs"]["ipv6_prefix"]["value"],
+        "ipv6_prefix": ipv6_prefix,
         "ipv6_prefix_len": tfstate["outputs"]["ipv6_prefix_len"]["value"],
     }
     inventory["control_plane"]["vars"] = {
