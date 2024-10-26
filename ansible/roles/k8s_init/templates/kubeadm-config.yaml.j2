@@ -7,8 +7,8 @@ apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
-    node-cidr-mask-size-ipv6: "96"
+    node-cidr-mask-size-ipv6: "{{ ipv6_prefix_len + 16 }}"
 networking:
-  podSubnet: 10.0.0.0/8,{{ ipv6_prefix }}:1::/80
-  serviceSubnet: 10.96.0.0/12,{{ ipv6_prefix }}:2::/112
+  podSubnet: 10.0.0.0/8,{{ ipv6_prefix }}:2::/{{ ipv6_prefix_len + 8 }}
+  serviceSubnet: 10.96.0.0/12,{{ ipv6_prefix }}:3::/112
 controlPlaneEndpoint: {{ VIP }}:8443
