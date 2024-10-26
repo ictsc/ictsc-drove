@@ -37,7 +37,7 @@
       ansible.builtin.lineinfile:
         path: /etc/default/kubelet
         regexp: "^KUBELET_EXTRA_ARGS="
-        line: "KUBELET_EXTRA_ARGS=--node-ip={{ internal_ip }}"
+        line: "KUBELET_EXTRA_ARGS=--node-ip={{ internal_ip }},{{ internal_ipv6 }}"
         state: present
         create: true
         mode: "0644"

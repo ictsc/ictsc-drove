@@ -38,6 +38,7 @@ def get_workspace():
 
 def main():
     inventory = {
+        "all": {},
         "control_plane": {"hosts": []},
         "worker_node": {"hosts": []},
         "_meta": {"hostvars": {}},
@@ -52,6 +53,10 @@ def main():
     control_plane = 0
     worker_node = 0
     inventory_gp = {}
+
+    # 利便性のため、IPv6プレフィックスに付いている一番後ろの「::」を削除
+    # 例: 2001:db8:407:1013:: -> 2001:db8:407:1013
+    ipv6_prefix = tfstate["outputs"]["ipv6_prefix"]["value"][:-2]
 
     for output_key in tfstate["outputs"]:
         match output_key:
@@ -76,18 +81,25 @@ def main():
                 case "k8s_control_plane_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.{str(control_plane + 1)}"
+                            "ipv6": f"{ipv6_prefix}::{format(control_plane + 4, 'x')}",
+                            "internal_ip": f"192.168.100.{str(control_plane + 1)}",
+                            "internal_ipv6": f"{ipv6_prefix}:1::{format(control_plane + 1, 'x')}",
                         }
                     }
                     control_plane += 1
                 case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.3{str(worker_node + 101)}"
+                            "internal_ip": f"192.168.100.3{str(worker_node + 101)}",
+                            "internal_ipv6": f"{ipv6_prefix}:1::{format(worker_node + 101, 'x')}",
                         }
                     }
                     worker_node += 1
 
+    inventory["all"]["vars"] = {
+        "ipv6_prefix": ipv6_prefix,
+        "ipv6_prefix_len": tfstate["outputs"]["ipv6_prefix_len"]["value"],
+    }
     inventory["control_plane"]["vars"] = {
         "VIP": tfstate["outputs"]["vip_address"]["value"]
     }
