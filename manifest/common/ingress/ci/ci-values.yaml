@@ -1,0 +1,21 @@
+ingresses:
+  - name: example
+    domain: example.ictsc.net
+    routes:
+      - match: HOST(`example.ictsc.net`)
+        kind: TraefikService
+        service: api@internal
+      - match: HOST(`example2.ictsc.net`)
+        service: example2
+      - match: HOST(`example3.ictsc.net`)
+        service: example3
+        port: 8080
+  - name: example4
+    domain: example4.ictsc.net
+    routes:
+      - service: example4
+        auth: true
+      - match: HOST(`example5.ictsc.net`)
+        service: example5
+        port: 8080
+        auth: true

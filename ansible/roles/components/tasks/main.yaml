@@ -19,7 +19,13 @@
         packages:
           - helm
 
-- name: Setup cilium
+- name: Check if Cilium is installed
+  ansible.builtin.command: kubectl get -n cilium deploy cilium-operator
+  register: cilium_installed
+  changed_when: false
+  failed_when: false
+- name: Setup Cilium
+  when: cilium_installed.rc != 0
   block:
     - name: Add Cilium chart repo
       ansible.builtin.shell: |
@@ -28,8 +34,9 @@
       changed_when: false
     - name: Deploy Cilium
       ansible.builtin.shell: |
-        helm upgrade --install cilium cilium/cilium --namespace kube-system \
-          --set kubeProxyReplacement=true --set k8sServiceHost={{ VIP }} --set k8sServicePort=8443 --set bgpControlPlane.enabled=true
+        helm upgrade --install cilium cilium/cilium --namespace cilium --create-namespace \
+          --set kubeProxyReplacement=true --set k8sServiceHost=auto \
+          --set l2announcements.enabled=true --set k8sClientRateLimit.qps=40 --set k8sClientRateLimit.burst=50
       changed_when: false
     - name: Restart pods
       ansible.builtin.shell:
@@ -37,26 +44,32 @@
         cmd: |
           set -o pipefail
           kubectl get pods -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork \
-            --namespace kube-system --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
+            --namespace cilium --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
       changed_when: false
       failed_when: false
 
-- name: Setup BGP
+- name: Setup IP pool
   block:
-    - name: Send bgp-config
+    - name: Send IP pool config
       ansible.builtin.template:
-        src: bgp-config.yaml.j2
-        dest: /tmp/bgp-config.yaml
+        src: pool.yaml.j2
+        dest: /tmp/pool.yaml
         mode: "0644"
-    - name: Apply bgp-config
-      ansible.builtin.command: kubectl apply -f /tmp/bgp-config.yaml
+    - name: Apply IP pool config
+      ansible.builtin.command: kubectl apply -f /tmp/pool.yaml
       register: ret
       until: ret.rc == 0
       retries: 12
       delay: 5
       changed_when: false
 
+- name: Check if ArgoCD is installed
+  ansible.builtin.command: kubectl get -n argocd deploy argocd-server
+  register: argocd_installed
+  changed_when: false
+  failed_when: false
 - name: Setup ArgoCD
+  when: argocd_installed.rc != 0
   block:
     - name: Add ArgoCD chart repo
       ansible.builtin.shell: |
@@ -74,8 +87,9 @@
 
 - name: Create misc resources
   block:
-    - name: Apply Hierarchical Namespace Controller
+    - name: Apply necessary CRD
       ansible.builtin.shell: |
+        kubectl apply -f https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.77.2/stripped-down-crds.yaml
         kubectl apply -f https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/download/v1.1.0/default.yaml
       changed_when: false
     - name: Create infrastructure namespace
@@ -90,6 +104,7 @@
         kubectl get secret github-app -n infrastructure || \
         kubectl create secret generic github-app -n infrastructure \
           --from-literal=client-secret="{{ lookup('env', 'GITHUB_APP_CLIENT_SECRET') }}"
+        kubectl label secret github-app -n infrastructure "app.kubernetes.io/part-of=argocd"
       changed_when: false
 
 - name: Apply root application

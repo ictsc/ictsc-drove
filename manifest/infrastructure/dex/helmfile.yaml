@@ -1,0 +1,36 @@
+bases:
+  - environments.yaml
+
+repositories:
+  - name: dex
+    url: https://charts.dexidp.io/
+
+releases:
+  - name: dex
+    namespace: dex
+    chart: dex/dex
+    version: 0.19.1
+    values:
+      - env/common/dex.yaml
+      - env/{{ .Environment.Name }}/dex.yaml
+  - name: dex-admin
+    namespace: dex
+    chart: dex/dex
+    version: 0.19.1
+    values:
+      - env/common/dex.yaml
+      - env/{{ .Environment.Name }}/dex-admin.yaml
+  - name: autoscaler
+    namespace: dex
+    chart: ../../common/autoscaler
+    version: 0.1.0
+    values:
+      - env/common/autoscaler.yaml
+  - name: ingress
+    namespace: dex
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
+  - name: local-charts
+    chart: ./local

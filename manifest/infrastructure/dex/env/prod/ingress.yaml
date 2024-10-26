@@ -1,0 +1,11 @@
+ingresses:
+  - name: dex
+    domain: dex.drove.ictsc.net
+    routes:
+      - service: dex
+        port: http
+  - name: dex-admin
+    domain: dex-admin.drove.ictsc.net
+    routes:
+      - service: dex-admin
+        port: http

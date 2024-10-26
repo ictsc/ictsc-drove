@@ -9,12 +9,22 @@ releases:
   - name: rook-ceph-operator
     namespace: rook-ceph
     chart: rook-release/rook-ceph
-    version: v1.15.3
+    version: v1.15.4
+    values:
+      - env/common/operator.yaml
   - name: rook-ceph-cluster
     namespace: rook-ceph
     chart: rook-release/rook-ceph-cluster
-    version: v1.15.3
+    version: v1.15.4
+    values:
+      - env/common/cluster.yaml
     needs:
       - rook-ceph-operator
+  - name: ingress
+    namespace: rook-ceph
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local

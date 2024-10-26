@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: compress
+spec:
+  compress:
+    excludedContentTypes:
+      - text/uncompressed
+    defaultEncoding: br
+    # TODO: traefik 3.2.0が出たら有効にする
+    # encodings:
+    #   - br
+    #   - gzip

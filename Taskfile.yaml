@@ -216,7 +216,7 @@ tasks:
     cmds:
       - |
         for dir in $(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev); do
-          helm lint "$dir" --strict
+          helm lint "$dir" --strict --values "$dir"/ci/ci-values.yaml
         done
 
   lint-helmfile:
@@ -234,6 +234,6 @@ tasks:
       - |
         for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
           rm -rf "$dir"/generated
-          helmfile template -e dev --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/dev\"" }}
-          helmfile template -e prod --include-crds -f "$dir"/helmfile.yaml --output-dir generated --output-dir-template {{ "\"{{ .OutputDir }}/prod\"" }}
+          helmfile template -e dev --include-crds -f "$dir"/helmfile.yaml --output-dir generated/dev --output-dir-template {{ "\"{{ .OutputDir }}/{{ .Release.Name}}\"" }}
+          helmfile template -e prod --include-crds -f "$dir"/helmfile.yaml --output-dir generated/prod --output-dir-template {{ "\"{{ .OutputDir }}/{{ .Release.Name}}\"" }}
         done

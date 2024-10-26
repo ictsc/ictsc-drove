@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/traefik/traefik-helm-chart/refs/heads/master/traefik/values.schema.json
+deployment:
+  replicas: 2
+
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
+  kubernetesGateway:
+    enabled: false
+
+logs:
+  access:
+    enabled: true
+
+metrics:
+  addInternals: true
+  prometheus:
+    service:
+      enabled: true
+    disableAPICheck: true
+    serviceMonitor:
+      enabled: true
+
+additionalArguments:
+  - "--api.insecure=true"
+
+ports:
+  websecure:
+    http3:
+      enabled: true
+
+service:
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv6
+    - IPv4
+
+extraObjects:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: traefik-api
+    spec:
+      type: ClusterIP
+      selector:
+        app.kubernetes.io/name: traefik
+      ports:
+        - port: 80
+          name: traefik
+          targetPort: 9000
+          protocol: TCP

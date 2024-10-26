@@ -1,18 +1,18 @@
 {{- range $i, $resource := .Values.resources -}}
-{{- if ne $i 0 }}
+  {{- if ne $i 0 }}
 ---
-{{- end }}
+  {{- end }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .name }}-hpa
+  name: {{ required "A valid name is required." .name }}-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: {{ coalesce .kind $.Values.defaults.kind }}
-    name: {{ required "A valid name is required." .name }}
-  minReplicas: {{ coalesce .minReplicas $.Values.defaults.minReplicas | max 2 }}
-  maxReplicas: {{ coalesce .maxReplicas $.Values.defaults.maxReplicas | max 2 }}
+    name: {{ .name }}
+  minReplicas: {{ coalesce .minReplicas $.Values.defaults.minReplicas }}
+  maxReplicas: {{ coalesce .maxReplicas $.Values.defaults.maxReplicas }}
   metrics:
     - type: Resource
       resource:

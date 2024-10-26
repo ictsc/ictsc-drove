@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: forward-auth
+          image: thomseddon/traefik-forward-auth:latest
+          ports:
+            - containerPort: 4181
+          args:
+{{- range $i, $domain := .Values.domains }}
+            - --cookie-domain={{ . }}
+{{- end }}
+            - --default-provider=oidc
+            - --providers.oidc.issuer-url={{ required "A valid issuer is required." .Values.issuer }}
+            - --providers.oidc.client-id=dex-client
+          env:
+            - name: PROVIDERS_OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: client-secret
+                  name: github-app
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: secret
+                  name: {{ .Release.Name }}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi

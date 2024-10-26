@@ -1,0 +1,30 @@
+{{- range $i, $ingress := .Values.ingresses -}}
+  {{- if ne $i 0 }}
+---
+  {{- end }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ required "A valid name is required." .name }}-route
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  {{- range $i, $route := .routes }}
+    - match: {{ coalesce .match (printf "Host(`%s`)" $ingress.domain) }}
+      kind: Rule
+      services:
+        - name: {{ required "A valid service is required." .service }}
+          port: {{ coalesce .port 80 }}
+          scheme: http
+      middlewares:
+        - name: compress
+          namespace: traefik
+    {{- if .auth }}
+        - name: forward-auth
+          namespace: traefik
+    {{- end }}
+  {{- end }}
+  tls:
+    secretName: {{ .name }}-cert
+{{- end }}

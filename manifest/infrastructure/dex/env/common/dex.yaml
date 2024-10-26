@@ -1,0 +1,19 @@
+replicaCount: 2
+
+config:
+  storage:
+    type: kubernetes
+    config:
+      inCluster: true
+  oauth2:
+    skipApprovalScreen: true
+
+envVars:
+  - name: CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: github-app
+        key: client-secret
+
+serviceMonitor:
+  enabled: true

@@ -9,7 +9,7 @@ releases:
   - name: argocd
     namespace: argocd
     chart: argo-cd/argo-cd
-    version: 7.6.8
+    version: 7.6.12
     values:
       - env/common/argocd-application-set.yaml
       - env/common/argocd-controller.yaml
@@ -27,5 +27,11 @@ releases:
     version: 0.1.0
     values:
       - env/common/autoscaler.yaml
+  - name: ingress
+    namespace: argocd
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local

@@ -1,0 +1,20 @@
+crds:
+  enabled: true
+
+replicaCount: 3
+podDisruptionBudget:
+  enabled: true
+
+prometheus:
+  servicemonitor:
+    enabled: true
+
+webhook:
+  replicaCount: 3
+  podDisruptionBudget:
+    enabled: true
+
+cainjector:
+  replicaCount: 3
+  podDisruptionBudget:
+    enabled: true

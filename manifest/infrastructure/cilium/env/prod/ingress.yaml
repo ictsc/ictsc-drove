@@ -1,0 +1,7 @@
+ingresses:
+  - name: hubble
+    domain: hubble.drove.ictsc.net
+    routes:
+      - service: hubble-ui
+        port: http
+        auth: true

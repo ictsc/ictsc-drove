@@ -5,6 +5,8 @@ global:
     format: json
 
 configs:
+  params:
+    server.insecure: true
   cm:
     admin.enabled: false
     dex.config: |
@@ -14,12 +16,13 @@ configs:
           name: GitHub
           config:
             clientID: Iv1.eb9e9a2c66234f5e
-            clientSecret: $github-app:clientSecret
+            clientSecret: $github-app:client-secret
             orgs:
               - name: ictsc
                 teams:
-                  - ictsc2023
+                  - Admins
+                  - ictsc2024
   rbac:
     policy.csv: |
       g, ictsc:Admins, role:admin
-      g, ictsc:ictsc2023, role:readonly
+      g, ictsc:ictsc2024, role:readonly

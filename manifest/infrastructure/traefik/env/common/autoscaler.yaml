@@ -1,0 +1,3 @@
+resources:
+  - name: traefik
+  - name: forward-auth

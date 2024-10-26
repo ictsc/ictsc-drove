@@ -1,0 +1,7 @@
+ingresses:
+  - name: traefik-dashboard
+    domain: traefik.drove-dev.ictsc.net
+    routes:
+      - service: traefik-api
+        port: traefik
+        auth: true
