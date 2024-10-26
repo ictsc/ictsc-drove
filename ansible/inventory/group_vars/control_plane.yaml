@@ -5,7 +5,7 @@ netplan_configuration:
     ethernets:
       eth0:
         addresses:
-          - "{{ ipv6 }}/{{ ipv6_prefix_len + 8 }}"
+          - "{{ ipv6 }}/{{ ipv6_prefix_len + 16 }}"
         nameservers:
           addresses:
             - 2001:e42::1
@@ -13,7 +13,7 @@ netplan_configuration:
       eth1:
         addresses:
           - "{{ internal_ip }}/24"
-          - "{{ internal_ipv6 }}/{{ ipv6_prefix_len + 8 }}"
+          - "{{ internal_ipv6 }}/{{ ipv6_prefix_len + 16 }}"
 
 # k8s_joinロール用
 k8s_join_flag: --control-plane --certificate-key {{ hostvars[groups['control_plane'][0]]['certs'] }}

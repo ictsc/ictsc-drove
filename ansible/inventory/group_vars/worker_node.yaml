@@ -5,4 +5,4 @@ netplan_configuration:
     ethernets:
       eth0:
         addresses:
-          - "{{ internal_ipv6 }}/{{ ipv6_prefix_len + 8 }}"
+          - "{{ internal_ipv6 }}/{{ ipv6_prefix_len + 16 }}"
