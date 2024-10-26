@@ -29,6 +29,12 @@ ports:
     http3:
       enabled: true
 
+service:
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv6
+    - IPv4
+
 extraObjects:
   - apiVersion: v1
     kind: Service
