@@ -35,7 +35,7 @@
     - name: Deploy Cilium
       ansible.builtin.shell: |
         helm upgrade --install cilium cilium/cilium --namespace cilium --create-namespace \
-          --set kubeProxyReplacement=true --set k8sServiceHost=auto \
+          --set kubeProxyReplacement=true --set k8sServiceHost=auto --set ipv6.enabled=true \
           --set l2announcements.enabled=true --set k8sClientRateLimit.qps=40 --set k8sClientRateLimit.burst=50
       changed_when: false
     - name: Restart pods
