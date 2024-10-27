@@ -30,7 +30,7 @@ extraObjects:
         #!/bin/bash
 
         if [[ "$1" == "template" ]]; then
-          /usr/local/sbin/helm "$@" --dry-run=server
+          /usr/local/bin/helm "$@" --dry-run=server
         else
-          /usr/local/sbin/helm "$@"
+          /usr/local/bin/helm "$@"
         fi
