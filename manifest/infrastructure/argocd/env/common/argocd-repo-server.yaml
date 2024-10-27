@@ -10,7 +10,7 @@ repoServer:
     rules:
       - apiGroups: [""]
         resources:
-          - configMap
+          - configmaps
           - secrets
         verbs:
           - get
