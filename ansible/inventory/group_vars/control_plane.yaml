@@ -10,6 +10,9 @@ netplan_configuration:
           addresses:
             - 2001:e42::1
             - 2001:e42::2
+        routes:
+          - to: default
+            via: fe80::1
       eth1:
         addresses:
           - "{{ internal_ip }}/24"
