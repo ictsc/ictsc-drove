@@ -105,6 +105,10 @@
         kubectl create secret generic github-app -n infrastructure \
           --from-literal=client-secret="{{ lookup('env', 'GITHUB_APP_CLIENT_SECRET') }}"
         kubectl label secret github-app -n infrastructure "app.kubernetes.io/part-of=argocd"
+      register: ret
+      until: ret.rc == 0
+      retries: 12
+      delay: 5
       changed_when: false
 
 - name: Apply root application
