@@ -4,8 +4,7 @@ repoServer:
     enabled: true
     serviceMonitor:
       enabled: true
-  # Ciliumがhelmチャートのビルド時「kube-public」namespace内の
-  # 「cluster-info」Configmapを読まなければいけないので、それに対しての措置
+
   clusterRoleRules:
     enabled: true
     rules:
@@ -14,3 +13,24 @@ repoServer:
           - configMap
         verbs:
           - get
+
+  volumes:
+    - name: helm-replace
+      configMap:
+        name: helm-replace
+        defaultMode: 0777
+
+extraObjects:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: helm-replace
+    data:
+      helm: |-
+        #!/bin/bash
+
+        if [[ "$1" == "template" ]]; then
+          /usr/local/sbin/helm "$@" --dry-run=server
+        else
+          /usr/local/sbin/helm "$@"
+        fi

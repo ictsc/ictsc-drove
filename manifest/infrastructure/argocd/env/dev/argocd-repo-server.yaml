@@ -12,6 +12,9 @@ repoServer:
           name: var-files
         - mountPath: /home/argocd/cmp-server/plugins
           name: plugins
+        - mountPath: /usr/local/sbin/helm
+          name: helm-replace
+          subPath: helm
       env:
         - name: ENV_NAME
           value: dev

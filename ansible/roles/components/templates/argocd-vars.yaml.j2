@@ -14,6 +14,41 @@ repoServer:
           name: var-files
         - mountPath: /home/argocd/cmp-server/plugins
           name: plugins
+        - mountPath: /usr/local/sbin/helm
+          name: helm-replace
+          subPath: helm
       env:
         - name: ENV_NAME
           value: {{ workspace }}
+
+  clusterRoleRules:
+    enabled: true
+    rules:
+      - apiGroups: [""]
+        resources:
+          - configMap
+        verbs:
+          - get
+
+  volumes:
+    - name: helm-replace
+      configMap:
+        name: helm-replace
+        defaultMode: 0777
+
+{% raw %}
+extraObjects:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: helm-replace
+    data:
+      helm: |-
+        #!/bin/bash
+
+        if [[ "$1" == "template" ]]; then
+          /usr/local/sbin/helm "$@" --dry-run=server
+        else
+          /usr/local/sbin/helm "$@"
+        fi
+{% endraw %}
