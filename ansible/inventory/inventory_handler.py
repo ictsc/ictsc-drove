@@ -90,7 +90,7 @@ def main():
                 case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.3{str(worker_node + 101)}",
+                            "internal_ip": f"192.168.100.{str(worker_node + 101)}",
                             "internal_ipv6": f"{ipv6_prefix}:1::{format(worker_node + 101, 'x')}",
                         }
                     }
