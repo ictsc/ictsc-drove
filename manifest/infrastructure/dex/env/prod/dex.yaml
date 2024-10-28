@@ -22,3 +22,4 @@ config:
         - http://localhost:18000
         - https://traefik.drove.ictsc.net/_oauth
         - https://ceph.drove.ictsc.net/_oauth
+        - https://hubble.drove.ictsc.net/_oauth
