@@ -37,7 +37,6 @@ repoServer:
         name: helm-replace
         defaultMode: 0777
 
-{% raw %}
 extraObjects:
   - apiVersion: v1
     kind: ConfigMap
@@ -52,4 +51,3 @@ extraObjects:
         else
           /usr/local/bin/helm "$@"
         fi
-{% endraw %}
