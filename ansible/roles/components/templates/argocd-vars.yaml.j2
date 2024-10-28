@@ -1,5 +1,10 @@
 fullnameOverride: argocd
 
+redis:
+  enabled: false
+redis-ha:
+  enabled: true
+
 repoServer:
   extraContainers:
     - name: helmfile-plugin
