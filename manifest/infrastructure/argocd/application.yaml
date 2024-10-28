@@ -15,6 +15,37 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: argocd-applicationset-controller
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: Deployment
+      name: argocd-notification-controller
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: Deployment
+      name: argocd-redis-ha-proxy
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: StatefulSet
+      name: argocd-redis-ha-server
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: Deployment
+      name: argocd-repo-server
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: Deployment
+      name: argocd-server
+      jsonPointers:
+        - /spec/replicas
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

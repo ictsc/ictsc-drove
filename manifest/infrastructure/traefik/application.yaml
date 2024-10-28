@@ -15,6 +15,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
