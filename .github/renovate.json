@@ -3,6 +3,7 @@
   "extends": ["config:recommended"],
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
+  "labels": ["dependencies"],
   "packageRules": [
     {
       "description": "Upgrade go indirect dependencies",
