@@ -8,9 +8,7 @@ redis-ha:
 repoServer:
   extraContainers:
     - name: helmfile-plugin
-      # renovate:image
-      image: "lucj/argocd-plugin-helmfile:v0.0.13"
-      command: ["/var/run/argocd/argocd-cmp-server"]
+      image: ghcr.io/logica0419/argocd-helmfile-plugin:v0.169.0
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
@@ -19,10 +17,9 @@ repoServer:
           name: var-files
         - mountPath: /home/argocd/cmp-server/plugins
           name: plugins
-        - mountPath: /usr/local/sbin/helm
-          name: helm-replace
-          subPath: helm
       env:
+        - name: ENABLE_LOOKUP
+          value: "true"
         - name: ENV_NAME
           value: {{ workspace }}
 
@@ -35,24 +32,3 @@ repoServer:
           - secrets
         verbs:
           - get
-
-  volumes:
-    - name: helm-replace
-      configMap:
-        name: helm-replace
-        defaultMode: 0777
-
-extraObjects:
-  - apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: helm-replace
-    data:
-      helm: |-
-        #!/bin/bash
-
-        if [[ "$1" == "template" ]]; then
-          /usr/local/bin/helm "$@" --dry-run=server
-        else
-          /usr/local/bin/helm "$@"
-        fi
