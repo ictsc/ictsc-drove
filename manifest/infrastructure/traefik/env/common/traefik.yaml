@@ -47,5 +47,5 @@ extraObjects:
       ports:
         - port: 80
           name: traefik
-          targetPort: 9000
+          targetPort: traefik
           protocol: TCP
