@@ -31,11 +31,11 @@ resource "sakuracloud_ssh_key_gen" "gen_key" {
   name = "k8s-pub-key"
 
   provisioner "local-exec" {
-    command = "echo \"${self.private_key}\" > ../id_rsa; chmod 0600 ../id_rsa"
+    command = "echo \"${self.private_key}\" > ../id_rsa_${terraform.workspace}; chmod 0600 ../id_rsa_${terraform.workspace}"
   }
 
   provisioner "local-exec" {
     when    = destroy
-    command = "rm -f ../id_rsa"
+    command = "rm -f ../id_rsa_${terraform.workspace}"
   }
 }
