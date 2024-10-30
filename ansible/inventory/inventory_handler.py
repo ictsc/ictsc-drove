@@ -97,6 +97,7 @@ def main():
                     worker_node += 1
 
     inventory["all"]["vars"] = {
+        "ansible_ssh_private_key_file": f"../id_rsa_{workspace}",
         "ipv6_prefix": ipv6_prefix,
         "ipv6_prefix_len": tfstate["outputs"]["ipv6_prefix_len"]["value"],
     }
@@ -105,9 +106,8 @@ def main():
     }
     inventory["worker_node"]["vars"] = {
         "ansible_ssh_common_args": (
-            "-o ProxyCommand='ssh -o ControlMaster=auto -o ControlPersist=60s "
-            "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
-            f"-i ../id_rsa -W %h:%p ubuntu@{inventory['control_plane']['hosts'][0]}'"
+            "-o ProxyCommand='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
+            f"-i ../id_rsa_{workspace} -W %h:%p ubuntu@{inventory['control_plane']['hosts'][0]}'"
         )
     }
     inventory["delegate_plane"] = {
