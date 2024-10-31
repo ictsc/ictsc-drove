@@ -90,13 +90,14 @@ def main():
                 case "k8s_worker_node_ip_address":
                     inventory["_meta"]["hostvars"] = inventory["_meta"]["hostvars"] | {
                         ip_address: {
-                            "internal_ip": f"192.168.100.3{str(worker_node + 101)}",
+                            "internal_ip": f"192.168.100.{str(worker_node + 101)}",
                             "internal_ipv6": f"{ipv6_prefix}:1::{format(worker_node + 101, 'x')}",
                         }
                     }
                     worker_node += 1
 
     inventory["all"]["vars"] = {
+        "ansible_ssh_private_key_file": f"../id_rsa_{workspace}",
         "ipv6_prefix": ipv6_prefix,
         "ipv6_prefix_len": tfstate["outputs"]["ipv6_prefix_len"]["value"],
     }
@@ -105,9 +106,8 @@ def main():
     }
     inventory["worker_node"]["vars"] = {
         "ansible_ssh_common_args": (
-            "-o ProxyCommand='ssh -o ControlMaster=auto -o ControlPersist=60s "
-            "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
-            f"-i ../id_rsa -W %h:%p ubuntu@{inventory['control_plane']['hosts'][0]}'"
+            "-o ProxyCommand='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
+            f"-i ../id_rsa_{workspace} -W %h:%p ubuntu@{inventory['control_plane']['hosts'][0]}'"
         )
     }
     inventory["delegate_plane"] = {

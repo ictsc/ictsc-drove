@@ -4,13 +4,13 @@ repoServer:
     enabled: true
     serviceMonitor:
       enabled: true
-  # Ciliumがhelmチャートのビルド時「kube-public」namespace内の
-  # 「cluster-info」Configmapを読まなければいけないので、それに対しての措置
+
   clusterRoleRules:
     enabled: true
     rules:
       - apiGroups: [""]
         resources:
-          - configMap
+          - configmaps
+          - secrets
         verbs:
           - get

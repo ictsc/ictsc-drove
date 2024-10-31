@@ -7,7 +7,6 @@ spec:
     excludedContentTypes:
       - text/uncompressed
     defaultEncoding: br
-    # TODO: traefik 3.2.0が出たら有効にする
-    # encodings:
-    #   - br
-    #   - gzip
+    encodings:
+      - br
+      - gzip

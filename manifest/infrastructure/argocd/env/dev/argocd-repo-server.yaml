@@ -1,9 +1,7 @@
 repoServer:
   extraContainers:
     - name: helmfile-plugin
-      # renovate:image
-      image: "lucj/argocd-plugin-helmfile:v0.0.13"
-      command: ["/var/run/argocd/argocd-cmp-server"]
+      image: ghcr.io/logica0419/argocd-helmfile-plugin:v0.169.0
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
@@ -13,5 +11,7 @@ repoServer:
         - mountPath: /home/argocd/cmp-server/plugins
           name: plugins
       env:
+        - name: ENABLE_LOOKUP
+          value: "true"
         - name: ENV_NAME
           value: dev

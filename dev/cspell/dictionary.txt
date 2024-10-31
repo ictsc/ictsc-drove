@@ -39,7 +39,7 @@ kubelet
 lineinfile
 loadbalancer
 logcollector
-lucj
+logica
 minio
 mrlesmithjr
 netfilter

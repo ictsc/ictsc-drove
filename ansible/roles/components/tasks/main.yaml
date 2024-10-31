@@ -35,7 +35,7 @@
     - name: Deploy Cilium
       ansible.builtin.shell: |
         helm upgrade --install cilium cilium/cilium --namespace cilium --create-namespace \
-          --set kubeProxyReplacement=true --set k8sServiceHost=auto \
+          --set kubeProxyReplacement=true --set k8sServiceHost=auto --set ipv6.enabled=true \
           --set l2announcements.enabled=true --set k8sClientRateLimit.qps=40 --set k8sClientRateLimit.burst=50
       changed_when: false
     - name: Restart pods
@@ -89,7 +89,7 @@
   block:
     - name: Apply necessary CRD
       ansible.builtin.shell: |
-        kubectl apply -f https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.77.2/stripped-down-crds.yaml
+        kubectl apply -f https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.78.0/stripped-down-crds.yaml
         kubectl apply -f https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/download/v1.1.0/default.yaml
       changed_when: false
     - name: Create infrastructure namespace
@@ -105,6 +105,10 @@
         kubectl create secret generic github-app -n infrastructure \
           --from-literal=client-secret="{{ lookup('env', 'GITHUB_APP_CLIENT_SECRET') }}"
         kubectl label secret github-app -n infrastructure "app.kubernetes.io/part-of=argocd"
+      register: ret
+      until: ret.rc == 0
+      retries: 12
+      delay: 5
       changed_when: false
 
 - name: Apply root application

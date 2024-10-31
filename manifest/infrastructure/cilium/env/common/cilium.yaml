@@ -32,7 +32,6 @@ hubble:
         enabled: true
   ui:
     enabled: true
-    replicas: 2
 
 ipv6:
   enabled: true

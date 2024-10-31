@@ -3,6 +3,7 @@
   "extends": ["config:recommended"],
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
+  "labels": ["dependencies"],
   "packageRules": [
     {
       "description": "Upgrade go indirect dependencies",
@@ -53,7 +54,7 @@
     },
     {
       "description": "ghcr image dependencies",
-      "fileMatch": [".+\\.ya?ml$"],
+      "fileMatch": [".+\\.ya?ml$", ".+\\.ya?ml.j2$"],
       "matchStrings": [
         "ghcr\\.io/(?<depName>[^\\s:]+):(?<currentValue>[^\\s]+)"
       ],
@@ -63,7 +64,7 @@
     },
     {
       "description": "Docker image dependencies",
-      "fileMatch": [".+\\.ya?ml$", ".+\\.ya?ml.j2$"],
+      "fileMatch": [".+\\.ya?ml$"],
       "matchStrings": [
         "# renovate:image\n.*?\"(?<depName>[^\\s:]+):(?<currentValue>.+)\"\n"
       ],

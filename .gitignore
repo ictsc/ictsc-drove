@@ -8,5 +8,5 @@
 
 .envrc
 
-id_rsa
+id_rsa_*
 dev/keys
