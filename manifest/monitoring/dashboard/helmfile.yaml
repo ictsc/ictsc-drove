@@ -2,12 +2,12 @@ bases:
   - environments.yaml
 
 repositories:
-  - name: kubernetes-dashboard
+  - name: dashboard
     url: https://kubernetes.github.io/dashboard/
 
 releases:
   - name: kubernetes-dashboard
-    namespace: kubernetes-dashboard
+    namespace: dashboard
     chart: kubernetes-dashboard/kubernetes-dashboard
     version: 7.8.0
   - name: local-charts
