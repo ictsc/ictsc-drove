@@ -9,6 +9,7 @@ configs:
     server.insecure: true
   cm:
     admin.enabled: false
+    controller.diff.server.side: true
     dex.config: |
       connectors:
         - type: github
