@@ -25,3 +25,11 @@ output "k8s_control_plane_ip_address" {
 output "k8s_worker_node_ip_address" {
   value = sakuracloud_server.k8s_worker_node[*].ip_address
 }
+
+output "k8s_dns_zone" {
+  value = sakuracloud_dns.k8s_dns.zone
+}
+
+output "k8s_dns_nameservers" {
+  value = sakuracloud_dns.k8s_dns.dns_servers
+}
