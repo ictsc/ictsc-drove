@@ -9,7 +9,7 @@ releases:
   - name: rook-ceph-operator
     namespace: rook-ceph
     chart: rook-release/rook-ceph
-    version: v1.15.4
+    version: v1.15.5
     values:
       - env/common/operator.yaml
   - name: rook-ceph-cluster
