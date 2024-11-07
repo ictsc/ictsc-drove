@@ -27,9 +27,10 @@ resource "sakuracloud_dns_record" "root_record_ipv6" {
 }
 
 resource "sakuracloud_dns_record" "wildcard_record" {
-  dns_id = sakuracloud_dns.k8s_dns.id
-  ttl    = 300
-  name   = "*"
-  type   = "CNAME"
-  value  = "${sakuracloud_dns.k8s_dns.zone}."
+  depends_on = [sakuracloud_dns_record.root_record_ipv4]
+  dns_id     = sakuracloud_dns.k8s_dns.id
+  ttl        = 300
+  name       = "*"
+  type       = "CNAME"
+  value      = "${sakuracloud_dns.k8s_dns.zone}."
 }
