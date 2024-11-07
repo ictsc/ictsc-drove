@@ -31,5 +31,5 @@ resource "sakuracloud_dns_record" "wildcard_record" {
   ttl    = 300
   name   = "*"
   type   = "CNAME"
-  value  = sakuracloud_dns.k8s_dns.zone
+  value  = "${sakuracloud_dns.k8s_dns.zone}."
 }
