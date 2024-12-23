@@ -10,5 +10,7 @@ releases:
     namespace: dashboard
     chart: kubernetes-dashboard/kubernetes-dashboard
     version: 7.8.0
+    values:
+      - env/common/values.yaml
   - name: local-charts
     chart: ./local

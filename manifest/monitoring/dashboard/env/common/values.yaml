@@ -1,0 +1,11 @@
+app:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    tls:
+      enabled: false
+
+kong:
+  proxy:
+    http:
+      enabled: true
