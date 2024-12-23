@@ -6,15 +6,15 @@ verify_ssl = true
 [dev-packages]
 pip = "==24.3.1"
 flake8 = "==7.1.1"
-mypy = "==1.13.0"
+mypy = "==1.14.0"
 autoflake = "==2.3.1"
 black = "==24.10.0"
 isort = "==5.13.2"
-ansible-lint = "==24.12.1"
+ansible-lint = "==24.12.2"
 passlib = "==1.7.4"
 
 [packages]
-minio = "==7.2.12"
+minio = "==7.2.13"
 ansible = "==11.1.0"
 
 [requires]
