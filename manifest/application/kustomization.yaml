@@ -1,0 +1,3 @@
+resources:
+  - ./hierarchy.yaml
+  - ./scoreserver/application.yaml

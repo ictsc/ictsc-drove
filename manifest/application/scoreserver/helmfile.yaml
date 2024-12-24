@@ -1,0 +1,7 @@
+environments:
+  dev:
+  prod:
+
+releases:
+  - name: local-charts
+    chart: ./local

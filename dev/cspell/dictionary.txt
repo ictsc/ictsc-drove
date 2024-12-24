@@ -64,6 +64,7 @@ resizer
 sacloud
 SAKURACLOUD
 sakurastorage
+scoreserver
 servicemonitor
 snapshotter
 stefanzweifel
