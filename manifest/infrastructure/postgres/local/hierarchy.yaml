@@ -2,6 +2,6 @@ apiVersion: hnc.x-k8s.io/v1alpha2
 kind: HierarchyConfiguration
 metadata:
   name: hierarchy
-  namespace: rook-ceph
+  namespace: postgres
 spec:
   parent: infrastructure
