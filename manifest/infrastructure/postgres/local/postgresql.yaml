@@ -15,11 +15,11 @@ spec:
     regalia: zalando
   enableLogicalBackup: true
   logicalBackupRetention: 1 months
-  logicalBackupSchedule: 30 00 * * * *
+  logicalBackupSchedule: 30 00 * * *
   enableConnectionPooler: true
   connectionPooler:
     numberOfInstances: 2
   resources:
     requests:
-      cpu: 0
-      memory: 0
+      cpu: "0"
+      memory: "0"
