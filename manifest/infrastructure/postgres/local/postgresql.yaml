@@ -4,6 +4,8 @@ metadata:
   name: ictsc-cluster
 spec:
   teamId: ictsc
+  postgresql:
+    version: "17"
   volume:
     size: 1Gi
     storageClass: ceph-block
