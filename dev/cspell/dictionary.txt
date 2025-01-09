@@ -58,6 +58,7 @@ osixia
 pipefail
 pipenv
 Pipfile
+Pooler
 posix
 rbdplugin
 resizer

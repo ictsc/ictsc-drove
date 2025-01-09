@@ -10,4 +10,4 @@ envs:
   resourcesVisible: "False"
   targetNamespace: postgres
   teams:
-    - "acid"
+    - ictsc
