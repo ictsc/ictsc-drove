@@ -78,3 +78,4 @@ traefik
 virtualenvs
 vyos
 websecure
+zalan
