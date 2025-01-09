@@ -11,10 +11,10 @@ spec:
     storageClass: ceph-block
   numberOfInstances: 3
   users:
-    zalando:
+    ictsc:
       - superuser
   databases:
-    regalia: zalando
+    regalia: ictsc
   enableLogicalBackup: true
   logicalBackupRetention: 1 months
   logicalBackupSchedule: 30 00 * * *
