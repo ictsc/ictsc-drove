@@ -1,0 +1,32 @@
+bases:
+  - environments.yaml
+
+repositories:
+  - name: postgres-operator
+    url: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+  - name: postgres-operator-ui
+    url: https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
+
+releases:
+  - name: postgres-operator
+    namespace: postgres
+    chart: postgres-operator/postgres-operator
+    version: v1.14.0
+    values:
+      - env/common/operator.yaml
+  - name: postgres-operator-ui
+    namespace: postgres
+    chart: postgres-operator-ui/postgres-operator-ui
+    version: v1.14.0
+    values:
+      - env/common/ui.yaml
+    needs:
+      - postgres-operator
+  - name: ingress
+    namespace: postgres
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
+  - name: local-charts
+    chart: ./local

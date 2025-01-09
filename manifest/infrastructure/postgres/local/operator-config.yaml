@@ -1,0 +1,16 @@
+apiVersion: "acid.zalan.do/v1"
+kind: OperatorConfiguration
+metadata:
+  name: postgresql-operator-default-configuration
+configuration:
+  users:
+    replication_username: standby
+    super_username: postgres
+  kubernetes:
+    cluster_domain: cluster.local
+    cluster_labels:
+      application: spilo
+    cluster_name_label: ictsc-cluster
+  postgres_pod_resources:
+    default_cpu_request: 0
+    default_memory_request: 0
