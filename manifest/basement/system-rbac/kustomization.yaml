@@ -1,0 +1,2 @@
+resources:
+  - service-account-issuer-discovery-unauthenticated.yaml
