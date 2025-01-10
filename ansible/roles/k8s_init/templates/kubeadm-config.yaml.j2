@@ -1,13 +1,14 @@
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 skipPhases:
   - addon/kube-proxy
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 controllerManager:
   extraArgs:
-    node-cidr-mask-size-ipv6: "112"
+    - name: node-cidr-mask-size-ipv6
+      value: "112"
 networking:
   podSubnet: 10.0.0.0/8,fd00::/104
   serviceSubnet: 10.96.0.0/12,fd03::/112
