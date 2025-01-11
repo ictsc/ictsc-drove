@@ -5,6 +5,12 @@ skipPhases:
 ---
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
+apiServer:
+  certSANs:
+    - k8s.{{ DNS_ZONE }}
+  extraArgs:
+    - name: service-account-jwks-uri
+      value: https://k8s.{{ DNS_ZONE }}:8443/openid/v1/jwks
 controllerManager:
   extraArgs:
     - name: node-cidr-mask-size-ipv6
