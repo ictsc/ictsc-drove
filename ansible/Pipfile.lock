@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b78ed8c5747626b6d9899df792896b366b23305ca1cf032f5ec6bf5a7168bc82"
+            "sha256": "0127968ce9c6efba43f51cc95b556cab46ea9b498cdeaf9395b98004e05bbcc3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -259,12 +259,12 @@
         },
         "minio": {
             "hashes": [
-                "sha256:868dfe907e1702ce4bec86df1f3ced577a73ca85f344ef898d94fe2b5237f8c1",
-                "sha256:f5c24bf236fefd2edc567cd4455dc49a11ad8ff7ac984bb031b849d82f01222a"
+                "sha256:5247df5d4dca7bfa4c9b20093acd5ad43e82d8710ceb059d79c6eea970f49f79",
+                "sha256:c06ef7a43e5d67107067f77b6c07ebdd68733e5aa7eed03076472410ca19d876"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.9'",
-            "version": "==7.2.14"
+            "version": "==7.2.15"
         },
         "packaging": {
             "hashes": [
@@ -909,11 +909,11 @@
         },
         "referencing": {
             "hashes": [
-                "sha256:25b42124a6c8b632a425174f24087783efb348a6f1e0008e63cd4466fedf703c",
-                "sha256:eda6d3234d62814d1c64e305c1331c9a3a6132da475ab6382eaa997b21ee75de"
+                "sha256:363d9c65f080d0d70bc41c721dce3c7f3e77fc09f269cd5c8813da18069a6794",
+                "sha256:ca2e6492769e3602957e9b831b94211599d2aade9477f5d44110d2530cf9aade"
             ],
-            "markers": "python_version >= '3.8'",
-            "version": "==0.35.1"
+            "markers": "python_version >= '3.9'",
+            "version": "==0.36.1"
         },
         "resolvelib": {
             "hashes": [
@@ -1033,11 +1033,11 @@
         },
         "ruamel.yaml": {
             "hashes": [
-                "sha256:59d0f8b10c658bd55ecd107e334d4117d766a2b9cc8f5176afcdadcff6f84a5e",
-                "sha256:c17d2a7ccf7fd2dd4b6d699111c37e94f12277a1db71e847ad7f3d19b8e3e9f4"
+                "sha256:20c86ab29ac2153f80a428e1254a8adf686d3383df04490514ca3b79a362db58",
+                "sha256:30f22513ab2301b3d2b577adc121c6471f28734d3d9728581245f1e76468b4f1"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==0.18.9"
+            "version": "==0.18.10"
         },
         "subprocess-tee": {
             "hashes": [
