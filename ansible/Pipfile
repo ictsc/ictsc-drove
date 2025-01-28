@@ -9,7 +9,7 @@ flake8 = "==7.1.1"
 mypy = "==1.14.1"
 autoflake = "==2.3.1"
 black = "==24.10.0"
-isort = "==5.13.2"
+isort = "==6.0.0"
 ansible-lint = "==25.1.1"
 passlib = "==1.7.4"
 
