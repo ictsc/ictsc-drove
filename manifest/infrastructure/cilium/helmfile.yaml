@@ -9,7 +9,7 @@ releases:
   - name: cilium
     namespace: cilium
     chart: cilium/cilium
-    version: 1.16.6
+    version: 1.17.0
     values:
       - env/common/cilium.yaml
   - name: ingress
