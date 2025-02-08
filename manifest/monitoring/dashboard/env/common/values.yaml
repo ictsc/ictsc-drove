@@ -1,5 +1,7 @@
 app:
   ingress:
     enabled: true
+    hosts:
+      - dashboard.drove-dev.ictsc.net
     tls:
       enabled: false
