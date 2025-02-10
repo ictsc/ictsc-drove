@@ -2,6 +2,6 @@ app:
   ingress:
     enabled: true
     hosts:
-      - dashboard.drove-dev.ictsc.net
+      - k8s-dashboard.drove-dev.ictsc.net
     tls:
       enabled: false
