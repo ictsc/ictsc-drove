@@ -1,0 +1,8 @@
+configPostgresPodResources:
+  default_cpu_request: "0"
+  default_memory_request: "0"
+
+resources:
+  requests:
+    cpu: "0"
+    memory: "0"

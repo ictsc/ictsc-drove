@@ -102,7 +102,8 @@ def main():
         "ipv6_prefix_len": tfstate["outputs"]["ipv6_prefix_len"]["value"],
     }
     inventory["control_plane"]["vars"] = {
-        "VIP": tfstate["outputs"]["vip_address"]["value"]
+        "VIP": tfstate["outputs"]["vip_address"]["value"],
+        "DNS_ZONE": tfstate["outputs"]["k8s_dns_zone"]["value"],
     }
     inventory["worker_node"]["vars"] = {
         "ansible_ssh_common_args": (

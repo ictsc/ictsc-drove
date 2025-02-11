@@ -23,3 +23,4 @@ config:
         - https://traefik.drove-dev.ictsc.net/_oauth
         - https://ceph.drove-dev.ictsc.net/_oauth
         - https://hubble.drove-dev.ictsc.net/_oauth
+        - https://postgres.drove-dev.ictsc.net/_oauth

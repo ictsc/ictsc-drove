@@ -58,12 +58,14 @@ osixia
 pipefail
 pipenv
 Pipfile
+Pooler
 posix
 rbdplugin
 resizer
 sacloud
 SAKURACLOUD
 sakurastorage
+scoreserver
 servicemonitor
 snapshotter
 stefanzweifel
@@ -77,3 +79,4 @@ traefik
 virtualenvs
 vyos
 websecure
+zalan

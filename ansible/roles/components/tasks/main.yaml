@@ -89,7 +89,7 @@
   block:
     - name: Apply necessary CRD
       ansible.builtin.shell: |
-        kubectl apply -f https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.79.2/stripped-down-crds.yaml
+        kubectl apply -f https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.80.0/stripped-down-crds.yaml
         kubectl apply -f https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/download/v1.1.0/default.yaml
       changed_when: false
     - name: Create infrastructure namespace

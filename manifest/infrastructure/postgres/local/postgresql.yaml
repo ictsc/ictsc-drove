@@ -1,0 +1,27 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: ictsc-cluster
+spec:
+  teamId: ictsc
+  postgresql:
+    version: "17"
+  volume:
+    size: 1Gi
+    storageClass: ceph-block
+  numberOfInstances: 3
+  users:
+    ictsc:
+      - superuser
+  databases:
+    regalia: ictsc
+  enableLogicalBackup: true
+  logicalBackupRetention: 1 months
+  logicalBackupSchedule: 30 00 * * *
+  enableConnectionPooler: true
+  connectionPooler:
+    numberOfInstances: 2
+  resources:
+    requests:
+      cpu: "0"
+      memory: "0"

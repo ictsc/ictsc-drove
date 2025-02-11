@@ -9,14 +9,14 @@ releases:
   - name: dex
     namespace: dex
     chart: dex/dex
-    version: 0.19.1
+    version: 0.20.0
     values:
       - env/common/dex.yaml
       - env/{{ .Environment.Name }}/dex.yaml
   - name: dex-admin
     namespace: dex
     chart: dex/dex
-    version: 0.19.1
+    version: 0.20.0
     values:
       - env/common/dex.yaml
       - env/{{ .Environment.Name }}/dex-admin.yaml

@@ -1,0 +1,7 @@
+ingresses:
+  - name: postgres-operator-ui
+    domain: postgres.drove-dev.ictsc.net
+    routes:
+      - service: postgres-operator-ui
+        port: 80
+        auth: true
