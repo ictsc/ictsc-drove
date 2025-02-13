@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/monitoring/kubernetes-dashboard
+    path: manifest/monitoring/dashboard
     targetRevision: main
     plugin: {}
   destination:
