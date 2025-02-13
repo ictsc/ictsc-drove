@@ -1,0 +1,4 @@
+resources:
+  - ./dashboard/application.yaml
+
+  - ./hierarchy.yaml

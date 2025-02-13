@@ -1,20 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dashboard-application
+  name: monitoring-applications
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/monitoring/kubernetes-dashboard
+    path: manifest/monitoring
     targetRevision: main
-    plugin: {}
   destination:
     server: https://kubernetes.default.svc
-    namespace: dashboard
+    namespace: monitoring
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
