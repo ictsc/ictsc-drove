@@ -11,6 +11,7 @@ releases:
     chart: dashboard/kubernetes-dashboard
     version: 7.10.4
     values:
+      - env/common/values.yaml
       - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local
