@@ -2,3 +2,4 @@ resources:
   - ./basement/application.yaml
   - ./infrastructure/application.yaml
   - ./application/application.yaml
+  - ./monitoring/application.yaml
