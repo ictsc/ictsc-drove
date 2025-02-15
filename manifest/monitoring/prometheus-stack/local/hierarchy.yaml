@@ -2,6 +2,6 @@ apiVersion: hnc.x-k8s.io/v1alpha2
 kind: HierarchyConfiguration
 metadata:
   name: hierarchy
-  namespace: dashboard
+  namespace: prometheus-stack
 spec:
-  parent: infrastructure
+  parent: monitoring
