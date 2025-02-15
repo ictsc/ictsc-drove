@@ -1,0 +1,7 @@
+ingresses:
+  - name: prometheus-grafana
+    domain: k8s-grafana.drove-dev.ictsc.net
+    routes:
+      - service: prometheus-grafana
+        port: 80
+        auth: true
