@@ -4,4 +4,4 @@ metadata:
   name: hierarchy
   namespace: dashboard
 spec:
-  parent: infrastructure
+  parent: monitoring
