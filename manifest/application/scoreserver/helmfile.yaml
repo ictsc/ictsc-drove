@@ -1,7 +1,6 @@
-environments:
-  dev:
-  prod:
----
+bases:
+  - environments.yaml
+
 releases:
   - name: local-charts
     chart: ./local
