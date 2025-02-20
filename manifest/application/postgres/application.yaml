@@ -11,12 +11,12 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/infrastructure/postgres
+    path: manifest/application/postgres
     targetRevision: main
     plugin: {}
   destination:
     server: https://kubernetes.default.svc
-    namespace: postgres
+    namespace: scoreserver
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

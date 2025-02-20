@@ -1,3 +1,4 @@
 resources:
   - ./hierarchy.yaml
+  - ./postgres/application.yaml
   - ./scoreserver/application.yaml
