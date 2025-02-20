@@ -22,22 +22,18 @@ spec:
         - name: scoreserver
           image: ghcr.io/ictsc/ictsc-regalia/scoreserver:latest
           env:
-            - name: DB_USERNAME
+            - name: PGUSER
               valueFrom:
                 secretKeyRef:
                   name: ictsc.ictsc-cluster.credentials.postgresql.acid.zalan.do
                   key: username
-            - name: DB_PASSWORD
+            - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
                   name: ictsc.ictsc-cluster.credentials.postgresql.acid.zalan.do
                   key: password
-            - name: DB_HOST
-              value: ictsc-cluster.svc.cluster.local
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_NAME
-              value: regalia
+            - name: DB_DSN
+              value: postgres://ictsc-cluster.svc.cluster.local:5432/ictscore
           livenessProbe:
             initialDelaySeconds: 10
             grpc:
