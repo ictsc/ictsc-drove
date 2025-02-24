@@ -23,7 +23,7 @@ resource "sakuracloud_dns_record" "root_record_ipv6" {
   ttl    = 300
   name   = "@"
   type   = "AAAA"
-  value  = sakuracloud_internet.k8s_external_switch.ipv6_prefix + "2:0"
+  value  = "${sakuracloud_internet.k8s_external_switch.ipv6_prefix}2:0"
 }
 
 resource "sakuracloud_dns_record" "wildcard_record" {
