@@ -29,6 +29,3 @@ spec:
             limits:
               memory: 128Mi
               cpu: "1"
-            requests:
-              memory: 64Mi
-              cpu: 200m
