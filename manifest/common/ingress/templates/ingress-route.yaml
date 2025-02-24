@@ -11,8 +11,12 @@ spec:
     - websecure
   routes:
   {{- range $i, $route := .routes }}
-    - match: {{ coalesce .match (printf "Host(`%s`)" $ingress.domain) }}
-      kind: Rule
+    - kind: Rule
+    {{- if .match }}
+      match: {{ printf "Host(`%s`) && %s" $ingress.domain .match }}
+    {{- else }}
+      match: {{ printf "Host(`%s`)" $ingress.domain }}
+    {{- end }}
       services:
         - name: {{ required "A valid service is required." .service }}
           port: {{ coalesce .port 80 }}
@@ -23,6 +27,9 @@ spec:
     {{- if .auth }}
         - name: forward-auth
           namespace: traefik
+    {{- end }}
+    {{- with .middlewares }}
+      {{- toYaml . | nindent 8 }}
     {{- end }}
   {{- end }}
   tls:
