@@ -5,6 +5,9 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/ictsc/ictsc-regalia/scoreserver
+    argocd-image-updater.argoproj.io/backend.update-strategy: digest
 spec:
   project: default
   source:
