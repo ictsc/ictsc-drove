@@ -1,5 +1,10 @@
 ingresses:
-  - name: argocd
-    domain: argocd.drove.ictsc.net
+  - name: scoreserver
+    domain: contest.ictsc.net
     routes:
-      - service: argocd-server
+      - service: scoreserver-frontend
+      - service: scoreserver-admin-api
+        match: PathPrefix(`/api`)
+        middlewares:
+          - name: strip-prefix
+            namespace: traefik
