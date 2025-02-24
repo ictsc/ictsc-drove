@@ -23,3 +23,14 @@ spec:
     automated:
       prune: true
       selfHeal: true
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: scoreserver-backend
+      jsonPointers:
+        - /spec/replicas
+    - group: apps
+      kind: Deployment
+      name: scoreserver-frontend
+      jsonPointers:
+        - /spec/replicas
