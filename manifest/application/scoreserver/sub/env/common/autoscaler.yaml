@@ -1,11 +1,3 @@
 resources:
-  - name: argocd-server
-  - name: argocd-repo-server
-  - name: argocd-applicationset-controller
-  - name: argocd-notifications-controller
-    minReplicas: 1
-  - name: argocd-redis-ha-server
-    kind: StatefulSet
-    minReplicas: 3
-  - name: argocd-redis-ha-haproxy
-    minReplicas: 3
+  - name: scoreserver-frontend
+  - name: scoreserver-backend
