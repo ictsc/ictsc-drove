@@ -15,6 +15,7 @@ controlplane
 cpython
 crashcollector
 crds
+dandydev
 datasource
 dearmor
 direnv

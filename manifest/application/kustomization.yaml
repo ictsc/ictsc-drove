@@ -1,4 +1,5 @@
 resources:
   - ./hierarchy.yaml
   - ./postgres/application.yaml
+  - ./redis/application.yaml
   - ./scoreserver/application.yaml

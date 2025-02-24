@@ -33,7 +33,9 @@ spec:
                   name: ictsc.ictsc-cluster.credentials.postgresql.acid.zalan.do
                   key: password
             - name: DB_DSN
-              value: postgres://ictsc-cluster.svc.cluster.local:5432/ictscore
+              value: postgres://ictsc-cluster.scoreserver.svc.cluster.local:5432/ictscore
+            - name: REDIS_URL
+              value: redis://redis-haproxy.scoreserver.svc.cluster.local:6379/0
           livenessProbe:
             initialDelaySeconds: 10
             grpc:
