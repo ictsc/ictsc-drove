@@ -36,6 +36,23 @@ spec:
               value: postgres://ictsc-cluster.scoreserver.svc.cluster.local:5432/ictscore
             - name: REDIS_URL
               value: redis://redis-haproxy.scoreserver.svc.cluster.local:6379/0
+            - name: GROWI_BASE_URL
+              value: https://wiki.ictsc.net
+            - name: GROWI_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: scoreserver-secrets
+                  key: growi-access-token
+            - name: DISCORD_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: scoreserver-secrets
+                  key: discord-client-id
+            - name: DISCORD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: scoreserver-secrets
+                  key: discord-client-secret
           livenessProbe:
             initialDelaySeconds: 10
             grpc:

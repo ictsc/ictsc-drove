@@ -27,6 +27,7 @@ finalizer
 finalizers
 fstype
 fullname
+growi
 healthcheck
 healthz
 helmfile
