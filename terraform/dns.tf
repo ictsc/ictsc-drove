@@ -15,7 +15,7 @@ resource "sakuracloud_dns_record" "root_record_ipv4" {
   ttl    = 300
   name   = "@"
   type   = "A"
-  value  = "163.43.138.216"
+  value  = sakuracloud_internet.k8s_external_switch.ip_addresses[lookup(var.control_plane, terraform.workspace, 0) + 1]
 }
 
 resource "sakuracloud_dns_record" "root_record_ipv6" {
@@ -23,7 +23,7 @@ resource "sakuracloud_dns_record" "root_record_ipv6" {
   ttl    = 300
   name   = "@"
   type   = "AAAA"
-  value  = "2001:e42:407:1035::2:0"
+  value  = "${sakuracloud_internet.k8s_external_switch.ipv6_prefix}2:0"
 }
 
 resource "sakuracloud_dns_record" "wildcard_record" {

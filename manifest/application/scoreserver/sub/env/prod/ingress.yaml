@@ -1,0 +1,10 @@
+ingresses:
+  - name: scoreserver
+    domain: contest.ictsc.net
+    routes:
+      - service: scoreserver-frontend
+      - service: scoreserver-admin-api
+        match: PathPrefix(`/api`)
+        middlewares:
+          - name: strip-prefix
+            namespace: traefik

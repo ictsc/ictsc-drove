@@ -14,7 +14,7 @@ spec:
     ictsc:
       - superuser
   databases:
-    regalia: ictsc
+    ictscore: ictsc
   enableLogicalBackup: true
   logicalBackupRetention: 1 months
   logicalBackupSchedule: 30 00 * * *
