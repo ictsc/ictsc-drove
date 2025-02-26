@@ -115,7 +115,7 @@
   ansible.builtin.shell: |
     kubectl get secret scoreserver-secrets -n scoreserver || \
     kubectl create secret generic scoreserver-secrets -n scoreserver \
-      --from-literal=growi-access-token="{{ lookup('env', 'GROWI_ACCESS_TOKEN') }}" \
+      --from-literal=growi-api-token="{{ lookup('env', 'GROWI_API_TOKEN') }}" \
       --from-literal=discord-client-id="{{ lookup('env', 'DISCORD_CLIENT_ID') }}" \
       --from-literal=discord-client-secret="{{ lookup('env', 'DISCORD_CLIENT_SECRET') }}"
     kubectl label secret github-app -n infrastructure "app.kubernetes.io/part-of=argocd"
