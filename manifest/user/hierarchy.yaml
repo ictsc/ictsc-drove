@@ -2,6 +2,6 @@ apiVersion: hnc.x-k8s.io/v1alpha2
 kind: HierarchyConfiguration
 metadata:
   name: hierarchy
-  namespace: scoreserver
+  namespace: user
 spec:
-  parent: application
+  parent: root

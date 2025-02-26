@@ -9,11 +9,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/application
+    path: manifest/user
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: application
+    namespace: user
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
