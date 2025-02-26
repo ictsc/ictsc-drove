@@ -3,8 +3,10 @@ ingresses:
     domain: contest-dev.ictsc.net
     routes:
       - service: scoreserver-frontend
+        auth: true
       - service: scoreserver-admin-api
         match: PathPrefix(`/api`)
+        auth: true
         middlewares:
           - name: strip-prefix
             namespace: traefik
