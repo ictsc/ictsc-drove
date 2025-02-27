@@ -1,7 +1,7 @@
-app:
-  ingress:
-    enabled: true
-    hosts:
-      - k8s-dashboard.drove.ictsc.net
-    tls:
-      enabled: false
+ingresses:
+  - name: k8s-dashboard
+    domain: k8s-dashboard.drove.ictsc.net
+    routes:
+      - service: istio-gateway
+        port: 80
+        auth: true

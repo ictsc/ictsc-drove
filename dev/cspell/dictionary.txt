@@ -86,3 +86,4 @@ virtualenvs
 vyos
 websecure
 zalan
+csrftoken
