@@ -21,6 +21,8 @@ spec:
       containers:
         - name: scoreserver
           image: ghcr.io/ictsc/ictsc-regalia/scoreserver:latest
+          args:
+            - --admin.http-addr=0.0.0.0:8081
           env:
             - name: PGUSER
               valueFrom:
