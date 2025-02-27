@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/application/scoreserver/sub
+    path: manifest/user/scoreserver/sub
     targetRevision: main
     plugin: {}
   destination:

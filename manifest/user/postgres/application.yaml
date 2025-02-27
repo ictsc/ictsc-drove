@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/application/postgres
+    path: manifest/user/postgres
     targetRevision: main
     plugin: {}
   destination:

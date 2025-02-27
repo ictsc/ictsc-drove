@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/application/scoreserver/main
+    path: manifest/user/scoreserver/main
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
