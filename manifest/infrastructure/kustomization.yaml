@@ -3,6 +3,7 @@ resources:
   - ./argocd/application.yaml
   - ./rook-ceph/application.yaml
   - ./traefik/application.yaml
+  - ./forward-auth/application.yaml
   - ./cert-manager/application.yaml
   - ./dex/application.yaml
 
