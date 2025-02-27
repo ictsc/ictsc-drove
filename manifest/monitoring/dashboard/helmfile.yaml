@@ -11,7 +11,13 @@ releases:
     chart: dashboard/kubernetes-dashboard
     version: 7.10.5
     values:
-      - env/common/values.yaml
+      - env/common/disable-kong.yaml
+      - env/{{ .Environment.Name }}/ingress.yaml
+  - name: ingress
+    namespace: istio
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
       - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local
