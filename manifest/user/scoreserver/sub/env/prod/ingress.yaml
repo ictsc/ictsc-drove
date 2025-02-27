@@ -3,7 +3,7 @@ ingresses:
     domain: contest.ictsc.net
     routes:
       - service: scoreserver-frontend
-      - service: scoreserver-admin-api
+      - service: scoreserver-contestant-api
         match: PathPrefix(`/api`)
         middlewares:
           - name: strip-prefix

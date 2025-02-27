@@ -4,7 +4,7 @@ ingresses:
     routes:
       - service: scoreserver-frontend
         auth: true
-      - service: scoreserver-admin-api
+      - service: scoreserver-contestant-api
         match: PathPrefix(`/api`)
         auth: true
         middlewares:
