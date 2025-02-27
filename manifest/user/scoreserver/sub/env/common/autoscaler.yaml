@@ -1,0 +1,3 @@
+resources:
+  - name: scoreserver-frontend
+  - name: scoreserver-backend

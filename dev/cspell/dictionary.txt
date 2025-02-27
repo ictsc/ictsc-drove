@@ -15,6 +15,7 @@ controlplane
 cpython
 crashcollector
 crds
+dandydev
 datasource
 dearmor
 direnv
@@ -26,12 +27,14 @@ finalizer
 finalizers
 fstype
 fullname
+growi
 healthcheck
 healthz
 helmfile
 HOSTNETWORK
 hostvars
 ictsc
+ictscore
 ignoreerrors
 jetstack
 keyrings
@@ -47,6 +50,7 @@ netfilter
 Netplan
 networkd
 nfsplugin
+nindent
 nofilter
 nonlocal
 NOPASSWD
@@ -55,6 +59,8 @@ objectstore
 omap
 ONESHELL
 osixia
+PGPASSWORD
+PGUSER
 pipefail
 pipenv
 Pipfile

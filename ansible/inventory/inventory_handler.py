@@ -103,7 +103,6 @@ def main():
     }
     inventory["control_plane"]["vars"] = {
         "VIP": tfstate["outputs"]["vip_address"]["value"],
-        "DNS_ZONE": tfstate["outputs"]["k8s_dns_zone"]["value"],
     }
     inventory["worker_node"]["vars"] = {
         "ansible_ssh_common_args": (
@@ -117,6 +116,12 @@ def main():
             "workspace": workspace,
             "min_ip_address": tfstate["outputs"]["min_ip_address"]["value"],
             "max_ip_address": tfstate["outputs"]["max_ip_address"]["value"],
+            "dns_zone": tfstate["outputs"]["k8s_dns_zone"]["value"],
+            "oidc_issuer_url": (
+                "https://dex.drove.ictsc.net"
+                if workspace == "prod"
+                else "https://dex.drove-dev.ictsc.net"
+            ),
         },
     }
 

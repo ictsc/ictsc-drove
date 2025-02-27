@@ -7,10 +7,14 @@ apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 apiServer:
   certSANs:
-    - k8s.{{ DNS_ZONE }}
+    - k8s.{{ dns_zone }}
   extraArgs:
     - name: service-account-jwks-uri
-      value: https://k8s.{{ DNS_ZONE }}:8443/openid/v1/jwks
+      value: https://k8s.{{ dns_zone }}:8443/openid/v1/jwks
+    - name: oidc-issuer-url
+      value: {{ oidc_issuer_url }}
+    - name: oidc-client-id
+      value: dex-client
 controllerManager:
   extraArgs:
     - name: node-cidr-mask-size-ipv6

@@ -9,13 +9,13 @@ repositories:
 
 releases:
   - name: postgres-operator
-    namespace: postgres
+    namespace: scoreserver
     chart: postgres-operator/postgres-operator
     version: v1.14.0
     values:
       - env/common/operator.yaml
   - name: postgres-operator-ui
-    namespace: postgres
+    namespace: scoreserver
     chart: postgres-operator-ui/postgres-operator-ui
     version: v1.14.0
     values:
@@ -23,7 +23,7 @@ releases:
     needs:
       - postgres-operator
   - name: ingress
-    namespace: postgres
+    namespace: scoreserver
     chart: ../../common/ingress
     version: 0.1.0
     values:

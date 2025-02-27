@@ -2,14 +2,14 @@ bases:
   - environments.yaml
 
 repositories:
-  - name: argo-cd
+  - name: argo
     url: https://argoproj.github.io/argo-helm
 
 releases:
   - name: argocd
     namespace: argocd
-    chart: argo-cd/argo-cd
-    version: 7.8.2
+    chart: argo/argo-cd
+    version: 7.8.5
     values:
       - env/common/argocd-application-set.yaml
       - env/common/argocd-controller.yaml
@@ -21,6 +21,10 @@ releases:
       - env/common/argocd-server.yaml
       - env/{{ .Environment.Name }}/argocd-general.yaml
       - env/{{ .Environment.Name }}/argocd-repo-server.yaml
+  - name: argocd-image-updater
+    namespace: argocd
+    chart: argo/argocd-image-updater
+    version: 0.12.0
   - name: autoscaler
     namespace: argocd
     chart: ../../common/autoscaler

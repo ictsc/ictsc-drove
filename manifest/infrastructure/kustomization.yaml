@@ -5,6 +5,5 @@ resources:
   - ./traefik/application.yaml
   - ./cert-manager/application.yaml
   - ./dex/application.yaml
-  - ./postgres/application.yaml
 
   - ./hierarchy.yaml
