@@ -1,0 +1,18 @@
+bases:
+  - environments.yaml
+
+releases:
+  - name: forward-auth
+    namespace: forward-auth
+    chart: ./chart
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/forward-auth.yaml
+  - name: autoscaler
+    namespace: forward-auth
+    chart: ../../common/autoscaler
+    version: 0.1.0
+    values:
+      - env/common/autoscaler.yaml
+  - name: local-charts
+    chart: ./local

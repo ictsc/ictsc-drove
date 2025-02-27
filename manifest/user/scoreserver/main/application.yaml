@@ -17,20 +17,14 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: scoreserver
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      name: scoreserver-backend
-      jsonPointers:
-        - /spec/replicas
-    - group: apps
-      kind: Deployment
-      name: scoreserver-frontend
-      jsonPointers:
-        - /spec/replicas

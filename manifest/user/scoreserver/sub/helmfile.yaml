@@ -3,13 +3,13 @@ bases:
 
 releases:
   - name: autoscaler
-    namespace: argocd
+    namespace: scoreserver
     chart: ../../../common/autoscaler
     version: 0.1.0
     values:
       - env/common/autoscaler.yaml
   - name: ingress
-    namespace: argocd
+    namespace: scoreserver
     chart: ../../../common/ingress
     version: 0.1.0
     values:

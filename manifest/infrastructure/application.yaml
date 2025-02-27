@@ -16,12 +16,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: infrastructure
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      name: cilium-operator
-      jsonPointers:
-        - /spec/replicas
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

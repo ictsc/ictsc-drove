@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cilium-application
+  name: forward-auth-application
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-20"
@@ -11,12 +11,12 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/infrastructure/cilium
+    path: manifest/infrastructure/forward-auth
     targetRevision: main
     plugin: {}
   destination:
     server: https://kubernetes.default.svc
-    namespace: cilium
+    namespace: forward-auth
   ignoreDifferences:
     - group: apps
       kind: Deployment
@@ -25,7 +25,6 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true

@@ -24,11 +24,5 @@ releases:
     version: 0.1.0
     values:
       - env/{{ .Environment.Name }}/ingress.yaml
-  - name: forward-auth
-    namespace: traefik
-    chart: ./forward-auth
-    version: 0.1.0
-    values:
-      - env/{{ .Environment.Name }}/forward-auth.yaml
   - name: local-charts
     chart: ./local
