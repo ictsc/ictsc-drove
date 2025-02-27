@@ -23,7 +23,7 @@ spec:
           image: ghcr.io/ictsc/ictsc-regalia/scoreserver:latest
           args:
             # これprodでどうにかしないといけない
-            - --contestant.base-url=https://contest-dev.ictsc.net
+            - --contestant.base-url=https://contest-dev.ictsc.net/api
             - --contestant.http-addr=0.0.0.0:8080
             - --admin.http-addr=0.0.0.0:8081
           env:
