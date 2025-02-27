@@ -6,72 +6,72 @@ variable "cluster_pass" {
 variable "external_subnet" {
   type = map(any)
   default = {
-    dev = 28
-    prd = 28
+    dev  = 28
+    prod = 28
   }
 }
 
 variable "control_plane" {
   type = map(any)
   default = {
-    dev = 3
-    prd = 3
+    dev  = 3
+    prod = 3
   }
 }
 variable "control_plane_cpu" {
   type = map(any)
   default = {
-    dev = 2
-    prd = 2
+    dev  = 2
+    prod = 2
   }
 }
 variable "control_plane_mem" {
   type = map(any)
   default = {
-    dev = 4
-    prd = 4
+    dev  = 4
+    prod = 4
   }
 }
 variable "control_plane_disk" {
   type = map(any)
   default = {
-    dev = 20
-    prd = 20
+    dev  = 20
+    prod = 20
   }
 }
 
 variable "worker_node" {
   type = map(any)
   default = {
-    dev = 8
-    prd = 8
+    dev  = 8
+    prod = 8
   }
 }
 variable "worker_node_cpu" {
   type = map(any)
   default = {
-    dev = 2
-    prd = 2
+    dev  = 2
+    prod = 2
   }
 }
 variable "worker_node_mem" {
   type = map(any)
   default = {
-    dev = 4
-    prd = 4
+    dev  = 4
+    prod = 4
   }
 }
 variable "worker_node_disk" {
   type = map(any)
   default = {
-    dev = 20
-    prd = 20
+    dev  = 20
+    prod = 20
   }
 }
 variable "worker_node_rook_disk" {
   type = map(any)
   default = {
-    dev = 20
-    prd = 20
+    dev  = 20
+    prod = 20
   }
 }

@@ -1,0 +1,10 @@
+fullNameOverride: redis
+nameOverride: redis
+
+haproxy:
+  enabled: true
+  metrics:
+    enabled: true
+
+exporter:
+  enabled: true

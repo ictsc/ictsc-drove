@@ -4,10 +4,11 @@
 
 ingresses:
   # イングレス設定を配列で指定
-  # - name:         // (required) 作りたいIngressのサービス名
-  #   domain:       // (required) 設定したいドメイン
-  #   routes:       // ルート設定を配列で指定
-  #     - match:    // マッチ条件 (default: ドメインが設定したdomainに一致)
-  #       service:  // (required) ルーティング先のサービス名
-  #       port:     // ルーティング先のポート番号 (default: 80)
-  #       auth:     // 認証設定 [true, false] (default: false)
+  # - name:             // (required) 作りたいIngressのサービス名
+  #   domain:           // (required) 設定したいドメイン
+  #   routes:           // ルート設定を配列で指定
+  #     - match:        // マッチ条件 (default: ドメインが設定したdomainに一致)
+  #       service:      // (required) ルーティング先のサービス名
+  #       port:         // ルーティング先のポート番号 (default: 80)
+  #       auth:         // 認証設定 [true, false] (default: false)
+  #       middlewares:  // 追加ミドルウェア設定
