@@ -111,7 +111,14 @@
       delay: 5
       changed_when: false
 
-- name: Create Scoreserver Secret
+- name: Create scoreserver namespace
+  ansible.builtin.shell: kubectl get ns scoreserver || kubectl create ns scoreserver
+  register: ret
+  until: ret.rc == 0
+  retries: 12
+  delay: 5
+  changed_when: false
+- name: Create scoreserver secret
   ansible.builtin.shell: |
     kubectl get secret scoreserver-secrets -n scoreserver || \
     kubectl create secret generic scoreserver-secrets -n scoreserver \
