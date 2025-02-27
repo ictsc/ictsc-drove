@@ -20,6 +20,7 @@ config:
       redirectURIs:
         - http://localhost:8000
         - http://localhost:18000
+        - https://contest-dev.ictsc.net/_oauth
         - https://traefik.drove-dev.ictsc.net/_oauth
         - https://ceph.drove-dev.ictsc.net/_oauth
         - https://hubble.drove-dev.ictsc.net/_oauth
