@@ -23,7 +23,8 @@ spec:
           image: ghcr.io/ictsc/ictsc-regalia/frontend:latest
           livenessProbe:
             initialDelaySeconds: 10
-            grpc:
+            httpGet:
+              path: /healthz
               port: 8080
           resources:
             limits:
