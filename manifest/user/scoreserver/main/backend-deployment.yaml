@@ -62,10 +62,10 @@ spec:
               value: none
             - name: OTEL_METRICS_EXPORTER
               value: none
-          livenessProbe:
-            initialDelaySeconds: 10
-            grpc:
-              port: 8080
+          # livenessProbe:
+          #   initialDelaySeconds: 10
+          #   grpc:
+          #     port: 8081
           resources:
             limits:
               memory: 128Mi
