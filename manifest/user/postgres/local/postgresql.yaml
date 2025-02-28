@@ -19,9 +19,13 @@ spec:
   logicalBackupRetention: 1 months
   logicalBackupSchedule: 30 00 * * *
   enableConnectionPooler: true
-  connectionPooler:
-    numberOfInstances: 2
   resources:
     requests:
-      cpu: "10m"
-      memory: "10Mi"
+      cpu: 10m
+      memory: 10Mi
+  connectionPooler:
+    numberOfInstances: 2
+    resources:
+      requests:
+        cpu: 10m
+        memory: 10Mi
