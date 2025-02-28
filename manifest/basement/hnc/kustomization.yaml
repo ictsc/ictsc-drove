@@ -8,6 +8,7 @@ patches:
       kind: Deployment
       metadata:
         name: hnc-controller-manager
+        namespace: hnc-system
       spec:
         template:
           spec:
