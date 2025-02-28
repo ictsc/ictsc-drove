@@ -21,8 +21,8 @@ spec:
         - name: migration
           image: ghcr.io/ictsc/ictsc-regalia/toolbox:latest
           command:
-            - ./script/kube-exec
-            - ./script/migrate
+            - ./scripts/kube-exec
+            - ./scripts/migrate
           env:
             - name: PGHOST
               value: ictsc-cluster.scoreserver.svc.cluster.local
