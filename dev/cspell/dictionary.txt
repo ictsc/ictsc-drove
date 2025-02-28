@@ -59,7 +59,10 @@ objectstore
 omap
 ONESHELL
 osixia
+PGDATABASE
+PGHOST
 PGPASSWORD
+PGPORT
 PGUSER
 pipefail
 pipenv
