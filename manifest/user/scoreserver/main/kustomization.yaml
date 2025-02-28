@@ -1,5 +1,7 @@
 resources:
   - ./backend-deployment.yaml
   - ./backend-service.yaml
+  - ./migration-job.yaml
+
   - ./frontend-deployment.yaml
   - ./frontend-service.yaml
