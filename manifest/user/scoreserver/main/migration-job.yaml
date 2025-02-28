@@ -21,7 +21,6 @@ spec:
         - name: migration
           image: ghcr.io/ictsc/ictsc-regalia/toolbox:latest
           command:
-            - ./scripts/kube-exec
             - ./scripts/migrate
           env:
             - name: PGHOST
