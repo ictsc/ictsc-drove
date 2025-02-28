@@ -16,6 +16,12 @@ resources:
 l2announcements:
   enabled: true
 
+cni:
+  resources:
+    requests:
+      cpu: "0"
+      memory: "0"
+
 hubble:
   metrics:
     serviceMonitor:

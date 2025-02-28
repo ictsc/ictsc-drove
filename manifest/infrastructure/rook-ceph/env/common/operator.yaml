@@ -2,8 +2,8 @@ resources:
   limits:
     memory: 512Mi
   requests:
-    memory: 16Mi
-    cpu: 20m
+    memory: "0"
+    cpu: "0"
 
 csi:
   csiRBDProvisionerResource: |

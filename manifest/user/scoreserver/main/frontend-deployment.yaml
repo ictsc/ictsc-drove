@@ -27,6 +27,9 @@ spec:
               path: /healthz
               port: 8080
           resources:
+            requests:
+              memory: "0"
+              cpu: "0"
             limits:
               memory: 128Mi
               cpu: "1"

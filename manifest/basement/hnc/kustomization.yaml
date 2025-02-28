@@ -1,3 +1,19 @@
 resources:
   - https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/download/v1.1.0/default.yaml
   - ./config.yaml
+
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: hnc-controller-manager
+      spec:
+        template:
+          spec:
+            containers:
+              - name: manager
+                resources:
+                  requests:
+                    cpu: "0"
+                    memory: "0"
