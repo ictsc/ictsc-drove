@@ -25,4 +25,3 @@ config:
         - https://ceph.drove.ictsc.net/_oauth
         - https://hubble.drove.ictsc.net/_oauth
         - https://postgres.drove.ictsc.net/_oauth
-        - https://phpmyadmin.drove.ictsc.net/_oauth
