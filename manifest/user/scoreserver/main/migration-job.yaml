@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Job
 metadata:
   name: scoreserver-migration
   labels:
@@ -7,9 +7,6 @@ metadata:
     app.kubernetes.io/part-of: scoreserver
     app.kubernetes.io/component: backend
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: scoreserver-migration
   template:
     metadata:
       labels:
