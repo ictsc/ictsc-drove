@@ -45,3 +45,4 @@ spec:
               memory: 1Gi
               cpu: "1"
               ephemeral-storage: 5Gi
+      restartPolicy: OnFailure
