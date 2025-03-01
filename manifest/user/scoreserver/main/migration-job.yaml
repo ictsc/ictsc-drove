@@ -21,7 +21,7 @@ spec:
         - name: migration
           image: ghcr.io/ictsc/ictsc-regalia/toolbox:latest
           command:
-            - ./scripts/migrate
+            - /home/toolbox/scripts/migrate
           env:
             - name: PGHOST
               value: ictsc-cluster.scoreserver.svc.cluster.local

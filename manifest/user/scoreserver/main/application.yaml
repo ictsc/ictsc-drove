@@ -6,8 +6,10 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/ictsc/ictsc-regalia/scoreserver:latest
+    argocd-image-updater.argoproj.io/image-list: frontend=ghcr.io/ictsc/ictsc-regalia/frontend:latest, backend=ghcr.io/ictsc/ictsc-regalia/scoreserver:latest, toolbox=ghcr.io/ictsc/ictsc-regalia/toolbox:latest
+    argocd-image-updater.argoproj.io/frontend.update-strategy: digest
     argocd-image-updater.argoproj.io/backend.update-strategy: digest
+    argocd-image-updater.argoproj.io/toolbox.update-strategy: digest
 spec:
   project: default
   source:
