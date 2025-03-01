@@ -5,3 +5,9 @@ ingresses:
       - service: postgres-operator-ui
         port: 80
         auth: true
+  - name: phpmyadmin
+    domain: phpmyadmin.drove.ictsc.net
+    routes:
+      - service: phpmyadmin
+        port: 80
+        auth: true

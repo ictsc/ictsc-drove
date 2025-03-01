@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: phpmyadmin/phpmyadmin:latest
+          env:
+            - name: PMA_HOST
+              value: ictsc-cluster.scoreserver.svc.cluster.local
+            - name: PMA_PORT
+              value: "5432"
+            - name: PMA_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ictsc.ictsc-cluster.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: PMA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ictsc.ictsc-cluster.credentials.postgresql.acid.zalan.do
+                  key: password
+          resources:
+            requests:
+              memory: "0"
+              cpu: "0"
+            limits:
+              memory: 128Mi
+              cpu: "1"
