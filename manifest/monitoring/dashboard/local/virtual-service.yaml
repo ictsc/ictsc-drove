@@ -7,7 +7,7 @@ spec:
   hosts:
     - "*"
   gateways:
-    - istio/dashboard-gateway
+    - istio-system/dashboard-gateway
   http:
     - match:
         - uri:
