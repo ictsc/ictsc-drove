@@ -1,6 +1,6 @@
 ingresses:
   - name: prometheus-grafana
-    domain: k8s-grafana.drove.ictsc.net
+    domain: grafana.drove.ictsc.net
     routes:
       - service: prometheus-grafana
         port: 80
