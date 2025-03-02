@@ -14,9 +14,13 @@ releases:
     namespace: istio
     chart: istio/istiod
     version: 1.24.3
+    needs:
+      - istio/istio-base
   - name: istio-gateway
     namespace: istio
     chart: istio/gateway
     version: 1.24.3
+    needs:
+      - istio/istio-istiod
   - name: local-charts
     chart: ./local
