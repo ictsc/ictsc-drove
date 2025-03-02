@@ -15,12 +15,12 @@ releases:
     chart: istio/istiod
     version: 1.24.3
     needs:
-      - istio/istio-base
+      - istio-system/istio-base
   - name: istio-gateway
     namespace: istio-system
     chart: istio/gateway
     version: 1.24.3
     needs:
-      - istio/istio-istiod
+      - istio-system/istio-istiod
   - name: local-charts
     chart: ./local
