@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
   name: dashboard-gateway
-  namespace: istio
+  namespace: istio-system
 spec:
   selector:
     istio: gateway
