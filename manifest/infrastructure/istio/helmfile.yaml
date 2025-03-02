@@ -14,12 +14,16 @@ releases:
     namespace: istio-system
     chart: istio/istiod
     version: 1.24.3
+    values:
+      - env/common/istiod.yaml
     needs:
       - istio-system/istio-base
   - name: istio-gateway
     namespace: istio-system
     chart: istio/gateway
     version: 1.24.3
+    values:
+      - env/common/gateway.yaml
     needs:
       - istio-system/istio-istiod
   - name: local-charts
