@@ -16,7 +16,7 @@ spec:
     plugin: {}
   destination:
     server: https://kubernetes.default.svc
-    namespace: istio
+    namespace: istio-system
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
