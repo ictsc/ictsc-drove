@@ -7,17 +7,17 @@ repositories:
 
 releases:
   - name: istio-base
-    namespace: istio
+    namespace: istio-system
     chart: istio/base
     version: 1.24.3
   - name: istio-istiod
-    namespace: istio
+    namespace: istio-system
     chart: istio/istiod
     version: 1.24.3
     needs:
       - istio/istio-base
   - name: istio-gateway
-    namespace: istio
+    namespace: istio-system
     chart: istio/gateway
     version: 1.24.3
     needs:
