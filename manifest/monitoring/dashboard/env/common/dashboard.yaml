@@ -1,2 +1,26 @@
+auth:
+  containers:
+    resources:
+      requests:
+        cpu: 0
+        memory: 0
+api:
+  containers:
+    resources:
+      requests:
+        cpu: 0
+        memory: 0
+web:
+  containers:
+    resources:
+      requests:
+        cpu: 0
+        memory: 0
+metricsScraper:
+  containers:
+    resources:
+      requests:
+        cpu: 0
+        memory: 0
 kong:
   enabled: false
