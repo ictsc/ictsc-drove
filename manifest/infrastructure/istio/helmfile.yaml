@@ -26,5 +26,11 @@ releases:
       - env/common/gateway.yaml
     needs:
       - istio-system/istio-istiod
+  - name: ingress
+    namespace: istio-system
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local

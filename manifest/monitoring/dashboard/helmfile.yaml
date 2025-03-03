@@ -12,11 +12,5 @@ releases:
     version: 7.10.5
     values:
       - env/common/dashboard.yaml
-  - name: ingress
-    namespace: istio-system
-    chart: ../../common/ingress
-    version: 0.1.0
-    values:
-      - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local
