@@ -10,3 +10,10 @@ ingresses:
         middlewares:
           - name: strip-prefix
             namespace: traefik
+  - name: scoreserver-admin
+    domain: contest-admin-dev.ictsc.net
+    routes:
+      - service: scoreserver-admin-api
+        middlewares:
+          - name: oauth2-proxy
+            namespace: scoreserver
