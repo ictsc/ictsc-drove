@@ -13,7 +13,7 @@ releases:
   - name: istio-istiod
     namespace: istio-system
     chart: istio/istiod
-    version: 1.24.3
+    version: 1.25.0
     values:
       - env/common/istiod.yaml
     needs:
