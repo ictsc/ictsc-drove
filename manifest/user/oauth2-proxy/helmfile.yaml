@@ -9,7 +9,7 @@ releases:
   - name: oauth2-proxy
     namespace: scoreserver
     chart: oauth2-proxy/oauth2-proxy
-    version: 7.12.3
+    version: 7.12.4
     values:
       - env/common/oauth2-proxy.yaml
       - env/{{ .Environment.Name }}/oauth2-proxy.yaml
