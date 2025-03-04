@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oauth2-proxy-application
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-200"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ictsc/ictsc-drove.git
+    path: manifest/infrastructure/oauth2-proxy
+    targetRevision: main
+    plugin: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: oauth2-proxy
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true

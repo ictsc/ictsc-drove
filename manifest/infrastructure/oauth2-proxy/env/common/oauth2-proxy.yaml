@@ -1,0 +1,21 @@
+extraEnv:
+  - name: OAUTH2_PROXY_CLIENT_ID
+    value: dex-client
+  - name: OAUTH2_PROXY_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: github-app
+        key: client-secret
+  - name: OAUTH2_PROXY_COOKIE_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: oauth2-proxy-secret
+        key: cookie-secret
+
+proxyVarsAsSecrets: false
+
+replicaCount: 2
+
+metrics:
+  serviceMonitor:
+    enabled: true

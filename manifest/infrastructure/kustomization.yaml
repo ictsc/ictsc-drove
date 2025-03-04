@@ -4,6 +4,7 @@ resources:
   - ./rook-ceph/application.yaml
   - ./traefik/application.yaml
   - ./forward-auth/application.yaml
+  - ./oauth2-proxy/application.yaml
   - ./cert-manager/application.yaml
   - ./dex/application.yaml
   - ./istio/application.yaml
