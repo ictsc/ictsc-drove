@@ -27,3 +27,9 @@ config:
         - https://postgres.drove.ictsc.net/_oauth
         - https://k8s-dashboard.drove.ictsc.net/callback
         - https://grafana.drove.ictsc.net/callback
+    - id: dex-scoreserver-client
+      secret: "{{ .Env.SCORESERVER_CLIENT_SECRET }}"
+      name: scoreserver-client
+      redirectURIs:
+        - http://localhost:6000/oauth2/callback
+        - https://contest-admin.ictsc.net/oauth2/callback

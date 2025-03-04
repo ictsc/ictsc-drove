@@ -14,6 +14,11 @@ envVars:
       secretKeyRef:
         name: github-app
         key: client-secret
+  - name: SCORESERVER_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: scoreserver-client
+        key: client-secret
 
 serviceMonitor:
   enabled: true

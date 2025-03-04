@@ -110,26 +110,38 @@
       retries: 12
       delay: 5
       changed_when: false
-
-- name: Create scoreserver namespace
-  ansible.builtin.shell: kubectl get ns scoreserver || kubectl create ns scoreserver
-  register: ret
-  until: ret.rc == 0
-  retries: 12
-  delay: 5
-  changed_when: false
-- name: Create scoreserver secret
-  ansible.builtin.shell: |
-    kubectl get secret scoreserver-secrets -n scoreserver || \
-    kubectl create secret generic scoreserver-secrets -n scoreserver \
-      --from-literal=growi-api-token="{{ lookup('env', 'GROWI_API_TOKEN') }}" \
-      --from-literal=discord-client-id="{{ lookup('env', 'DISCORD_CLIENT_ID') }}" \
-      --from-literal=discord-client-secret="{{ lookup('env', 'DISCORD_CLIENT_SECRET') }}"
-  register: ret
-  until: ret.rc == 0
-  retries: 12
-  delay: 5
-  changed_when: false
+    - name: Create scoreserver namespace
+      ansible.builtin.shell: kubectl get ns scoreserver || kubectl create ns scoreserver
+      register: ret
+      until: ret.rc == 0
+      retries: 12
+      delay: 5
+      changed_when: false
+    - name: Create scoreserver secret
+      ansible.builtin.shell: |
+        kubectl get secret scoreserver-secrets -n scoreserver || \
+        kubectl create secret generic scoreserver-secrets -n scoreserver \
+          --from-literal=growi-api-token="{{ lookup('env', 'GROWI_API_TOKEN') }}" \
+          --from-literal=discord-client-id="{{ lookup('env', 'DISCORD_CLIENT_ID') }}" \
+          --from-literal=discord-client-secret="{{ lookup('env', 'DISCORD_CLIENT_SECRET') }}"
+      register: ret
+      until: ret.rc == 0
+      retries: 12
+      delay: 5
+      changed_when: false
+    - name: Create scoreserver client secret
+      ansible.builtin.shell: |
+        kubectl get secret scoreserver-client -n infrastructure || \
+        kubectl create secret generic scoreserver-client -n infrastructure \
+          --from-literal=client-secret="{{ lookup('env', 'SCORESERVER_CLIENT_SECRET') }}"
+        kubectl get secret scoreserver-client -n scoreserver || \
+        kubectl create secret generic scoreserver-client -n scoreserver \
+          --from-literal=client-secret="{{ lookup('env', 'SCORESERVER_CLIENT_SECRET') }}"
+      register: ret
+      until: ret.rc == 0
+      retries: 12
+      delay: 5
+      changed_when: false
 
 - name: Apply root application
   block:

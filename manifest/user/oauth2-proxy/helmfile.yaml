@@ -1,0 +1,23 @@
+bases:
+  - environments.yaml
+
+repositories:
+  - name: oauth2-proxy
+    url: https://oauth2-proxy.github.io/manifests
+
+releases:
+  - name: oauth2-proxy
+    namespace: scoreserver
+    chart: oauth2-proxy/oauth2-proxy
+    version: 7.12.3
+    values:
+      - env/common/oauth2-proxy.yaml
+      - env/{{ .Environment.Name }}/oauth2-proxy.yaml
+  - name: oauth2-proxy-secret
+    namespace: scoreserver
+    chart: ../../common/secret
+    version: 0.1.0
+    values:
+      - key: cookie-secret
+  - name: local-charts
+    chart: ./local
