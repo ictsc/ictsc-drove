@@ -1,11 +1,11 @@
 config:
   configFile: |-
-    upstream="static://202"
+    upstreams="static://202"
     reverse_proxy=true
 
     provider="oidc"
     oidc_issuer_url="https://dex.drove-dev.ictsc.net"
-    email_domain="*"
+    email_domains="*"
 
     set_authorization_header=true
     skip_auth_strip_headers=true
