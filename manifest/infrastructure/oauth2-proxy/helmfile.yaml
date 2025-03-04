@@ -19,6 +19,7 @@ releases:
     version: 0.1.0
     values:
       - key: cookie-secret
+        length: 32
   - name: autoscaler
     namespace: oauth2-proxy
     chart: ../../common/autoscaler
