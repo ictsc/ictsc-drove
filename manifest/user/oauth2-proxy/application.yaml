@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: oauth2-proxy-application
+  name: oauth2-proxy-scoreserver-application
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-200"
