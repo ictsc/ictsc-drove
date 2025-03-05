@@ -1,0 +1,7 @@
+ingresses:
+  - name: dashboard
+    domain: k8s-dashboard.drove.ictsc.net
+    routes:
+      - service: dashboard-kong-proxy
+        port: kong-proxy
+        auth: true

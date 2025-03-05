@@ -12,5 +12,11 @@ releases:
     version: 7.11.0
     values:
       - env/common/dashboard.yaml
+  - name: ingress
+    namespace: dashboard
+    chart: ../../common/ingress
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
     chart: ./local
