@@ -8,7 +8,6 @@ metadata:
     argocd-image-updater.argoproj.io/image-list: >-
       forward-auth=ghcr.io/ictsc/traefik-forward-auth:latest
     argocd-image-updater.argoproj.io/forward-auth.update-strategy: digest
-
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
