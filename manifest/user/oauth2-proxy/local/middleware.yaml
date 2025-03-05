@@ -4,6 +4,6 @@ metadata:
   name: oauth2-proxy
 spec:
   forwardAuth:
-    address: http://oauth2-proxy.scoreserver.svc.cluster.local:80
+    address: http://oauth2-proxy-scoreserver.scoreserver.svc.cluster.local:80
     authResponseHeaders:
       - Authorization

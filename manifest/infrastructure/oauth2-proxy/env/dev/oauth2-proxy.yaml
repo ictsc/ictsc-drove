@@ -1,11 +1,12 @@
 config:
   configFile: |-
-    upstreams="static://202"
-    reverse_proxy=true
+    upstreams = "static://202"
+    reverse_proxy = true
+    cookie_domains = [".drove-dev.ictsc.net", "contest-dev.ictsc.net"]
 
-    provider="oidc"
-    oidc_issuer_url="https://dex.drove-dev.ictsc.net"
-    email_domains="*"
+    provider = "oidc"
+    oidc_issuer_url = "https://dex.drove-dev.ictsc.net"
+    email_domains = "*"
 
-    set_authorization_header=true
-    skip_auth_strip_headers=true
+    set_authorization_header = true
+    skip_auth_strip_headers = true

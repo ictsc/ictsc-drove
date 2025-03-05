@@ -9,7 +9,7 @@ extraEnv:
   - name: OAUTH2_PROXY_COOKIE_SECRET
     valueFrom:
       secretKeyRef:
-        name: oauth2-proxy-secret
+        name: oauth2-proxy-scoreserver-secret
         key: cookie-secret
 
 proxyVarsAsSecrets: false
