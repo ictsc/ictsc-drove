@@ -4,7 +4,7 @@ metadata:
   name: basement-applications
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-300"
+    argocd.argoproj.io/sync-wave: "-390"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

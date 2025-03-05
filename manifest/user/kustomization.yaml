@@ -1,6 +1,2 @@
 resources:
   - ./hierarchy.yaml
-  - ./postgres/application.yaml
-  - ./redis/application.yaml
-  - ./scoreserver/main/application.yaml
-  - ./scoreserver/sub/application.yaml

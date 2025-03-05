@@ -1,5 +1,2 @@
 resources:
-  - ./dashboard/application.yaml
-  - ./prometheus-stack/application.yaml
-
   - ./hierarchy.yaml

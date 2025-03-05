@@ -1,5 +1,25 @@
 resources:
   - ./basement/application.yaml
+  - ./basement/hnc/application.yaml
+  - ./basement/metrics-server/application.yaml
+  - ./basement/reloader/application.yaml
+  - ./basement/system-rbac/application.yaml
+
   - ./infrastructure/application.yaml
+  - ./infrastructure/cert-manager/application.yaml
+  - ./infrastructure/cilium/application.yaml
+  - ./infrastructure/traefik/application.yaml
+  - ./infrastructure/rook-ceph/application.yaml
+  - ./infrastructure/dex/application.yaml
+  - ./infrastructure/argocd/application.yaml
+  - ./infrastructure/forward-auth/application.yaml
+
   - ./monitoring/application.yaml
+  - ./monitoring/dashboard/application.yaml
+  - ./monitoring/prometheus-stack/application.yaml
+
   - ./user/application.yaml
+  - ./user/postgres/application.yaml
+  - ./user/redis/application.yaml
+  - ./user/scoreserver/main/application.yaml
+  - ./user/scoreserver/sub/application.yaml
