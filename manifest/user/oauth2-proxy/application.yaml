@@ -13,7 +13,10 @@ spec:
     repoURL: https://github.com/ictsc/ictsc-drove.git
     path: manifest/user/oauth2-proxy
     targetRevision: main
-    plugin: {}
+    plugin:
+      env:
+        - name: ENABLE_LOOKUP
+          value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: scoreserver

@@ -36,8 +36,6 @@ repoServer:
         - mountPath: /home/argocd/cmp-server/plugins
           name: plugins
       env:
-        - name: ENABLE_LOOKUP
-          value: "true"
         - name: ENV_NAME
           value: {{ workspace }}
 
