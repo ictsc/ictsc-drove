@@ -31,5 +31,5 @@ config:
       secret: "{{ .Env.SCORESERVER_CLIENT_SECRET }}"
       name: scoreserver-client
       redirectURIs:
-        - http://localhost:6000/oauth2/callback
+        - http://localhost:6001/oauth2/callback
         - https://contest-admin-dev.ictsc.net/oauth2/callback
