@@ -4,4 +4,6 @@ ingresses:
     routes:
       - service: dashboard-kong-proxy
         port: kong-proxy
-        auth: true
+        middlewares:
+          - name: oauth2-proxy
+            namespace: oauth2-proxy
