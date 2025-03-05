@@ -5,5 +5,7 @@ metadata:
 spec:
   forwardAuth:
     address: http://oauth2-proxy-scoreserver.scoreserver.svc.cluster.local:80
+    trustForwardHeader: true
     authResponseHeaders:
       - Authorization
+      - X-Auth-Request-Access-Token
