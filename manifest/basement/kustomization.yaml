@@ -1,6 +1,7 @@
 resources:
   - ./hnc/application.yaml
   - ./metrics-server/application.yaml
+  - ./reloader/application.yaml
   - ./system-rbac/application.yaml
 
   - ./hierarchy.yaml

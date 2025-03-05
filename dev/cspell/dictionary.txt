@@ -15,6 +15,7 @@ controlplane
 cpython
 crashcollector
 crds
+csrftoken
 dandydev
 datasource
 dearmor
@@ -36,6 +37,7 @@ hostvars
 ictsc
 ictscore
 ignoreerrors
+istiod
 jetstack
 keyrings
 kubeadm
@@ -77,6 +79,7 @@ sakurastorage
 scoreserver
 servicemonitor
 snapshotter
+stakater
 stefanzweifel
 swapfile
 swapoff
@@ -89,5 +92,3 @@ virtualenvs
 vyos
 websecure
 zalan
-csrftoken
-istiod

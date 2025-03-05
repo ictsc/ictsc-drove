@@ -1,0 +1,9 @@
+reloader:
+  autoReloadAll: true
+  reloadOnCreate: true
+  reloadOnDelete: true
+  syncAfterRestart: true
+  watchGlobally: true
+  enableMetricsByNamespace: true
+  podMonitor:
+    enabled: true
