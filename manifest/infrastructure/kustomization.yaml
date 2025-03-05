@@ -7,6 +7,5 @@ resources:
   - ./oauth2-proxy/application.yaml
   - ./cert-manager/application.yaml
   - ./dex/application.yaml
-  - ./istio/application.yaml
 
   - ./hierarchy.yaml

@@ -1,4 +1,0 @@
-resources:
-    requests:
-      cpu: "0"
-      memory: "0"

@@ -1,7 +1,0 @@
-ingresses:
-  - name: k8s-dashboard
-    domain: k8s-dashboard.drove-dev.ictsc.net
-    routes:
-      - service: istio-gateway
-        port: 443
-        auth: true
