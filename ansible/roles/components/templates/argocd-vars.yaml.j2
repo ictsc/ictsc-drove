@@ -18,6 +18,11 @@ configs:
           end
           return hs
 
+controller:
+  env:
+    - name: ARGOCD_SYNC_WAVE_DELAY
+      value: "30"
+
 redis:
   enabled: false
 redis-ha:

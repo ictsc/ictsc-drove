@@ -1,5 +1,7 @@
 controller:
-  replicas: 1
+  env:
+    - name: ARGOCD_SYNC_WAVE_DELAY
+      value: "30"
   metrics:
     enabled: true
     serviceMonitor:
