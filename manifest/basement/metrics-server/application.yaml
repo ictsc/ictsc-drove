@@ -4,7 +4,7 @@ metadata:
   name: metrics-server-application
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-300"
+    argocd.argoproj.io/sync-wave: "-310"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
