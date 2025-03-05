@@ -5,5 +5,7 @@ metadata:
 spec:
   forwardAuth:
     address: http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:4181
+{{- if .Values.tokenPropagation }}
     authResponseHeaders:
-      - X-Forwarded-User
+      - Authorization
+{{- end }}

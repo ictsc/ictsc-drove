@@ -1,3 +1,4 @@
 issuer: https://dex.drove.ictsc.net
 domains:
   - drove.ictsc.net
+tokenPropagation: true

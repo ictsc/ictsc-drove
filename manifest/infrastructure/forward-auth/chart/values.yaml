@@ -6,3 +6,7 @@
 issuer:
 # (required) クッキーを発行したいドメインを配列で指定
 domains:
+# IDトークンをBearerに伝播させるか
+tokenPropagation: false
+# Bearerトークンがあった時、クッキーの検証をスキップするか
+skipJwtBearerTokens: false
