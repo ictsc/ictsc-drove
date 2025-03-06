@@ -1,0 +1,53 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://k8s.drove-dev.ictsc.net:8443
+  name: dev
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://k8s.drove.ictsc.net:8443
+  name: prod
+contexts:
+- context:
+    cluster: dev
+    user: dev
+  name: dev
+- context:
+    cluster: prod
+    user: prod
+  name: prod
+current-context: dev
+kind: Config
+preferences: {}
+users:
+- name: dev
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1
+      args:
+      - oidc-login
+      - get-token
+      - --oidc-issuer-url=https://dex.drove-dev.ictsc.net
+      - --oidc-client-id=dex-client
+      - --oidc-client-secret=%GITHUB_APP_CLIENT_SECRET%
+      - --oidc-extra-scope=groups,profile
+      command: kubectl
+      env: null
+      interactiveMode: Never
+      provideClusterInfo: false
+- name: prod
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1
+      args:
+      - oidc-login
+      - get-token
+      - --oidc-issuer-url=https://dex.drove.ictsc.net
+      - --oidc-client-id=dex-client
+      - --oidc-client-secret=%GITHUB_APP_CLIENT_SECRET%
+      - --oidc-extra-scope=groups,profile
+      command: kubectl
+      env: null
+      interactiveMode: Never
+      provideClusterInfo: false

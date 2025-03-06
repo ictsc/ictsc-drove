@@ -41,6 +41,7 @@ istiod
 jetstack
 keyrings
 kubeadm
+KUBECONFIG
 kubelet
 lineinfile
 loadbalancer

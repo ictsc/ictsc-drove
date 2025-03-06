@@ -3,6 +3,7 @@
 !/.vscode/extensions.json
 .infracost/
 
+.kube
 .ansible
 .terraform
 .terraform.lock.hcl
