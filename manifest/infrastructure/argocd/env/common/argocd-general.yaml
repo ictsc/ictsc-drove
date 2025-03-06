@@ -40,5 +40,4 @@ configs:
                   - ictsc2024
   rbac:
     policy.csv: |
-      g, ictsc:Admins, role:admin
-      g, ictsc:ictsc2024, role:readonly
+      g, ictsc:ictsc2024, role:admin
