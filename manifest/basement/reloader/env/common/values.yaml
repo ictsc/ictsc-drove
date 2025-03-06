@@ -5,6 +5,6 @@ reloader:
   syncAfterRestart: true
   watchGlobally: true
   enableMetricsByNamespace: true
-  ignoreNamespaces: cilium,argocd,kube-system
+  ignoreNamespaces: cilium,argocd,kube-system,rook-ceph
   podMonitor:
     enabled: true
