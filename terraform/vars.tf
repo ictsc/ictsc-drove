@@ -44,7 +44,7 @@ variable "worker_node" {
   type = map(any)
   default = {
     dev  = 8
-    prod = 8
+    prod = 10
   }
 }
 variable "worker_node_cpu" {
