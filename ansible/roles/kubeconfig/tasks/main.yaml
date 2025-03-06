@@ -11,6 +11,19 @@
         dest: "../.kube/config"
         flat: true
 
+- name: Install yq
+  block:
+    - name: Check if yq is already installed
+      ansible.builtin.stat:
+        path: /usr/bin/yq
+      register: yq_installed
+    - name: Download yq
+      ansible.builtin.get_url:
+        url: https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+        dest: /usr/bin/yq
+        mode: "0755"
+      when: not yq_installed.stat.exists
+
 - name: Generate certificate data
   block:
     - name: Get certificate data
