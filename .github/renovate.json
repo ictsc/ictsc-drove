@@ -1,49 +1,78 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
-  "labels": ["dependencies"],
+  "labels": [
+    "dependencies"
+  ],
   "packageRules": [
     {
       "description": "Upgrade go indirect dependencies",
-      "matchManagers": ["gomod"],
-      "matchDepTypes": ["indirect"],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
       "enabled": true
     },
     {
       "description": "Restrict go indirect dependencies up to minor",
-      "matchManagers": ["gomod"],
-      "matchDepTypes": ["indirect"],
-      "matchUpdateTypes": ["major"],
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "enabled": false
     },
     {
       "description": "Auto merge devDependencies",
-      "matchDepTypes": ["devDependencies"],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
       "automerge": true
     },
     {
       "description": "Auto merge GitHub Actions",
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "automerge": true
     },
     {
       "description": "Auto merge up to minor",
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
     },
     {
       "description": "Auto merge digest & pin",
-      "matchUpdateTypes": ["digest", "pin", "pinDigest"],
+      "matchUpdateTypes": [
+        "digest",
+        "pin",
+        "pinDigest"
+      ],
       "automerge": true
     }
   ],
   "customManagers": [
     {
+      "customType": "regex",
       "description": "Python version in Pipfile and GitHub Actions",
-      "fileMatch": ["(^|/)Pipfile$", "(^|/).github/workflows/ansible-ci.yml"],
+      "fileMatch": [
+        "(^|/)Pipfile$",
+        "(^|/).github/workflows/ansible-ci.yml"
+      ],
       "matchStrings": [
         "python_version = \"(?<currentValue>.+)\"",
         "python-version: (?<currentValue>.+)"
@@ -53,8 +82,12 @@
       "extractVersionTemplate": "^v(?<version>\\d+\\.\\d+)(\\.\\d+)$"
     },
     {
+      "customType": "regex",
       "description": "ghcr image dependencies",
-      "fileMatch": [".+\\.ya?ml$", ".+\\.ya?ml.j2$"],
+      "fileMatch": [
+        ".+\\.ya?ml$",
+        ".+\\.ya?ml.j2$"
+      ],
       "matchStrings": [
         "ghcr\\.io/(?<depName>[^\\s:]+):(?<currentValue>[^\\s]+)"
       ],
@@ -63,16 +96,22 @@
       "depNameTemplate": "ghcr.io/{{{depName}}}"
     },
     {
+      "customType": "regex",
       "description": "Docker image dependencies",
-      "fileMatch": [".+\\.ya?ml$"],
+      "fileMatch": [
+        ".+\\.ya?ml$"
+      ],
       "matchStrings": [
         "# renovate:image\n.*?\"(?<depName>[^\\s:]+):(?<currentValue>.+)\"\n"
       ],
       "datasourceTemplate": "docker"
     },
     {
+      "customType": "regex",
       "description": "GitHub URL dependencies",
-      "fileMatch": [".+\\.ya?ml$"],
+      "fileMatch": [
+        ".+\\.ya?ml$"
+      ],
       "matchStrings": [
         "https://github\\.com/(?<depName>[^/]+/[^/]+)//.*?\\?ref=(?<currentValue>\\S+)",
         "https://raw\\.githubusercontent\\.com/(?<depName>[^/]+/[^/]+)/(?<currentValue>[^/]+)",
