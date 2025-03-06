@@ -13,7 +13,7 @@ spec:
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
-    namespace: root
+    namespace: scoreserver
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
