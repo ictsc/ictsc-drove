@@ -10,6 +10,13 @@ variable "external_subnet" {
     prod = 28
   }
 }
+variable "dns_zone" {
+  type = map(any)
+  default = {
+    dev  = "drove-dev.ictsc.net"
+    prod = "drove.ictsc.net"
+  }
+}
 
 variable "control_plane" {
   type = map(any)

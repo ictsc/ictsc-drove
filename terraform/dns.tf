@@ -1,5 +1,5 @@
 resource "sakuracloud_dns" "k8s_dns" {
-  zone = "drove-${terraform.workspace}.ictsc.net"
+  zone = lookup(var.dns_zone, terraform.workspace, 0)
 }
 
 resource "sakuracloud_dns_record" "k8s_apiserver_record" {
