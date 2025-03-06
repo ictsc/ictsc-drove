@@ -9,7 +9,7 @@ releases:
   - name: prometheus
     namespace: prometheus-stack
     chart: prometheus-community/kube-prometheus-stack
-    version: 69.7.3
+    version: 69.7.4
   - name: ingress
     namespace: prometheus-stack
     chart: ../../common/ingress
