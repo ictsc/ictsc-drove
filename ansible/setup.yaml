@@ -44,3 +44,4 @@
   become: true
   roles:
     - components
+    - kubeconfig

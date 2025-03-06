@@ -106,12 +106,6 @@ tasks:
       - rm -f .envrc
       - task: init-env
 
-  init-kube-config:
-    desc: kubeconfigを初期化
-    internal: true
-    cmds:
-      - sed -e "s/%GITHUB_APP_CLIENT_SECRET%/${GITHUB_APP_CLIENT_SECRET}/g" dev/kube/config-template >.kube/config
-
   init-ansible:
     desc: Ansibleの初期化
     internal: true
@@ -149,6 +143,15 @@ tasks:
     cmds:
       - pipenv run playbook
 
+  kubeconfig:
+    desc: kubeconfigを生成
+    dir: ansible
+    deps:
+      - lint-ansible
+      - format-ansible
+    cmds:
+      - pipenv run kubeconfig
+
   init-terraform:
     desc: Terraformの初期化
     internal: true
@@ -169,15 +172,15 @@ tasks:
 
   select-dev:
     desc: ワークスペースをdevに切り替え
-    dir: terraform
     cmds:
-      - terraform workspace select dev
+      - kubectl config use-context dev
+      - cd terraform && terraform workspace select dev
 
   select-prod:
     desc: ワークスペースをprodに切り替え
-    dir: terraform
     cmds:
-      - terraform workspace select prod
+      - kubectl config use-context prod
+      - cd terraform && terraform workspace select prod
 
   lint-terraform:
     desc: TerraformのLintを実行

@@ -1,0 +1,33 @@
+- name: Generate kubeconfig
+  block:
+    - name: Send kubeconfig
+      ansible.builtin.template:
+        src: kubeconfig.yaml.j2
+        dest: /tmp/kubeconfig.yaml
+        mode: "0644"
+    - name: Fetch kubeconfig to local
+      ansible.builtin.fetch:
+        src: "/tmp/kubeconfig.yaml"
+        dest: "../.kube/config"
+        flat: true
+
+- name: Generate certificate data
+  block:
+    - name: Get certificate data
+      ansible.builtin.shell:
+        executable: /bin/bash
+        cmd: |
+          set -o pipefail
+          cat /etc/kubernetes/admin.conf | yq '.clusters[].cluster.certificate-authority-data' | base64 -d
+      register: certificate
+      changed_when: false
+    - name: Create certificate file
+      ansible.builtin.copy:
+        content: "{{ certificate.stdout }}"
+        dest: "/tmp/certificate"
+        mode: "0644"
+    - name: Fetch certificate file to local
+      ansible.builtin.fetch:
+        src: "/tmp/certificate"
+        dest: "../.kube/certificates/{{ workspace }}"
+        flat: true
