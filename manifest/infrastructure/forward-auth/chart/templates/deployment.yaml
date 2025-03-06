@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: forward-auth
-          image: ghcr.io/ictsc/traefik-forward-auth:latest
+          image: ghcr.io/ictsc/traefik-forward-auth:3.0.0
           ports:
             - containerPort: 4181
           args:
@@ -23,6 +23,7 @@ spec:
             - --default-provider=oidc
             - --providers.oidc.issuer-url={{ required "A valid issuer is required." .Values.issuer }}
             - --providers.oidc.client-id=dex-client
+            - --providers.oidc.extra-scopes=groups
 {{- if .Values.skipJwtBearerTokens }}
             - --skip-jwt-bearer-tokens=true
 {{- end }}

@@ -51,14 +51,14 @@ variable "worker_node_cpu" {
   type = map(any)
   default = {
     dev  = 2
-    prod = 2
+    prod = 4
   }
 }
 variable "worker_node_mem" {
   type = map(any)
   default = {
     dev  = 4
-    prod = 4
+    prod = 8
   }
 }
 variable "worker_node_disk" {
