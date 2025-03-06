@@ -23,6 +23,8 @@ spec:
     server: https://kubernetes.default.svc
     namespace: scoreserver
   syncPolicy:
+{{- if ne .Values.env "dev" }}
     automated:
       prune: true
-      selfHeal: {{ ne .Values.env "dev" }}
+      selfHeal: true
+{{- end }}
