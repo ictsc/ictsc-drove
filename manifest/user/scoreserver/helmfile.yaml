@@ -1,0 +1,9 @@
+bases:
+  - environments.yaml
+
+releases:
+  - name: local-charts
+    chart: ./local
+    set:
+      - name: layer
+        value: {{.Environment.Name}}

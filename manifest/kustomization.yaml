@@ -21,5 +21,6 @@ resources:
   - ./user/application.yaml
   - ./user/postgres/application.yaml
   - ./user/redis/application.yaml
-  - ./user/scoreserver/main/application.yaml
-  - ./user/scoreserver/sub/application.yaml
+  - ./user/scoreserver/application.yaml
+  # - ./user/scoreserver/main/application.yaml
+  # - ./user/scoreserver/sub/application.yaml
