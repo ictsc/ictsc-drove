@@ -15,6 +15,10 @@ apiServer:
       value: {{ oidc_issuer_url }}
     - name: oidc-client-id
       value: dex-client
+    - name: oidc-username-claim
+      value: name
+    - name: oidc-groups-claim
+      value: groups
 controllerManager:
   extraArgs:
     - name: node-cidr-mask-size-ipv6
