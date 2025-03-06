@@ -3,6 +3,14 @@ kind: Application
 metadata:
   name: scoreserver-application
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: >-
+      frontend=ghcr.io/ictsc/ictsc-regalia/frontend:latest,
+      backend=ghcr.io/ictsc/ictsc-regalia/scoreserver:latest,
+      toolbox=ghcr.io/ictsc/ictsc-regalia/toolbox:latest
+    argocd-image-updater.argoproj.io/frontend.update-strategy: digest
+    argocd-image-updater.argoproj.io/backend.update-strategy: digest
+    argocd-image-updater.argoproj.io/toolbox.update-strategy: digest
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

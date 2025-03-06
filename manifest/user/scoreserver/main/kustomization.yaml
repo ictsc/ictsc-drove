@@ -1,8 +1,0 @@
-resources:
-  - ./backend-deployment.yaml
-  - ./backend-admin-service.yaml
-  - ./backend-contestant-service.yaml
-  - ./migration-job.yaml
-
-  - ./frontend-deployment.yaml
-  - ./frontend-service.yaml
