@@ -1,3 +1,6 @@
 apiVersion: v2
 name: scoreserver
-version: 0.1.0
+version: 0.0.0
+icon: https://icttoracon.net/wp-content/uploads/2023/04/favicon-75x75.png
+maintainers:
+  - name: ictsc
