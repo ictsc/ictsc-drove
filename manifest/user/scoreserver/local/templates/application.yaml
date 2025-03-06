@@ -17,7 +17,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-regalia-release.git
-    path: {{ .Values.layer }}
+    path: {{ .Values.env }}
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
@@ -25,4 +25,4 @@ spec:
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
+      selfHeal: {{ ne .Values.env "dev" }}

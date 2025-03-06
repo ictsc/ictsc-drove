@@ -5,5 +5,5 @@ releases:
   - name: local-charts
     chart: ./local
     set:
-      - name: layer
+      - name: env
         value: {{.Environment.Name}}
