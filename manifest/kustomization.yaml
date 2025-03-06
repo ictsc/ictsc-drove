@@ -3,6 +3,7 @@ resources:
   - ./basement/hnc/application.yaml
   - ./basement/metrics-server/application.yaml
   - ./basement/reloader/application.yaml
+  - ./basement/kube-login/application.yaml
   - ./basement/system-rbac/application.yaml
 
   - ./infrastructure/application.yaml
