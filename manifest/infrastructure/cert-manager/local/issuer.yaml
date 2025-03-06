@@ -1,17 +1,13 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: {{ .Release.Name }}
+  name: common-issuer
 spec:
   acme:
     email: cert-manager@icttoracon.net
-{{- if eq .Values.env "prod" }}
     server: https://acme-v02.api.letsencrypt.org/directory
-{{- else }}
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
-{{- end }}
     privateKeySecretRef:
-      name: {{ .Release.Name }}-key
+      name: common-issuer-key
     solvers:
       - http01:
           ingress:

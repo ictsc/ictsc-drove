@@ -12,10 +12,5 @@ releases:
     version: v1.17.1
     values:
       - env/common/cert-manager.yaml
-  - name: common-issuer
-    namespace: cert-manager
-    chart: ./issuer
-    values:
-      - env: "{{ .Environment.Name }}"
   - name: local-charts
     chart: ./local
