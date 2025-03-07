@@ -27,12 +27,12 @@ hubble:
     enabled:
       - dns:query
       - drop
-      - tcp
       - flow
+      - flows-to-world
+      - httpV2
       - port-distribution
       - icmp
-      - http
-      - httpV2
+      - tcp
     enableOpenMetrics: true
     serviceMonitor:
       enabled: true
