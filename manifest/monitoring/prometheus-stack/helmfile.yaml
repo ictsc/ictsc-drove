@@ -12,6 +12,7 @@ releases:
     version: 69.7.4
     values:
       - env/common/grafana.yaml
+      - env/{{ .Environment.Name }}/grafana.yaml
   - name: ingress
     namespace: prometheus-stack
     chart: ../../common/ingress
