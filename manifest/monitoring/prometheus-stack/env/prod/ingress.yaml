@@ -4,4 +4,3 @@ ingresses:
     routes:
       - service: prometheus-grafana
         port: 80
-        auth: true
