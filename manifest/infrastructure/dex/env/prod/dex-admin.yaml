@@ -17,5 +17,3 @@ config:
       secret: "{{ .Env.CLIENT_SECRET }}"
       name: dex-client
       redirectURIs:
-        - http://localhost:8000
-        - http://localhost:18000

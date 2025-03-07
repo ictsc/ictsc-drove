@@ -19,13 +19,12 @@ config:
       name: dex-client
       redirectURIs:
         - http://localhost:8000
-        - http://localhost:18000
         - https://contest-dev.ictsc.net/_oauth
         - https://traefik.drove.ictsc.net/_oauth
         - https://ceph.drove.ictsc.net/_oauth
         - https://hubble.drove.ictsc.net/_oauth
         - https://postgres.drove.ictsc.net/_oauth
-        - https://k8s-dashboard.drove.ictsc.net/callback
+        - https://k8s-dashboard.drove.ictsc.net/_oauth
         - https://grafana.drove.ictsc.net/callback
     - id: dex-scoreserver-client
       secret: "{{ .Env.SCORESERVER_CLIENT_SECRET }}"
