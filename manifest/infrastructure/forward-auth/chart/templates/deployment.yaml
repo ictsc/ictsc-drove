@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: forward-auth
-          image: ghcr.io/ictsc/traefik-forward-auth:3.0.0
+          image: ghcr.io/ictsc/traefik-forward-auth:v3.0.1
           ports:
             - containerPort: 4181
           args:
