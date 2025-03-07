@@ -61,12 +61,12 @@ envoy:
     serviceMonitor:
       enabled: true
 
-    relabelings: # Out of Syncへの対処
-      - sourceLabels:
-          - __meta_kubernetes_pod_node_name
-        targetLabel: node
-        action: replace
-        replacement: ${1}
+      relabelings: # Out of Syncへの対処
+        - sourceLabels:
+            - __meta_kubernetes_pod_node_name
+          targetLabel: node
+          action: replace
+          replacement: ${1}
 
 operator:
   replicas: 2
