@@ -29,3 +29,7 @@ grafana:
       secretKeyRef:
         name: github-app
         key: client-secret
+
+  sidecar:
+    dashboards:
+      folderAnnotation: folder
