@@ -33,7 +33,7 @@ grafana:
   sidecar:
     dashboards:
       annotations:
-        folder: General
+        folder: Default
       folderAnnotation: folder
       provider:
         foldersFromFilesStructure: true
