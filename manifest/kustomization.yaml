@@ -18,6 +18,7 @@ resources:
   - ./monitoring/application.yaml
   - ./monitoring/dashboard/application.yaml
   - ./monitoring/prometheus-stack/application.yaml
+  - ./monitoring/grafana-dashboards/application.yaml
 
   - ./user/application.yaml
   - ./user/postgres/application.yaml

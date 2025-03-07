@@ -1,0 +1,67 @@
+# Based on https://github.com/dotdc/grafana-dashboards-kubernetes/blob/master/kustomization.yaml
+
+# Global options
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    grafana_dashboard: "1"
+commonAnnotations:
+  folder: "Kubernetes"
+
+# Generate a ConfigMap for each dashboard
+configMapGenerator:
+  #################################################
+  # Views Dashboards
+  #################################################
+
+  - name: dashboards-k8s-views-global
+    files:
+      [
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json,
+      ]
+
+  - name: dashboards-k8s-views-namespaces
+    files:
+      [
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json,
+      ]
+
+  - name: dashboards-k8s-views-nodes
+    files:
+      [
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json,
+      ]
+
+  - name: dashboards-k8s-views-pods
+    files:
+      [
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json,
+      ]
+
+  #################################################
+  # System / Addons Dashboards
+  #################################################
+
+  - name: dashboards-k8s-system-api-server
+    files:
+      [
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json,
+      ]
+
+  - name: dashboards-k8s-system-coredns
+    files:
+      [
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json,
+      ]
+
+  - name: dashboards-k8s-addons-prometheus
+    files:
+      [
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-addons-prometheus.json,
+      ]
+
+  - name: dashboards-k8s-addons-trivy-operator
+    files:
+      [
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-addons-trivy-operator.json,
+      ]
