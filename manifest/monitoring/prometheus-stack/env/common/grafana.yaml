@@ -34,3 +34,5 @@ grafana:
     dashboards:
       defaultFolderName: Kubernetes
       folderAnnotation: folder
+      provider:
+        foldersFromFilesStructure: true
