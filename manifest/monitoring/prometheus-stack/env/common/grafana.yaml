@@ -32,7 +32,8 @@ grafana:
 
   sidecar:
     dashboards:
-      defaultFolderName: Kubernetes
+      annotations:
+        folder: Kubernetes
       folderAnnotation: folder
       provider:
         foldersFromFilesStructure: true
