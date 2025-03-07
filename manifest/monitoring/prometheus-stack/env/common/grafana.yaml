@@ -1,7 +1,9 @@
 grafana:
   grafana.ini:
+    users:
+      home_page: dashboards/
     auth:
-      disable_login_form: false
+      disable_login_form: true
     auth.anonymous:
       enabled: true
       org_name: Main Org.
@@ -16,7 +18,7 @@ grafana:
       api_url: https://api.github.com/user
       allowed_organizations:
         - ictsc
-      org_mapping: "@ictsc/ictsc2024:Main Org.:Admin"
+      role_attribute_path: contains(groups[*], '@ictsc/Admins') && 'GrafanaAdmin' || contains(groups[*], '@ictsc/ictsc2024') && 'Admin' || 'Viewer'
 
   envValueFrom:
     GF_AUTH_GITHUB_CLIENT_ID:
