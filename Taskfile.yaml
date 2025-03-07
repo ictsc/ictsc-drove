@@ -78,6 +78,8 @@ tasks:
         read TF_STATE_ACCESS_KEY
         echo "さくらのオブジェクトストレージのシークレットキーを入力してください"
         read TF_STATE_SECRET_KEY
+        echo "GitHub AppのクライアントIDを入力してください"
+        read GITHUB_APP_CLIENT_ID
         echo "GitHub Appのクライアントシークレットキーを入力してください"
         read GITHUB_APP_CLIENT_SECRET
         {
@@ -96,6 +98,7 @@ tasks:
           echo "export AWS_ACCESS_KEY_ID=\"\${TF_STATE_ACCESS_KEY}\"";
           echo "export AWS_SECRET_ACCESS_KEY=\"\${TF_STATE_SECRET_KEY}\"";
           echo "";
+          echo "export GITHUB_APP_CLIENT_ID=$GITHUB_APP_CLIENT_ID";
           echo "export GITHUB_APP_CLIENT_SECRET=$GITHUB_APP_CLIENT_SECRET";
         } > .envrc
         echo ".envrcを作成しました"

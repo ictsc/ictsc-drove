@@ -103,6 +103,7 @@
       ansible.builtin.shell: |
         kubectl get secret github-app -n infrastructure || \
         kubectl create secret generic github-app -n infrastructure \
+          --from-literal=client-id="{{ lookup('env', 'GITHUB_APP_CLIENT_ID') }}" \
           --from-literal=client-secret="{{ lookup('env', 'GITHUB_APP_CLIENT_SECRET') }}"
         kubectl label secret github-app -n infrastructure "app.kubernetes.io/part-of=argocd"
       register: ret

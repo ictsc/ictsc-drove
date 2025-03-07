@@ -5,7 +5,7 @@ config:
       id: github
       name: GitHub
       config:
-        clientID: Iv1.eb9e9a2c66234f5e
+        clientID: "{{ .Env.CLIENT_ID }}"
         clientSecret: "{{ .Env.CLIENT_SECRET }}"
         redirectURI: https://dex.drove.ictsc.net/callback
         orgs:
