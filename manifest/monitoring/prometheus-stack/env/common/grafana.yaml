@@ -4,7 +4,7 @@ grafana:
       disable_login_form: true
     auth.anonymous:
       enabled: true
-      org_name: Anonymous
+      org_name: anonymous
       org_role: Viewer
     auth.github:
       enabled: true
@@ -16,7 +16,7 @@ grafana:
       api_url: https://api.github.com/user
       allowed_organizations:
         - ictsc
-      org_mapping: "@ictsc/ictsc2024:ICTSC2024:Admin"
+      org_mapping: "@ictsc/ictsc2024:ictsc2024:Admin"
 
   envValueFrom:
     GF_AUTH_GITHUB_CLIENT_ID:
