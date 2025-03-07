@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/traefik/traefik-helm-chart/refs/heads/master/traefik/values.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/traefik/traefik-helm-chart/refs/tags/v34.4.1/traefik/values.schema.json
 deployment:
   replicas: 2
 
