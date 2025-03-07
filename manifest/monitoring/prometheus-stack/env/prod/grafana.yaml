@@ -1,4 +1,4 @@
 grafana:
   grafana.ini:
     server:
-      root_url: http://grafana.drove.ictsc.net
+      root_url: https://grafana.drove.ictsc.net
