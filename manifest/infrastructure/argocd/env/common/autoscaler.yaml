@@ -1,6 +1,7 @@
 resources:
   - name: argocd-server
   - name: argocd-repo-server
+    targetCPUAverageValue: 300m
   - name: argocd-applicationset-controller
   - name: argocd-notifications-controller
     minReplicas: 1
