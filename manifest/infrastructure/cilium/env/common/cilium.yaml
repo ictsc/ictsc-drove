@@ -25,10 +25,9 @@ cni:
 hubble:
   metrics:
     enabled:
-      - dns:query
+      - dns
       - drop
       - flow
-      - flows-to-world
       - httpV2
       - port-distribution
       - icmp
