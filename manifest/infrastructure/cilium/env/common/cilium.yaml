@@ -24,6 +24,16 @@ cni:
 
 hubble:
   metrics:
+    enabled:
+      - dns:query
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - http
+      - httpV2
+    enableOpenMetrics: true
     serviceMonitor:
       enabled: true
     dashboards:
