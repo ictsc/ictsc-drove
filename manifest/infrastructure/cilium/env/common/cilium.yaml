@@ -32,7 +32,6 @@ hubble:
       - port-distribution
       - icmp
       - tcp
-    enableOpenMetrics: true
     serviceMonitor:
       enabled: true
 
