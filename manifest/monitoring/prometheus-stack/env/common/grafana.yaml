@@ -16,7 +16,7 @@ grafana:
       api_url: https://api.github.com/user
       allowed_organizations:
         - ictsc
-      org_mapping: "@ictsc/ictsc2024:Admin:Admin"
+      org_mapping: "@ictsc/ictsc2024:Main Org.:Admin"
 
   envValueFrom:
     GF_AUTH_GITHUB_CLIENT_ID:
