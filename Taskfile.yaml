@@ -175,13 +175,15 @@ tasks:
   select-dev:
     desc: ワークスペースをdevに切り替え
     cmds:
-      - kubectl config use-context dev
+      - cmd: kubectl config use-context dev
+        ignore_error: true
       - cd terraform && terraform workspace select dev
 
   select-prod:
     desc: ワークスペースをprodに切り替え
     cmds:
-      - kubectl config use-context prod
+      - cmd: kubectl config use-context prod
+        ignore_error: true
       - cd terraform && terraform workspace select prod
 
   lint-terraform:
