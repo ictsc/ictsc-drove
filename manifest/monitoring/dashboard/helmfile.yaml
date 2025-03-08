@@ -12,6 +12,12 @@ releases:
     version: 7.11.1
     values:
       - env/common/dashboard.yaml
+  - name: autoscaler
+    namespace: dashboard
+    chart: ../../common/autoscaler
+    version: 0.1.0
+    values:
+      - env/common/autoscaler.yaml
   - name: ingress
     namespace: dashboard
     chart: ../../common/ingress

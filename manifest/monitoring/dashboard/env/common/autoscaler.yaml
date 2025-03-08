@@ -1,0 +1,6 @@
+resources:
+  - name: dashboard-kong
+  - name: dashboard-kubernetes-dashboard-api
+  - name: dashboard-kubernetes-dashboard-auth
+  - name: dashboard-kubernetes-dashboard-metrics-scraper
+  - name: dashboard-kubernetes-dashboard-web

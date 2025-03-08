@@ -1,4 +1,6 @@
 auth:
+  scaling:
+    replicas: 2
   containers:
     resources:
       requests:
@@ -6,6 +8,8 @@ auth:
         memory: 0
 
 api:
+  scaling:
+    replicas: 2
   containers:
     resources:
       requests:
@@ -13,6 +17,8 @@ api:
         memory: 0
 
 web:
+  scaling:
+    replicas: 2
   containers:
     resources:
       requests:
@@ -20,6 +26,8 @@ web:
         memory: 0
 
 metricsScraper:
+  scaling:
+    replicas: 2
   containers:
     resources:
       requests:
@@ -30,3 +38,4 @@ kong:
   proxy:
     http:
       enabled: true
+  replicaCount: 2
