@@ -18,11 +18,5 @@ releases:
     version: 0.1.0
     values:
       - env/{{ .Environment.Name }}/ingress.yaml
-  - name: autoscaler
-    namespace: cilium
-    chart: ../../common/autoscaler
-    version: 0.1.0
-    values:
-      - env/common/autoscaler.yaml
   - name: local-charts
     chart: ./local

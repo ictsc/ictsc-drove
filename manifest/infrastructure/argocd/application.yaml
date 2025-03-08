@@ -17,6 +17,12 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
   ignoreDifferences:
     - group: apps
       kind: Deployment
@@ -48,9 +54,3 @@ spec:
       name: argocd-server
       jsonPointers:
         - /spec/replicas
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
