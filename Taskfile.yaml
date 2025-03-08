@@ -37,7 +37,6 @@ tasks:
       - cp .vscode/settings-sample.json .vscode/settings.json
       - cd dev && if [ ! -e keys ]; then chmod +x keys.sh; ./keys.sh; fi
       - task: init-env
-      - task: init-kube-config
       - task: init-ansible
       - task: init-terraform
 
