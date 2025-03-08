@@ -65,3 +65,6 @@ configMapGenerator:
       [
         https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.6.1/dashboards/k8s-addons-trivy-operator.json,
       ]
+
+resources:
+  - hierarchy.yaml

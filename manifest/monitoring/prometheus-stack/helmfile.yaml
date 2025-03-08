@@ -22,4 +22,4 @@ releases:
     values:
       - env/{{ .Environment.Name }}/ingress.yaml
   - name: local-charts
-    chart: ./local
+    chart: ./local/kustomization.yaml
