@@ -15,6 +15,12 @@ releases:
       - env/common/prometheus.yaml
       - env/common/grafana.yaml
       - env/{{ .Environment.Name }}/grafana.yaml
+  - name: autoscaler
+    namespace: prometheus-stack
+    chart: ../../common/autoscaler
+    version: 0.1.0
+    values:
+      - env/common/autoscaler.yaml
   - name: ingress
     namespace: prometheus-stack
     chart: ../../common/ingress

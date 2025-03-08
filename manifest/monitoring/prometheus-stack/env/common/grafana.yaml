@@ -1,4 +1,6 @@
 grafana:
+  replicas: 2
+
   grafana.ini:
     users:
       home_page: dashboards/

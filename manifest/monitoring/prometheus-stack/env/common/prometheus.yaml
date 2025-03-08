@@ -5,3 +5,13 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     scrapeConfigSelectorNilUsesHelmValues: true
+    retention: 30d
+    replicas: 2
+    shards: 2
+
+alertmanager:
+  alertmanagerSpec:
+    replicas: 3
+
+kube-state-metrics:
+  replicas: 2

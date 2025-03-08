@@ -1,0 +1,3 @@
+resources:
+  - name: prometheus-grafana
+  - name: prometheus-kube-state-metrics
