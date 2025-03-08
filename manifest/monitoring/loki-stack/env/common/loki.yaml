@@ -1,0 +1,7 @@
+loki:
+  isDefault: false
+
+  loki:
+    #   auth_enabled: false
+    storage:
+      s3:

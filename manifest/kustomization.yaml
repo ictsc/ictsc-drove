@@ -18,7 +18,7 @@ resources:
   - ./monitoring/application.yaml
   - ./monitoring/dashboard/application.yaml
   - ./monitoring/prometheus-stack/application.yaml
-
+ 
   - ./user/application.yaml
   - ./user/postgres/application.yaml
   - ./user/redis/application.yaml
