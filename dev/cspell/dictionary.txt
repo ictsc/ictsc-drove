@@ -43,6 +43,7 @@ keyrings
 kubeadm
 KUBECONFIG
 kubelet
+kubelogin
 lineinfile
 loadbalancer
 logcollector

@@ -26,7 +26,7 @@ tasks:
     cmds:
       - |
         if ! (type {{.BINARY}} >/dev/null 2>&1); then
-          echo "下記公式ドキュメントを参考に、{{.BINARY}}をインストールした後、もう一度実行してください"
+          echo "下記公式ドキュメントを参考に{{if .ALT_NAME}}{{.ALT_NAME}}{{else}}{{.BINARY}}{{end}}をインストールした後、もう一度実行してください"
           echo {{.INSTALL_DOC}}
           exit 1
         fi
@@ -144,6 +144,11 @@ tasks:
       - format-ansible
     cmds:
       - pipenv run playbook
+      - task: check-binary
+        vars:
+          BINARY: kubectl oidc-login
+          ALT_NAME: kubelogin
+          INSTALL_DOC: https://github.com/int128/kubelogin?tab=readme-ov-file#getting-started
 
   kubeconfig:
     desc: kubeconfigを生成
@@ -153,6 +158,11 @@ tasks:
       - format-ansible
     cmds:
       - pipenv run kubeconfig
+      - task: check-binary
+        vars:
+          BINARY: kubectl oidc-login
+          ALT_NAME: kubelogin
+          INSTALL_DOC: https://github.com/int128/kubelogin?tab=readme-ov-file#getting-started
 
   init-terraform:
     desc: Terraformの初期化
