@@ -146,7 +146,7 @@ tasks:
       - pipenv run playbook
       - task: check-binary
         vars:
-          BINARY: kubectl oidc-login
+          BINARY: kubectl-oidc_login
           ALT_NAME: kubelogin
           INSTALL_DOC: https://github.com/int128/kubelogin?tab=readme-ov-file#getting-started
 
@@ -160,7 +160,7 @@ tasks:
       - pipenv run kubeconfig
       - task: check-binary
         vars:
-          BINARY: kubectl oidc-login
+          BINARY: kubectl-oidc_login
           ALT_NAME: kubelogin
           INSTALL_DOC: https://github.com/int128/kubelogin?tab=readme-ov-file#getting-started
 
