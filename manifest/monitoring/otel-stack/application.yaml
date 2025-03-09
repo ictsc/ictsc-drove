@@ -32,3 +32,5 @@ spec:
       kind: Deployment
       jsonPointers:
         - /spec/replicas
+    - group: cilium.io/v2
+      kind: CiliumIdentity
