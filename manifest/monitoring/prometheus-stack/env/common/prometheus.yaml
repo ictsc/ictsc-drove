@@ -8,6 +8,9 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     scrapeConfigSelectorNilUsesHelmValues: true
+    enableRemoteWriteReceiver: true
+    enableFeatures:
+      - exemplar-storage
     retention: 30d
     replicas: 2
     shards: 2
