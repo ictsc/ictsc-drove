@@ -31,6 +31,7 @@ loki:
 gateway:
   replicas: 2
 
+write:
   replicas: 2
   persistence:
     storageClass: ceph-filesystem
@@ -39,9 +40,9 @@ gateway:
   extraArgs:
     - "-config.expand-env=true"
   extraEnvFrom:
-    - configMapKeyRef:
+    - configMapRef:
         name: loki-bucket
-    - secretKeyRef:
+    - secretRef:
         name: loki-bucket
 
 read:
@@ -53,9 +54,9 @@ read:
   extraArgs:
     - "-config.expand-env=true"
   extraEnvFrom:
-    - configMapKeyRef:
+    - configMapRef:
         name: loki-bucket
-    - secretKeyRef:
+    - secretRef:
         name: loki-bucket
 
 backend:
@@ -67,7 +68,25 @@ backend:
   extraArgs:
     - "-config.expand-env=true"
   extraEnvFrom:
-    - configMapKeyRef:
+    - configMapRef:
         name: loki-bucket
-    - secretKeyRef:
+    - secretRef:
         name: loki-bucket
+
+resultsCache:
+  resources:
+    requests:
+      memory: "0"
+      cpu: "0"
+    limits:
+      memory: "0"
+      cpu: "0"
+
+chunksCache:
+  resources:
+    requests:
+      memory: "0"
+      cpu: "0"
+    limits:
+      memory: "0"
+      cpu: "0"
