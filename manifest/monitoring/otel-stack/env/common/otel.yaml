@@ -22,7 +22,7 @@ collectors:
           tls:
             insecure: true
         otlphttp/loki:
-          endpoint: http://loki-gateway.loki.svc.cluster.local:3100/otlp/v1/logs
+          endpoint: http://loki-gateway.loki.svc.cluster.local:80/otlp/v1/logs
           tls:
             insecure: true
       service:

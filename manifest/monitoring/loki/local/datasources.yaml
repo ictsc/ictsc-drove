@@ -5,13 +5,13 @@ metadata:
   labels:
     grafana_datasource: "1"
 data:
-  loki-datasource.yaml: |-
+  datasource.yaml: |-
     apiVersion: 1
     datasources:
     - name: Loki
       type: loki
       access: proxy
-      url: "http://loki-gateway.loki.svc.cluster.local:3100"
+      url: "http://loki-gateway.loki.svc.cluster.local:80"
       version: 1
       isDefault: false
       jsonData:
