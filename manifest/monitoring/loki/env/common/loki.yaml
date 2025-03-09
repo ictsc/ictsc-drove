@@ -21,7 +21,7 @@ loki:
           prefix: index_
           period: 24h
   compactor:
-    working_directory: /data/retention
+    working_directory: /tmp/loki/retention
     retention_enabled: true
     retention_delete_delay: 2h
     delete_request_store: s3
