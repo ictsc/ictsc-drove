@@ -14,10 +14,9 @@ collectors:
         enabled: false
     config:
       exporters:
-        prometheus:
-          endpoint: 0.0.0.0:9090
-          tls:
-            insecure: true
+        prometheusremotewrite:
+          endpoint: "https://kps-prometheus.prometheus-stack.svc.cluster.local:9090/api/v1/push"
+          insecure: true
         otlphttp/loki:
           endpoint: http://loki-gateway.loki.svc.cluster.local:3100/otlp/v1/logs
           tls:
@@ -29,7 +28,7 @@ collectors:
               - debug
           metrics:
             exporters:
-              - prometheus
+              - prometheusremotewrite
           logs:
             receivers:
               - otlp
