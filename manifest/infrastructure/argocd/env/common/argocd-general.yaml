@@ -10,6 +10,13 @@ configs:
   cm:
     admin.enabled: false
     controller.diff.server.side: true
+    resource.exclusions: |
+      - apiGroups:
+        - cilium.io
+        kinds:
+        - CiliumIdentity
+        clusters:
+        - "*"
     resource.customizations: |
       argoproj.io/Application:
         health.lua: |
