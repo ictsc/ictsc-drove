@@ -10,9 +10,9 @@ data:
     datasources:
     - name: Loki
       type: loki
-      access: proxy
+      uid: loki
       url: "http://loki-gateway.loki.svc.cluster.local:80"
-      version: 1
+      access: proxy
       isDefault: false
       jsonData:
         {}
