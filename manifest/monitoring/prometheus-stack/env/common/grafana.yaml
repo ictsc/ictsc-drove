@@ -33,3 +33,5 @@ grafana:
       folderAnnotation: folder
       provider:
         foldersFromFilesStructure: true
+    datasources:
+      searchNamespace: ALL
