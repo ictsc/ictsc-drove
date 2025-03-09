@@ -1,0 +1,22 @@
+bases:
+  - environments.yaml
+
+repositories:
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+
+releases:
+  - name: loki
+    namespace: loki
+    chart: grafana/loki
+    version: 6.27.0
+    values:
+      - env/common/loki.yaml
+  - name: autoscaler
+    namespace: loki
+    chart: ../../common/autoscaler
+    version: 0.1.0
+    values:
+      - env/common/autoscaler.yaml
+  - name: local-charts
+    chart: ./local

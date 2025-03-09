@@ -1,0 +1,7 @@
+resources:
+  - name: loki-gateway
+  - name: loki-write
+    kind: StatefulSet
+  - name: loki-read
+  - name: loki-backend
+    kind: StatefulSet
