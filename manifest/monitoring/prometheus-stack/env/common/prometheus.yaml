@@ -15,6 +15,10 @@ prometheus:
 alertmanager:
   alertmanagerSpec:
     replicas: 3
+    resources:
+      requests:
+        cpu: "0"
+        memory: "0"
 
 kube-state-metrics:
   replicas: 2

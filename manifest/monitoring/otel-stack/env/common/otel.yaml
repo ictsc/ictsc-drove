@@ -45,6 +45,11 @@ collectors:
 
 opentelemetry-operator:
   replicaCount: 2
+  kubeRBACProxy:
+    resources:
+      requests:
+        cpu: "0"
+        memory: "0"
   manager:
     resources:
       requests:
