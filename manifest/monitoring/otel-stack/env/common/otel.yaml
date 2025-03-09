@@ -2,6 +2,8 @@
 
 collectors:
   daemon:
+    image:
+      repository: otel/opentelemetry-collector-contrib
     resources:
       requests:
         cpu: "0"
