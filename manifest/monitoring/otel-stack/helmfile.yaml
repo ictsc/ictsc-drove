@@ -1,0 +1,16 @@
+bases:
+  - environments.yaml
+
+repositories:
+  - name: open-telemetry
+    url: https://open-telemetry.github.io/opentelemetry-helm-charts
+
+releases:
+  - name: otel-stack
+    namespace: otel-stack
+    chart: open-telemetry/opentelemetry-kube-stack
+    version: 0.4.3
+    values:
+      - env/common/otel.yaml
+  - name: local-charts
+    chart: ./local

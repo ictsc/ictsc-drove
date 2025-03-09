@@ -1,3 +1,4 @@
+alertmanager
 apiserver
 applicationset
 argocd
@@ -59,10 +60,12 @@ nofilter
 nonlocal
 NOPASSWD
 noqa
+objectbucket
 objectstore
 omap
 ONESHELL
 osixia
+otlphttp
 PGDATABASE
 PGHOST
 PGPASSWORD
@@ -73,6 +76,7 @@ pipenv
 Pipfile
 Pooler
 posix
+promtail
 rbdplugin
 relabelings
 resizer

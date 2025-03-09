@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/open-telemetry/opentelemetry-helm-charts/opentelemetry-collector-0.117.3/charts/opentelemetry-kube-stack/values.schema.json
+
+collectors:
+  daemon:
+    resources:
+      requests:
+        cpu: "0"
+        memory: "0"
+    scrape_configs_file: ""
+    presets:
+      kubeletMetrics:
+        enabled: false
+      hostMetrics:
+        enabled: false
+    config:
+      exporters:
+        prometheus:
+          endpoint: 0.0.0.0:9090
+          tls:
+            insecure: true
+        otlphttp/loki:
+          endpoint: http://loki-gateway.loki.svc.cluster.local:3100/otlp/v1/logs
+          tls:
+            insecure: true
+      service:
+        pipelines:
+          traces:
+            exporters:
+              - debug
+          metrics:
+            exporters:
+              - prometheus
+          logs:
+            receivers:
+              - otlp
+              - filelog
+            exporters:
+              - otlphttp/loki
+
+  cluster:
+    enabled: false
+
+opentelemetry-operator:
+  replicaCount: 2
+  manager:
+    resources:
+      requests:
+        cpu: "0"
+        memory: "0"
+    serviceMonitor:
+      enabled: true
