@@ -1,3 +1,6 @@
+nameOverride: kps
+fullnameOverride: kps
+
 prometheus:
   prometheusSpec:
     ruleSelectorNilUsesHelmValues: false
