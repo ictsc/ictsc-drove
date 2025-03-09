@@ -5,6 +5,9 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-100"
+    argocd-image-updater.argoproj.io/image-list: >-
+      otel-col=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest
+    argocd-image-updater.argoproj.io/otel-col.update-strategy: digest
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

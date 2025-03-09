@@ -3,7 +3,8 @@
 collectors:
   daemon:
     image:
-      repository: otel/opentelemetry-collector-contrib
+      repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib
+      tag: latest
     resources:
       requests:
         cpu: "0"
