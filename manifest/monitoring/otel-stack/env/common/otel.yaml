@@ -21,8 +21,8 @@ collectors:
           endpoint: "https://kps-prometheus.prometheus-stack.svc.cluster.local:9090/api/v1/push"
           tls:
             insecure: true
-        otlphttp/loki:
-          endpoint: http://loki-gateway.loki.svc.cluster.local:80/otlp/v1/logs
+        otlphttp:
+          endpoint: http://loki-gateway.loki.svc.cluster.local:80/otlp
           tls:
             insecure: true
       service:
@@ -38,7 +38,7 @@ collectors:
               - otlp
               - filelog
             exporters:
-              - otlphttp/loki
+              - otlphttp
 
   cluster:
     enabled: false
