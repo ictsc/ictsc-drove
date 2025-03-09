@@ -33,3 +33,8 @@ output "k8s_dns_zone" {
 output "k8s_dns_nameservers" {
   value = sakuracloud_dns.k8s_dns.dns_servers
 }
+
+output "ssh_private_key" {
+  sensitive = true
+  value     = sakuracloud_ssh_key_gen.gen_key.private_key
+}

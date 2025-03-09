@@ -50,7 +50,7 @@ variable "control_plane_disk" {
 variable "worker_node" {
   type = map(any)
   default = {
-    dev  = 8
+    dev  = 12
     prod = 10
   }
 }

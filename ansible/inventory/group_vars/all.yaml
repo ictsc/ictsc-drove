@@ -1,3 +1,4 @@
+ansible_ssh_user: ubuntu
 users:
   - name: "ictsc"
     uid: "1011"
