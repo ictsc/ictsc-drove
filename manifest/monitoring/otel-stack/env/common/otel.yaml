@@ -6,6 +6,19 @@ crds:
 opentelemetry-operator:
   crds:
     create: true
+  replicaCount: 2
+  kubeRBACProxy:
+    resources:
+      requests:
+        cpu: "0"
+        memory: "0"
+  manager:
+    resources:
+      requests:
+        cpu: "0"
+        memory: "0"
+    serviceMonitor:
+      enabled: true
 
 collectors:
   daemon:
@@ -51,18 +64,3 @@ collectors:
 
   cluster:
     enabled: false
-
-opentelemetry-operator:
-  replicaCount: 2
-  kubeRBACProxy:
-    resources:
-      requests:
-        cpu: "0"
-        memory: "0"
-  manager:
-    resources:
-      requests:
-        cpu: "0"
-        memory: "0"
-    serviceMonitor:
-      enabled: true
