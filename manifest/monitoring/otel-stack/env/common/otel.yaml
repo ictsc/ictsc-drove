@@ -21,7 +21,8 @@ opentelemetry-operator:
 collectors:
   daemon:
     targetAllocator:
-      enabled: false
+      prometheusCR:
+        enabled: false
     image:
       repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib
       tag: latest
