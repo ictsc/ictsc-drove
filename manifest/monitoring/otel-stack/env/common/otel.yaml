@@ -3,8 +3,14 @@
 crds:
   install: false
 
+opentelemetry-operator:
+  crds:
+    create: true
+
 collectors:
   daemon:
+    targetAllocator:
+      enabled: false
     image:
       repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib
       tag: latest
