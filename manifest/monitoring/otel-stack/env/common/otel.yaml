@@ -18,10 +18,6 @@ opentelemetry-operator:
     serviceMonitor:
       enabled: true
 
-defaultCRConfig:
-  targetAllocator:
-    enabled: false
-
 collectors:
   daemon:
     image:
