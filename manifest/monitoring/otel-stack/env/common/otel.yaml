@@ -4,8 +4,6 @@ crds:
   install: false
 
 opentelemetry-operator:
-  crds:
-    create: true
   replicaCount: 2
   kubeRBACProxy:
     resources:
