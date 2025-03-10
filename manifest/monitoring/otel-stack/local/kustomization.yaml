@@ -1,6 +1,7 @@
 resources:
   - ./hierarchy.yaml
 
-  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-helm-charts/opentelemetry-kube-stack-0.4.3/charts/opentelemetry-kube-stack/charts/crds/crds/opentelemetry.io_instrumentations.yaml
-  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-helm-charts/opentelemetry-kube-stack-0.4.3/charts/opentelemetry-kube-stack/charts/crds/crds/opentelemetry.io_opampbridges.yaml
-  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-helm-charts/opentelemetry-kube-stack-0.4.3/charts/opentelemetry-kube-stack/charts/crds/crds/opentelemetry.io_opentelemetrycollectors.yaml
+  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/v0.120.0/config/crd/bases/opentelemetry.io_instrumentations.yaml
+  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/v0.120.0/config/crd/bases/opentelemetry.io_opampbridges.yaml
+  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/v0.120.0/config/crd/bases/opentelemetry.io_opentelemetrycollectors.yaml
+  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/v0.120.0/config/crd/bases/opentelemetry.io_targetallocators.yaml
