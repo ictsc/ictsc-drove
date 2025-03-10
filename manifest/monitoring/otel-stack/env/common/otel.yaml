@@ -18,11 +18,12 @@ opentelemetry-operator:
     serviceMonitor:
       enabled: true
 
+defaultCRConfig:
+  targetAllocator:
+    enabled: false
+
 collectors:
   daemon:
-    targetAllocator:
-      prometheusCR:
-        enabled: false
     image:
       repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib
       tag: latest
