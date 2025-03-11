@@ -14,7 +14,7 @@ presets:
 config:
   exporters:
     prometheusremotewrite:
-      endpoint: "http://kps-prometheus.prometheus-stack.svc.cluster.local:9090/api/v1/push"
+      endpoint: "http://kps-prometheus.prometheus-stack.svc.cluster.local:9090/api/v1/write"
       tls:
         insecure: true
     otlphttp:
