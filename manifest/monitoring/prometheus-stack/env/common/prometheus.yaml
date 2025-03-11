@@ -3,6 +3,8 @@ fullnameOverride: kps
 
 prometheus:
   prometheusSpec:
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Delete
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
@@ -17,6 +19,8 @@ prometheus:
 
 alertmanager:
   alertmanagerSpec:
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Delete
     replicas: 3
     resources:
       requests:
