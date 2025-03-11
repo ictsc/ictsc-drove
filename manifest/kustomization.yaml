@@ -17,7 +17,7 @@ resources:
 
   - ./monitoring/application.yaml
   - ./monitoring/dashboard/application.yaml
-  - ./monitoring/otel-stack/application.yaml
+  - ./monitoring/otel-col/application.yaml
   - ./monitoring/prometheus-stack/application.yaml
   - ./monitoring/loki/application.yaml
 
