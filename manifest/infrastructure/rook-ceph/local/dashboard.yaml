@@ -2,6 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  annotations:
+    folder: Ceph
   labels:
     grafana_dashboard: "1"
   name: ceph-dashboard
