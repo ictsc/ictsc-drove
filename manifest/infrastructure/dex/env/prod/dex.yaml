@@ -19,7 +19,7 @@ config:
       name: dex-client
       redirectURIs:
         - http://localhost:8000
-        - https://contest-dev.ictsc.net/_oauth
+        - https://contest.ictsc.net/_oauth
         - https://traefik.drove.ictsc.net/_oauth
         - https://ceph.drove.ictsc.net/_oauth
         - https://hubble.drove.ictsc.net/_oauth
