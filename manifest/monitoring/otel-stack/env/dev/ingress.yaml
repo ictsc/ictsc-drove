@@ -1,6 +1,0 @@
-ingresses:
-  - name: grafana
-    domain: grafana.drove-dev.ictsc.net
-    routes:
-      - service: prometheus-grafana
-        port: 80
