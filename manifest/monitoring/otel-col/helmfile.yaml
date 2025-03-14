@@ -9,7 +9,7 @@ releases:
   - name: otel-col
     namespace: otel-col
     chart: open-telemetry/opentelemetry-collector
-    version: 0.117.3
+    version: 0.118.0
     values:
       - env/common/otel-col.yaml
   - name: local-charts
