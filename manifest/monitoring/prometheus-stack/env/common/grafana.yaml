@@ -14,7 +14,7 @@ grafana:
       api_url: https://api.github.com/user
       allowed_organizations:
         - ictsc
-      role_attribute_path: contains(groups[*], '@ictsc/Admins') && 'GrafanaAdmin' || contains(groups[*], '@ictsc/ictsc2024') && 'Admin' || 'Viewer'
+      role_attribute_path: contains(groups[*], '@ictsc/Admins') && 'Admin' || contains(groups[*], '@ictsc/ictsc2024') && 'Admin' || 'Viewer'
 
   envValueFrom:
     GF_AUTH_GITHUB_CLIENT_ID:
