@@ -1,0 +1,5 @@
+prometheus:
+  prometheusSpec:
+    thanos:
+      baseImage: quay.io/thanos/thanos
+      version: v0.37.2
