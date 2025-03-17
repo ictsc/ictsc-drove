@@ -3,7 +3,7 @@ prometheus:
     thanos:
       baseImage: quay.io/thanos/thanos
       version: v0.37.2
-    storage:
+    storageSpec:
       volumeClaimTemplate:
         spec:
           storageClassName: ceph-block
