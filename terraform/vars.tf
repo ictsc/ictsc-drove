@@ -35,8 +35,8 @@ variable "control_plane_cpu" {
 variable "control_plane_mem" {
   type = map(any)
   default = {
-    dev  = 4
-    prod = 4
+    dev  = 8
+    prod = 8
   }
 }
 variable "control_plane_disk" {
@@ -50,21 +50,21 @@ variable "control_plane_disk" {
 variable "worker_node" {
   type = map(any)
   default = {
-    dev  = 12
+    dev  = 6
     prod = 10
   }
 }
 variable "worker_node_cpu" {
   type = map(any)
   default = {
-    dev  = 2
+    dev  = 4
     prod = 4
   }
 }
 variable "worker_node_mem" {
   type = map(any)
   default = {
-    dev  = 4
+    dev  = 8
     prod = 8
   }
 }
