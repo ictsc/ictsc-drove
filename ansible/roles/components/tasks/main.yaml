@@ -116,6 +116,13 @@
       retries: 12
       delay: 5
       changed_when: false
+    - name: Create infrastructure namespace
+      ansible.builtin.shell: kubectl get ns monitoring || kubectl create ns monitoring
+      register: ret
+      until: ret.rc == 0
+      retries: 12
+      delay: 5
+      changed_when: false
     - name: Create GitHub App secret
       ansible.builtin.shell: |
         kubectl get secret github-app -n monitoring || \
