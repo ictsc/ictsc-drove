@@ -15,7 +15,6 @@ releases:
       - env/common/prometheus.yaml
       - env/common/grafana.yaml
       - env/{{ .Environment.Name }}/grafana.yaml
-      - env/{{ .Environment.Name }}/prometheus.yaml
   - name: ingress
     namespace: prometheus-stack
     chart: ../../common/ingress
