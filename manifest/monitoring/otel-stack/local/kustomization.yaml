@@ -1,7 +1,0 @@
-resources:
-  - ./hierarchy.yaml
-
-  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/v0.121.0/config/crd/bases/opentelemetry.io_instrumentations.yaml
-  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/v0.121.0/config/crd/bases/opentelemetry.io_opampbridges.yaml
-  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/v0.121.0/config/crd/bases/opentelemetry.io_opentelemetrycollectors.yaml
-  - https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/v0.121.0/config/crd/bases/opentelemetry.io_targetallocators.yaml

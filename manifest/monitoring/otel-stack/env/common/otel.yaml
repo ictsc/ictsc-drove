@@ -1,8 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/open-telemetry/opentelemetry-helm-charts/opentelemetry-collector-0.117.3/charts/opentelemetry-kube-stack/values.schema.json
 
-crds:
-  install: false
-
 opentelemetry-operator:
   replicaCount: 2
   kubeRBACProxy:
