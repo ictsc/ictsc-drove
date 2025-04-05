@@ -187,14 +187,14 @@ tasks:
     cmds:
       - cmd: kubectl config use-context dev
         ignore_error: true
-      - cd terraform && terraform workspace select dev
+      - cd terraform && terraform workspace select -or-create dev
 
   select-prod:
     desc: ワークスペースをprodに切り替え
     cmds:
       - cmd: kubectl config use-context prod
         ignore_error: true
-      - cd terraform && terraform workspace select prod
+      - cd terraform && terraform workspace select -or-create prod
 
   lint-terraform:
     desc: TerraformのLintを実行
