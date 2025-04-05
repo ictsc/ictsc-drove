@@ -13,7 +13,6 @@ prometheus:
       - exemplar-storage
     retention: 30d
     replicas: 2
-    shards: 2
 
 alertmanager:
   alertmanagerSpec:
