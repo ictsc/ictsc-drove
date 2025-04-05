@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: otel-col-application
+  name: otel-stack-application
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-100"
@@ -11,12 +11,12 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ictsc/ictsc-drove.git
-    path: manifest/monitoring/otel-col
+    path: manifest/monitoring/otel-stack
     targetRevision: main
     plugin: {}
   destination:
     server: https://kubernetes.default.svc
-    namespace: otel-col
+    namespace: otel-stack
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

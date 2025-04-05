@@ -17,7 +17,6 @@ cpython
 crashcollector
 crds
 csrftoken
-daemonset
 dandydev
 datasource
 dearmor
@@ -78,6 +77,7 @@ Pipfile
 Pooler
 posix
 prometheusremotewrite
+promtail
 rbdplugin
 relabelings
 resizer
@@ -100,4 +100,3 @@ virtualenvs
 vyos
 websecure
 zalan
-zipkin

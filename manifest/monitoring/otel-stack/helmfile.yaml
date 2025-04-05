@@ -6,11 +6,11 @@ repositories:
     url: https://open-telemetry.github.io/opentelemetry-helm-charts
 
 releases:
-  - name: otel-col
-    namespace: otel-col
-    chart: open-telemetry/opentelemetry-collector
-    version: 0.120.2
+  - name: otel-stack
+    namespace: otel-stack
+    chart: open-telemetry/opentelemetry-kube-stack
+    version: 0.4.3
     values:
-      - env/common/otel-col.yaml
+      - env/common/otel.yaml
   - name: local-charts
     chart: ./local
