@@ -8,11 +8,17 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     scrapeConfigSelectorNilUsesHelmValues: true
-    enableRemoteWriteReceiver: true
-    enableFeatures:
-      - exemplar-storage
     retention: 30d
     replicas: 2
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: ceph-block
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 15Gi
 
 alertmanager:
   alertmanagerSpec:
