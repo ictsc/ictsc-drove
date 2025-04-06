@@ -2,6 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: forward-auth-application
+  annotations:
+    argocd.argoproj.io/sync-wave: "-200"
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
