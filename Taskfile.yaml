@@ -97,6 +97,9 @@ tasks:
           echo "export AWS_ACCESS_KEY_ID=\"\${TF_STATE_ACCESS_KEY}\"";
           echo "export AWS_SECRET_ACCESS_KEY=\"\${TF_STATE_SECRET_KEY}\"";
           echo "";
+          echo "# https://cloud.sakura.ad.jp/news/2025/02/04/objectstorage_defectversion/ のワークアラウンド"
+          echo "export AWS_REQUEST_CHECKSUM_CALCULATION=when_required";
+          echo "";
           echo "export GITHUB_APP_CLIENT_ID=$GITHUB_APP_CLIENT_ID";
           echo "export GITHUB_APP_CLIENT_SECRET=$GITHUB_APP_CLIENT_SECRET";
         } > .envrc
