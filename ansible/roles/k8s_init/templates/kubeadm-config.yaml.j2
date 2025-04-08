@@ -5,6 +5,11 @@ skipPhases:
 ---
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
+etcd:
+  local:
+    extraArgs:
+    - name: listen-client-urls
+      value: https://0.0.0.0:2379
 apiServer:
   certSANs:
     - k8s.{{ dns_zone }}
@@ -23,6 +28,12 @@ controllerManager:
   extraArgs:
     - name: node-cidr-mask-size-ipv6
       value: "112"
+    - name: bind-address
+      value: "0.0.0.0"
+scheduler:
+  extraArgs:
+    - name: bind-address
+      value: "0.0.0.0"
 networking:
   podSubnet: 10.0.0.0/8,fd00::/104
   serviceSubnet: 10.96.0.0/12,fd03::/112
