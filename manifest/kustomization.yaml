@@ -14,6 +14,7 @@ resources:
   - ./infrastructure/dex/application.yaml
   - ./infrastructure/argocd/application.yaml
   - ./infrastructure/forward-auth/application.yaml
+  - ./infrastructure/kube-apiserver/application.yaml
 
   - ./monitoring/application.yaml
   - ./monitoring/dashboard/application.yaml
