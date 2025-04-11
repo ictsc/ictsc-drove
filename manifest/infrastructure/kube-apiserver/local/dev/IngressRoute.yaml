@@ -10,5 +10,6 @@ spec:
       services:
         - name: kubernetes
           port: https
+          tls: true
   tls:
     passthrough: true
