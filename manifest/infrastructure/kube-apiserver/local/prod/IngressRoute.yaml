@@ -6,8 +6,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - kind: Rule
-      match: Host(`k8s.drove.ictsc.net`)
+    - match: Host(`k8s.drove.ictsc.net`)
       services:
         - name: kubernetes
           port: https
