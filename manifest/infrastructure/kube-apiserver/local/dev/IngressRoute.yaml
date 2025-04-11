@@ -6,11 +6,9 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`k8s.drove-dev.ictsc.net`)
+    - match: HostSNI(`k8s.drove-dev.ictsc.net`)
       services:
         - name: kubernetes
           port: https
-          tls: true
   tls:
-    secretName: kube-apiserver-cert
     passthrough: true
