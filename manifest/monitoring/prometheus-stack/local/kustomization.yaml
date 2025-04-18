@@ -17,25 +17,25 @@ configMapGenerator:
   - name: dashboards-k8s-views-global
     files:
       [
-        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.3/dashboards/k8s-views-global.json,
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.4/dashboards/k8s-views-global.json,
       ]
 
   - name: dashboards-k8s-views-namespaces
     files:
       [
-        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.3/dashboards/k8s-views-namespaces.json,
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.4/dashboards/k8s-views-namespaces.json,
       ]
 
   - name: dashboards-k8s-views-nodes
     files:
       [
-        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.3/dashboards/k8s-views-nodes.json,
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.4/dashboards/k8s-views-nodes.json,
       ]
 
   - name: dashboards-k8s-views-pods
     files:
       [
-        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.3/dashboards/k8s-views-pods.json,
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.4/dashboards/k8s-views-pods.json,
       ]
 
   #################################################
@@ -45,25 +45,25 @@ configMapGenerator:
   - name: dashboards-k8s-system-api-server
     files:
       [
-        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.3/dashboards/k8s-system-api-server.json,
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.4/dashboards/k8s-system-api-server.json,
       ]
 
   - name: dashboards-k8s-system-core-dns
     files:
       [
-        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.3/dashboards/k8s-system-coredns.json,
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.4/dashboards/k8s-system-coredns.json,
       ]
 
   - name: dashboards-k8s-addons-prometheus
     files:
       [
-        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.3/dashboards/k8s-addons-prometheus.json,
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.4/dashboards/k8s-addons-prometheus.json,
       ]
 
   - name: dashboards-k8s-addons-trivy-operator
     files:
       [
-        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.3/dashboards/k8s-addons-trivy-operator.json,
+        https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/v2.7.4/dashboards/k8s-addons-trivy-operator.json,
       ]
 
 resources:
