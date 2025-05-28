@@ -9,7 +9,7 @@ releases:
   - name: dashboard
     namespace: dashboard
     chart: dashboard/kubernetes-dashboard
-    version: 7.12.0
+    version: 7.13.0
     values:
       - env/common/dashboard.yaml
   - name: autoscaler
