@@ -9,7 +9,7 @@ releases:
   - name: otel-stack
     namespace: otel-stack
     chart: open-telemetry/opentelemetry-kube-stack
-    version: 0.6.1
+    version: 0.6.2
     values:
       - env/common/otel.yaml
   - name: local-charts
