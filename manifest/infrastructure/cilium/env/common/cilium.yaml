@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/cilium/cilium/v1.17.6/install/kubernetes/cilium/values.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/cilium/cilium/v1.18.0/install/kubernetes/cilium/values.schema.json
 
 k8sServiceHost: auto
 k8sClientRateLimit:
