@@ -9,7 +9,7 @@ releases:
   - name: prometheus
     namespace: prometheus-stack
     chart: prometheus-community/kube-prometheus-stack
-    version: 76.1.0
+    version: 76.2.0
     values:
       - env/common/crds.yaml
       - env/common/prometheus.yaml
