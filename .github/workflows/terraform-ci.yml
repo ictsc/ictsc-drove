@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
       - name: Lint
@@ -37,7 +37,7 @@ jobs:
           app-id: ${{ secrets.PUSHER_APP_ID }}
           private-key: ${{ secrets.PUSHER_PRIVATE_KEY }}
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ steps.token.outputs.token }}
       - name: Get Terraform Version
@@ -78,7 +78,7 @@ jobs:
       TF_WORKSPACE: dev
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Get Terraform Version
         id: terraform-version
         uses: bigwheel/get-terraform-version-action@v1.3.0
