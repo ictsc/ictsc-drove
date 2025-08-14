@@ -9,7 +9,7 @@ releases:
   - name: loki
     namespace: loki
     chart: grafana/loki
-    version: 6.35.1
+    version: 6.36.0
     values:
       - env/common/loki.yaml
   - name: autoscaler
