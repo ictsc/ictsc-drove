@@ -15,7 +15,7 @@ releases:
   - name: rook-ceph-cluster
     namespace: rook-ceph
     chart: rook-release/rook-ceph-cluster
-    version: v1.17.7
+    version: v1.18.0
     values:
       - env/common/cluster.yaml
     needs:
