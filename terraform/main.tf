@@ -47,3 +47,7 @@ data "local_file" "ssh-key" {
   filename   = "../dev/keys"
   depends_on = [null_resource.ssh-key]
 }
+
+resource "random_password" "cluster_pass" {
+  length = 64
+}

@@ -66,8 +66,6 @@ tasks:
         read SAKURACLOUD_ACCESS_TOKEN
         echo "さくらクラウドのアクセスシークレットを入力してください"
         read SAKURACLOUD_ACCESS_TOKEN_SECRET
-        echo "今年度のcluster_passを入力してください"
-        read CLUSTER_PASS
         echo "tfstateを保存するバケットを選択してください (default: ictsc-drove)"
         read TF_STATE_BUCKET
         if [ -z "$TF_STATE_BUCKET" ]; then
@@ -88,8 +86,6 @@ tasks:
           echo "export SAKURACLOUD_ACCESS_TOKEN_SECRET=$SAKURACLOUD_ACCESS_TOKEN_SECRET";
           echo "export SAKURACLOUD_ZONE={{.SAKURACLOUD_ZONE}}";
           echo "";
-          echo "export CLUSTER_PASS=$CLUSTER_PASS";
-          echo "export TF_VAR_cluster_pass=\"\${CLUSTER_PASS}\"";
           echo "export TF_STATE_BUCKET=$TF_STATE_BUCKET";
           echo "";
           echo "export TF_STATE_ACCESS_KEY=$TF_STATE_ACCESS_KEY";

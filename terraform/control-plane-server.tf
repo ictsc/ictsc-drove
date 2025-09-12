@@ -15,7 +15,7 @@ resource "sakuracloud_server" "k8s_control_plane" {
   }
   disk_edit_parameter {
     hostname        = "k8s-${terraform.workspace}-control-plane-${count.index + 1}"
-    password        = var.cluster_pass
+    password        = random_password.cluster_pass.result
     disable_pw_auth = "true"
     ssh_keys        = [data.local_file.ssh-key.content]
     ip_address      = sakuracloud_internet.k8s_external_switch.ip_addresses[count.index]
