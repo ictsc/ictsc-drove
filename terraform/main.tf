@@ -4,7 +4,19 @@ terraform {
   required_providers {
     sakuracloud = {
       source  = "sacloud/sakuracloud"
-      version = "2.27.0"
+      version = "2.29.1"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.4"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "2.5.3"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.7.2"
     }
   }
 
@@ -21,21 +33,21 @@ terraform {
   }
 }
 
-provider "sakuracloud" {}
-
 data "sakuracloud_archive" "ubuntu_archive" {
   os_type = "ubuntu2204"
 }
 
-resource "sakuracloud_ssh_key_gen" "gen_key" {
-  name = "k8s-pub-key"
-
+resource "null_resource" "ssh-key" {
   provisioner "local-exec" {
-    command = "echo \"${self.private_key}\" > ../id_rsa_${terraform.workspace}; chmod 0600 ../id_rsa_${terraform.workspace}"
+    command = "cd ../dev && if [ ! -e keys ]; then chmod +x keys.sh; ./keys.sh; fi"
   }
+}
 
-  provisioner "local-exec" {
-    when    = destroy
-    command = "rm -f ../id_rsa_${terraform.workspace}"
-  }
+data "local_file" "ssh-key" {
+  filename   = "../dev/keys"
+  depends_on = [null_resource.ssh-key]
+}
+
+resource "random_password" "cluster_pass" {
+  length = 64
 }

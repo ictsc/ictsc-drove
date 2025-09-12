@@ -1,7 +1,7 @@
 users:
   - name: "ictsc"
     uid: "1011"
-    password: "{{ lookup('env', 'CLUSTER_PASS') }}"
+    password: "{{ ansible_sudo_pass }}"
 
 # netplanロール用
 netplan_remove_existing: false
@@ -10,4 +10,4 @@ netplan_config_file: /etc/netplan/60-ansible-config.yaml
 netplan_renderer: networkd
 
 # インストールするKubernetesのバージョン
-k8s_install_version: v1.31
+k8s_install_version: v1.34

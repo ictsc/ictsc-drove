@@ -68,7 +68,7 @@ def main():
                 continue
 
         for ip_address in tfstate["outputs"][output_key]["value"]:
-            # not handle private ip address
+            # Control PlaneのプライベートIPアドレスはスキップ
             if (
                 ip_address[:7] == "192.168"
                 and output_key == "k8s_control_plane_ip_address"
@@ -97,11 +97,19 @@ def main():
                     worker_node += 1
 
     inventory["all"]["vars"] = {
+        "ansible_user": "ubuntu",
+        "ansible_sudo_pass": tfstate["outputs"]["cluster_pass"]["value"],
         "ipv6_prefix": ipv6_prefix,
         "ipv6_prefix_len": tfstate["outputs"]["ipv6_prefix_len"]["value"],
     }
     inventory["control_plane"]["vars"] = {
         "VIP": tfstate["outputs"]["vip_address"]["value"],
+    }
+    inventory["worker_node"]["vars"] = {
+        "ansible_ssh_common_args": (
+            "-o ProxyCommand='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
+            f" -W %h:%p ubuntu@{inventory['control_plane']['hosts'][0]}'"
+        )
     }
     inventory["delegate_plane"] = {
         "hosts": [inventory["control_plane"]["hosts"][0]],
@@ -117,32 +125,6 @@ def main():
             ),
         },
     }
-
-    # SSH鍵が存在するかによって、認証情報を分ける
-    #  Terraformによって作られたSSH鍵が存在しない場合、ictscユーザーに切り替えて
-    #  GitHubに登録されているそれぞれのメンバーの公開鍵で認証するようにする
-    if os.path.isfile(f"../id_rsa_{workspace}"):
-        inventory["all"]["vars"] |= {
-            "ansible_user": "ubuntu",
-            "ansible_sudo_pass": os.environ.get("CLUSTER_PASS"),
-            "ansible_ssh_private_key_file": f"../id_rsa_{workspace}",
-        }
-        inventory["worker_node"]["vars"] = {
-            "ansible_ssh_common_args": (
-                "-o ProxyCommand='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
-                f"-i ../id_rsa_{workspace} -W %h:%p ubuntu@{inventory['control_plane']['hosts'][0]}'"
-            )
-        }
-    else:
-        inventory["all"]["vars"] |= {
-            "ansible_user": "ictsc",
-        }
-        inventory["worker_node"]["vars"] = {
-            "ansible_ssh_common_args": (
-                "-o ProxyCommand='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
-                f"-W %h:%p ictsc@{inventory['control_plane']['hosts'][0]}'"
-            )
-        }
 
     print(json.dumps(inventory))
 

@@ -1,3 +1,8 @@
+output "cluster_pass" {
+  value     = random_password.cluster_pass.result
+  sensitive = true
+}
+
 output "vip_address" {
   value = sakuracloud_internet.k8s_external_switch.ip_addresses[lookup(var.control_plane, terraform.workspace, 0)]
 }
