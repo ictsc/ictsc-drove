@@ -24,7 +24,7 @@ jobs:
         with:
           github_token: ${{ github.token }}
           working_directory: terraform
-          fail_on_error: true
+          fail_level: error
           filter_mode: nofilter
   format:
     name: Format
@@ -91,6 +91,12 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -backend-config="bucket=$TF_STATE_BUCKET"
+      - name: Generate Keys
+        working-directory: dev
+        run: |
+          if [ ! -e keys ]; then
+            chmod +x keys.sh; ./keys.sh
+          fi
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
