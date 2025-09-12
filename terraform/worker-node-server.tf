@@ -14,7 +14,7 @@ resource "sakuracloud_server" "k8s_worker_node" {
     hostname        = "k8s-${terraform.workspace}-worker-node-${count.index + 1}"
     password        = var.cluster_pass
     disable_pw_auth = "true"
-    ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
+    ssh_keys        = [data.local_file.ssh-key.content]
     ip_address      = "192.168.100.${count.index + 101}"
     gateway         = "192.168.100.254"
     netmask         = 24

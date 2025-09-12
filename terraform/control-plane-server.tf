@@ -17,7 +17,7 @@ resource "sakuracloud_server" "k8s_control_plane" {
     hostname        = "k8s-${terraform.workspace}-control-plane-${count.index + 1}"
     password        = var.cluster_pass
     disable_pw_auth = "true"
-    ssh_key_ids     = [sakuracloud_ssh_key_gen.gen_key.id]
+    ssh_keys        = [data.local_file.ssh-key.content]
     ip_address      = sakuracloud_internet.k8s_external_switch.ip_addresses[count.index]
     gateway         = sakuracloud_internet.k8s_external_switch.gateway
     netmask         = lookup(var.external_subnet, terraform.workspace, 0)
