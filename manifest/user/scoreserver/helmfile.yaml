@@ -4,6 +4,5 @@ bases:
 releases:
   - name: local-charts
     chart: ./local
-    set:
-      - name: env
-        value: {{.Environment.Name}}
+    values:
+      - env/{{ .Environment.Name }}/values.yaml

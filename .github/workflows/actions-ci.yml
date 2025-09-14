@@ -16,4 +16,4 @@ jobs:
       - name: Lint Actions
         uses: reviewdog/action-actionlint@v1
         with:
-          fail_level: error
+          fail_level: any
