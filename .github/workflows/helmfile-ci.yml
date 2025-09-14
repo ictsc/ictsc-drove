@@ -19,6 +19,8 @@ jobs:
           fetch-depth: 0
       - name: Set up Task
         uses: arduino/setup-task@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Lint Helmfile
         run: task lint-helmfile
   build:
@@ -33,5 +35,7 @@ jobs:
           fetch-depth: 0
       - name: Set up Task
         uses: arduino/setup-task@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Helmfile
         run: task build-helmfile
