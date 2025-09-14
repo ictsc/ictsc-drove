@@ -32,11 +32,6 @@ jobs:
       - name: Init environment
         run: task init-ansible
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@main
-        with:
-          args: "-s --exclude inventory/**/*.yaml"
-          working_directory: "ansible"
-      - name: Run lint
         run: task lint-ansible
   format:
     name: Format
