@@ -109,7 +109,6 @@ tasks:
 
   init-ansible:
     desc: Ansibleの初期化
-    internal: true
     dir: ansible
     deps:
       - task: check-binary
@@ -123,14 +122,12 @@ tasks:
 
   lint-ansible:
     desc: AnsibleのLintを実行
-    internal: true
     dir: ansible
     cmds:
       - pipenv run lint
 
   format-ansible:
     desc: Ansibleのフォーマットを実行
-    internal: true
     dir: ansible
     cmds:
       - pipenv run format
