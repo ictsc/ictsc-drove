@@ -20,7 +20,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
       - name: Lint
-        uses: reviewdog/action-tflint@v1.24.2
+        uses: reviewdog/action-tflint@v1.25.0
         with:
           github_token: ${{ github.token }}
           working_directory: terraform
