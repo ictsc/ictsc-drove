@@ -46,12 +46,12 @@
         update_cache: true
         upgrade: "dist"
     - name: Check if a reboot is needed
-      register: reboot_required_file
+      register: common_reboot_required
       ansible.builtin.stat:
         path: /var/run/reboot-required
         get_checksum: false
     - name: Reboot if kernel was updated
-      when: reboot_required_file.stat.exists
+      when: common_reboot_required.stat.exists
       ansible.builtin.reboot:
         msg: "Reboot initiated by Ansible for kernel updates"
         connect_timeout: 5

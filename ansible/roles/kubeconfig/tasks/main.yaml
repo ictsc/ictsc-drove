@@ -16,13 +16,13 @@
     - name: Check if yq is already installed
       ansible.builtin.stat:
         path: /usr/bin/yq
-      register: yq_installed
+      register: kubeconfig_yq_installed
     - name: Download yq
       ansible.builtin.get_url:
         url: https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
         dest: /usr/bin/yq
         mode: "0755"
-      when: not yq_installed.stat.exists
+      when: not kubeconfig_yq_installed.stat.exists
 
 - name: Generate certificate data
   block:
@@ -32,11 +32,11 @@
         cmd: |
           set -o pipefail
           cat /etc/kubernetes/admin.conf | yq '.clusters[].cluster.certificate-authority-data' | base64 -d
-      register: certificate
+      register: kubeconfig_certificate
       changed_when: false
     - name: Create certificate file
       ansible.builtin.copy:
-        content: "{{ certificate.stdout }}"
+        content: "{{ kubeconfig_certificate.stdout }}"
         dest: "/tmp/certificate"
         mode: "0644"
     - name: Fetch certificate file to local
