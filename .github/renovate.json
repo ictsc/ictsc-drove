@@ -69,9 +69,9 @@
     {
       "customType": "regex",
       "description": "Python version in Pipfile and GitHub Actions",
-      "fileMatch": [
-        "(^|/)Pipfile$",
-        "(^|/).github/workflows/ansible-ci.yml"
+      "managerFilePatterns": [
+        "/(^|/)Pipfile$/",
+        "/(^|/).github/workflows/ansible-ci.yml/"
       ],
       "matchStrings": [
         "python_version = \"(?<currentValue>.+)\"",
@@ -84,9 +84,9 @@
     {
       "customType": "regex",
       "description": "ghcr image dependencies",
-      "fileMatch": [
-        ".+\\.ya?ml$",
-        ".+\\.ya?ml.j2$"
+      "managerFilePatterns": [
+        "/.+\\.ya?ml$/",
+        "/.+\\.ya?ml.j2$/"
       ],
       "matchStrings": [
         "ghcr\\.io/(?<depName>[^\\s:]+):(?<currentValue>[^\\s]+)"
@@ -98,8 +98,8 @@
     {
       "customType": "regex",
       "description": "Docker image dependencies",
-      "fileMatch": [
-        ".+\\.ya?ml$"
+      "managerFilePatterns": [
+        "/.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "# renovate:image\n.*?\"(?<depName>[^\\s:]+):(?<currentValue>.+)\"\n"
@@ -109,8 +109,8 @@
     {
       "customType": "regex",
       "description": "GitHub URL dependencies",
-      "fileMatch": [
-        ".+\\.ya?ml$"
+      "managerFilePatterns": [
+        "/.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "https://github\\.com/(?<depName>[^/]+/[^/]+)//.*?\\?ref=(?<currentValue>\\S+)",
