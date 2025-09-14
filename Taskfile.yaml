@@ -238,6 +238,11 @@ tasks:
 
   lint-helm:
     desc: HelmのLintを実行
+    deps:
+      - task: check-binary
+        vars:
+          BINARY: helm
+          INSTALL_DOC: https://helm.sh/docs/intro/install/
     cmds:
       - |
         for dir in $(find . -name Chart.yaml | rev | cut -f2- -d'/' | rev); do
@@ -246,6 +251,11 @@ tasks:
 
   lint-helmfile:
     desc: HelmfileのLintを実行
+    deps:
+      - task: check-binary
+        vars:
+          BINARY: helmfile
+          INSTALL_DOC: https://helmfile.readthedocs.io/en/latest/#installation
     cmds:
       - |
         for file in $(find . -name helmfile.yaml); do
@@ -255,6 +265,11 @@ tasks:
 
   helmfile:
     desc: Helmfileを元にマニフェストを生成
+    deps:
+      - task: check-binary
+        vars:
+          BINARY: helmfile
+          INSTALL_DOC: https://helmfile.readthedocs.io/en/latest/#installation
     cmds:
       - |
         for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
