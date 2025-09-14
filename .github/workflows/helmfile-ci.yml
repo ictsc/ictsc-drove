@@ -34,4 +34,4 @@ jobs:
       - name: Set up Task
         uses: arduino/setup-task@v2
       - name: Build Helmfile
-        run: task helmfile
+        run: task build-helmfile

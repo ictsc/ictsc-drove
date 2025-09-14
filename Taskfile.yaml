@@ -135,7 +135,7 @@ tasks:
     cmds:
       - pipenv run format
 
-  ansible:
+  apply-ansible:
     desc: Ansibleを実行
     dir: ansible
     deps:
@@ -165,7 +165,6 @@ tasks:
 
   init-terraform:
     desc: Terraformの初期化
-    internal: true
     dir: terraform
     deps:
       - task: check-binary
@@ -209,12 +208,11 @@ tasks:
 
   format-terraform:
     desc: Terraformのフォーマットを実行
-    internal: true
     dir: terraform
     cmds:
       - terraform fmt
 
-  terraform:
+  apply-terraform:
     desc: Terraformを実行
     dir: terraform
     deps:
@@ -227,8 +225,8 @@ tasks:
   apply:
     desc: 現在の設定を適用
     cmds:
-      - task: terraform
-      - task: ansible
+      - task: apply-terraform
+      - task: apply-ansible
 
   destroy:
     desc: 全てのインスタンスを削除
@@ -263,7 +261,7 @@ tasks:
           helmfile lint -e prod -f "$file"
         done
 
-  helmfile:
+  build-helmfile:
     desc: Helmfileを元にマニフェストを生成
     deps:
       - task: check-binary
