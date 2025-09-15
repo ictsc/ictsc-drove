@@ -1,15 +1,10 @@
 /.vscode/*
 !/.vscode/settings-sample.json
 !/.vscode/extensions.json
-.infracost/
 
 .kube
 .ansible
 .terraform
-.terraform.lock.hcl
-errored.tfstate
 
 .envrc
-
-id_rsa_*
 dev/keys
