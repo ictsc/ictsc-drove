@@ -15,7 +15,7 @@ passlib = "==1.7.4"
 
 [packages]
 minio = "==7.2.18"
-ansible = "==12.0.0"
+ansible = "==12.1.0"
 
 [requires]
 python_version = "3.13"
