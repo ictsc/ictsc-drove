@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "48065a9a6e3e3be7727f8dbf76a59a55e4dc129dee9be7dc580e9b6403335a2d"
+            "sha256": "57c6ab0c9642adb2801c1ac78fe4b1688b9b7258a131cf10d5b258cef13a1f69"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -487,11 +487,11 @@
         },
         "resolvelib": {
             "hashes": [
-                "sha256:8e3e2000beaf53fdfd8772fda1a7b1df97e803ab7c8925621bbb87c4d187a94d",
-                "sha256:c27fbb5098acd7dfc01fb2be3724bd0881168edc2bd3b4dc876ca3f46b8e4a3d"
+                "sha256:7d08a2022f6e16ce405d60b68c390f054efcfd0477d4b9bd019cc941c28fad1c",
+                "sha256:fb06b66c8da04172d9e72a21d7d06186d8919e32ae5ab5cdf5b9d920be805ac2"
             ],
             "markers": "python_version >= '3.9'",
-            "version": "==1.2.0"
+            "version": "==1.2.1"
         },
         "typing-extensions": {
             "hashes": [
@@ -783,12 +783,12 @@
         },
         "isort": {
             "hashes": [
-                "sha256:58d8927ecce74e5087aef019f778d4081a3b6c98f15a80ba35782ca8a2097784",
-                "sha256:9b8f96a14cfee0677e78e941ff62f03769a06d412aabb9e2a90487b3b7e8d481"
+                "sha256:1bcabac8bc3c36c7fb7b98a76c8abb18e0f841a3ba81decac7691008592499c1",
+                "sha256:5513527951aadb3ac4292a41a16cbc50dd1642432f5e8c20057d414bdafb4187"
             ],
             "index": "pypi",
-            "markers": "python_full_version >= '3.9.0'",
-            "version": "==6.1.0"
+            "markers": "python_full_version >= '3.10.0'",
+            "version": "==7.0.0"
         },
         "jinja2": {
             "hashes": [
@@ -1132,11 +1132,11 @@
         },
         "resolvelib": {
             "hashes": [
-                "sha256:8e3e2000beaf53fdfd8772fda1a7b1df97e803ab7c8925621bbb87c4d187a94d",
-                "sha256:c27fbb5098acd7dfc01fb2be3724bd0881168edc2bd3b4dc876ca3f46b8e4a3d"
+                "sha256:7d08a2022f6e16ce405d60b68c390f054efcfd0477d4b9bd019cc941c28fad1c",
+                "sha256:fb06b66c8da04172d9e72a21d7d06186d8919e32ae5ab5cdf5b9d920be805ac2"
             ],
             "markers": "python_version >= '3.9'",
-            "version": "==1.2.0"
+            "version": "==1.2.1"
         },
         "rpds-py": {
             "hashes": [
