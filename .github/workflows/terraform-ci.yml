@@ -51,7 +51,7 @@ jobs:
         run: task format-terraform
       - name: Push
         id: push
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Run terraform format"
           branch: ${{ github.head_ref }}
