@@ -9,7 +9,7 @@ releases:
   - name: reloader
     namespace: reloader
     chart: stakater/reloader
-    version: 2.2.3
+    version: 2.2.4
     values:
       - env/common/values.yaml
   - name: local-charts
