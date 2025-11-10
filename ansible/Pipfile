@@ -10,7 +10,7 @@ mypy = "==1.18.2"
 autoflake = "==2.3.1"
 black = "==25.11.0"
 isort = "==7.0.0"
-ansible-lint = "==25.9.2"
+ansible-lint = "==25.11.0"
 passlib = "==1.7.4"
 
 [packages]
