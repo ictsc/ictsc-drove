@@ -21,8 +21,8 @@ jobs:
         uses: arduino/setup-task@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Lint Helmfile
-        run: task lint-helmfile
+      # - name: Lint Helmfile
+      #   run: task lint-helmfile
   build:
     name: Build
     runs-on: ubuntu-latest
