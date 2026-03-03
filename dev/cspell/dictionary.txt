@@ -3,6 +3,7 @@ apiserver
 applicationset
 argocd
 argoproj
+autoflake
 automerge
 autoscaler
 birdc
@@ -38,6 +39,7 @@ hostvars
 ictsc
 ictscore
 ignoreerrors
+isort
 istiod
 jetstack
 keyrings
@@ -51,6 +53,7 @@ logcollector
 logica
 minio
 mrlesmithjr
+mypy
 netfilter
 Netplan
 networkd
@@ -72,12 +75,11 @@ PGPASSWORD
 PGPORT
 PGUSER
 pipefail
-pyproject
-uv
 Pooler
 posix
 prometheusremotewrite
 promtail
+pyproject
 rbdplugin
 relabelings
 resizer
@@ -96,6 +98,7 @@ tflint
 tfstate
 thomseddon
 traefik
+uv
 virtualenvs
 vyos
 websecure
