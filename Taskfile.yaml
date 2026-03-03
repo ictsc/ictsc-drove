@@ -113,24 +113,28 @@ tasks:
     deps:
       - task: check-binary
         vars:
-          BINARY: pipenv
-          INSTALL_DOC: https://pipenv-ja.readthedocs.io/ja/translate-ja/install.html#installing-pipenv
+          BINARY: uv
+          INSTALL_DOC: https://docs.astral.sh/uv/getting-started/installation/
     cmds:
-      - pipenv install -d
-      - pipenv run init
+      - uv sync --frozen
+      - uv run ansible-galaxy install mrlesmithjr.netplan
       - chmod +x inventory/inventory_handler.py
 
   lint-ansible:
     desc: AnsibleのLintを実行
     dir: ansible
     cmds:
-      - pipenv run lint
+      - uv run flake8 --ignore E231 --ignore W503 --max-line-length=110 **/*.py
+      - uv run mypy .
+      - uv run ansible-lint -s --exclude inventory/**/*.yaml
 
   format-ansible:
     desc: Ansibleのフォーマットを実行
     dir: ansible
     cmds:
-      - pipenv run format
+      - uv run autoflake -i --remove-all-unused-imports --remove-unused-variables -r .
+      - uv run black .
+      - uv run isort .
 
   apply-ansible:
     desc: Ansibleを実行
@@ -139,7 +143,7 @@ tasks:
       - lint-ansible
       - format-ansible
     cmds:
-      - pipenv run playbook
+      - uv run ansible-playbook -v setup.yaml
       - task: check-binary
         vars:
           BINARY: kubectl-oidc_login
@@ -153,7 +157,7 @@ tasks:
       - lint-ansible
       - format-ansible
     cmds:
-      - pipenv run kubeconfig
+      - uv run ansible-playbook -v kubeconfig.yaml
       - task: check-binary
         vars:
           BINARY: kubectl-oidc_login

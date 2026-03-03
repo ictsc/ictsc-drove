@@ -72,8 +72,8 @@ PGPASSWORD
 PGPORT
 PGUSER
 pipefail
-pipenv
-Pipfile
+pyproject
+uv
 Pooler
 posix
 prometheusremotewrite

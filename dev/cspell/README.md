@@ -13,7 +13,7 @@
 
 - 追加して良いファイル
   - モジュール管理ファイル
-    - `Pipfile`など
+    - `pyproject.toml`など
   - 各種設定ファイル
     - `.gitignore` `.prettierrc` `.editorconfig`など
     - K8sマニュフェストやActions定義などは**含みません**

@@ -21,14 +21,11 @@ jobs:
         uses: arduino/setup-task@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Setup Python
-        uses: actions/setup-python@v6
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: 3.14
-          cache: pipenv
-          cache-dependency-path: "**/Pipfile.lock"
-      - name: Install pipenv
-        run: pip install pipenv
+          enable-cache: true
+          cache-dependency-glob: "**/uv.lock"
       - name: Init environment
         run: task init-ansible
       - name: Run ansible-lint
@@ -55,10 +52,11 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: 3.14
-          cache: pipenv
-          cache-dependency-path: "**/Pipfile.lock"
-      - name: Install pipenv
-        run: pip install pipenv
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: "**/uv.lock"
       - name: Init environment
         run: task init-ansible
       - name: Run format
@@ -67,7 +65,7 @@ jobs:
         id: push
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "Run pipenv format"
+          commit_message: "Run uv format"
           branch: ${{ github.head_ref }}
           commit_user_name: ictsc-actions[bot]
           commit_user_email: 154957684+ictsc-actions[bot]@users.noreply.github.com

@@ -6,5 +6,5 @@
 2. `make init`を実行する
    - direnvを用いたフォルダ内環境変数
    - Terraformのworkspace
-   - Ansible用のpipenv
+   - Ansible用のuv
    - メンバーのインスタンスアクセス用公開鍵取得
