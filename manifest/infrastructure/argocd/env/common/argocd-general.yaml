@@ -44,7 +44,7 @@ configs:
               - name: ictsc
                 teams:
                   - Admins
-                  - ictsc2024
+                  - ictsc2025
   rbac:
     policy.csv: |
-      g, ictsc:ictsc2024, role:admin
+      g, ictsc:ictsc2025, role:admin
