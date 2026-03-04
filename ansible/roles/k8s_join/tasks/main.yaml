@@ -1,5 +1,5 @@
 - name: Get join command
-  when: inventory_hostname in groups['delegate_plane']
+  delegate_to: "{{ groups['delegate_plane'][0] }}"
   block:
     - name: Get kubeadm cert
       ansible.builtin.command: kubeadm init phase upload-certs --upload-certs
