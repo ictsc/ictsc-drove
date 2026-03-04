@@ -3,7 +3,7 @@ name = "ictsc-drove"
 version = "0.1.0"
 requires-python = "==3.14.*"
 dependencies = [
-  "ansible==13.0.0",
+  "ansible==13.4.0",
   "minio==7.2.20",
   "ansible-lint==25.11.1",
   "autoflake==2.3.1",
