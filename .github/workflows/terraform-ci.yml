@@ -23,7 +23,7 @@ jobs:
         with:
           path: terraform
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: ${{ steps.terraform-version.outputs.terraform-version }}
       - name: Lint
@@ -57,7 +57,7 @@ jobs:
         with:
           path: terraform
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: ${{ steps.terraform-version.outputs.terraform-version }}
       - name: Terraform Format
@@ -100,7 +100,7 @@ jobs:
         with:
           path: terraform
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: ${{ steps.terraform-version.outputs.terraform-version }}
       - name: Terraform Init
