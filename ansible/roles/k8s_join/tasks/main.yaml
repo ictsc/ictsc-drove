@@ -3,21 +3,15 @@
   block:
     - name: Get kubeadm cert
       ansible.builtin.command: kubeadm init phase upload-certs --upload-certs
-      register: k8s_join_certs_raw
+      register: k8s_join_certs
       changed_when: false
-    - name: Set cert
-      ansible.builtin.set_fact:
-        k8s_join_certs: "{{ k8s_join_certs_raw.stdout_lines[-1] }}"
     - name: Get join command
       ansible.builtin.command: kubeadm token create --print-join-command
-      register: k8s_join_command_raw
+      register: k8s_join_command
       changed_when: false
-    - name: Set join command
-      ansible.builtin.set_fact:
-        k8s_join_command: "{{ k8s_join_command_raw.stdout_lines[0] }}"
 
 - name: Join cluster
-  ansible.builtin.command: "{{ hostvars[groups['delegate_plane'][0]]['k8s_join_command'] }} {{ k8s_join_flag }} --ignore-preflight-errors all"
+  ansible.builtin.command: "{{ k8s_join_command.stdout_lines[0] }} {{ k8s_join_flag }} --ignore-preflight-errors all"
   changed_when: false
   failed_when: false
   when: inventory_hostname not in groups['delegate_plane']
