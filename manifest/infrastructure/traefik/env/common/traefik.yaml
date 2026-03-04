@@ -2,20 +2,11 @@
 deployment:
   replicas: 2
 
-gateway:
-  enabled: true
-  listeners:
-    web:
-      namespacePolicy:
-        from: All
-
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
-  kubernetesIngress:
-    enabled: false
   kubernetesGateway:
-    enabled: true
+    enabled: false
 
 logs:
   access:
