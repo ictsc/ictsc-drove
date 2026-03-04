@@ -27,7 +27,14 @@ additionalArguments:
   - "--api.insecure=true"
 
 ports:
+  web:
+    port: 80
+    exposedPort: 80
+    protocol: TCP
   websecure:
+    port: 443
+    exposedPort: 443
+    protocol: TCP
     http3:
       enabled: true
 
