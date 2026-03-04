@@ -5,6 +5,9 @@ replicaCount: 3
 podDisruptionBudget:
   enabled: true
 
+config:
+  enableGatewayAPI: true
+
 prometheus:
   servicemonitor:
     enabled: true
