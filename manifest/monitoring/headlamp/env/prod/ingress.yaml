@@ -1,0 +1,6 @@
+ingresses:
+  - name: headlamp
+    domain: headlamp.drove.ictsc.net
+    routes:
+      - service: headlamp
+        port: http
