@@ -12,6 +12,6 @@ spec:
       - http01:
           gatewayHTTPRoute:
             parentRefs:
-              - name: traefik
+              - name: traefik-gateway
                 namespace: traefik
                 kind: Gateway

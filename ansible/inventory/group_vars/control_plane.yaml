@@ -19,4 +19,4 @@ netplan_configuration:
           - "{{ internal_ipv6 }}/{{ ipv6_prefix_len + 16 }}"
 
 # k8s_joinロール用
-k8s_join_flag: --control-plane --certificate-key {{ k8s_join_certs.stdout_lines[-1] }}
+k8s_join_flag: --control-plane --certificate-key {{ k8s_join_certs.stdout_lines[-1] }} -v=5
