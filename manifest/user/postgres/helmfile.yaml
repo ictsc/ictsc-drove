@@ -11,7 +11,7 @@ releases:
   - name: postgres-operator
     namespace: scoreserver
     chart: postgres-operator/postgres-operator
-    version: v1.14.0
+    version: 1.15.1
     values:
       - env/common/operator.yaml
   - name: postgres-operator-ui
