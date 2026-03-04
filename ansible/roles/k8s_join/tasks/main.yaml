@@ -1,4 +1,5 @@
 - name: Get join command
+  run_once: true
   delegate_to: "{{ groups['delegate_plane'][0] }}"
   block:
     - name: Get kubeadm cert
