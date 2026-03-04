@@ -10,6 +10,6 @@ dependencies = [
   "black==25.11.0",
   "flake8==7.3.0",
   "isort==7.0.0",
-  "mypy==1.19.0",
+  "mypy==1.19.1",
   "passlib==1.7.4",
 ]
