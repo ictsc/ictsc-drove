@@ -10,5 +10,8 @@ spec:
       name: common-issuer-key
     solvers:
       - http01:
-          ingress:
-            ingressClassName: traefik
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: traefik-gateway
+                namespace: traefik
+                kind: Gateway
