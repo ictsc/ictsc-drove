@@ -1,10 +1,10 @@
 resource "sakuracloud_server" "k8s_control_plane" {
   count  = lookup(var.control_plane, terraform.workspace, 0)
-  name   = "k8s-${terraform.workspace}-control-plane-${count.index + 1}"
+  name   = "drove-${terraform.workspace}-control-plane-${count.index + 1}"
   core   = lookup(var.control_plane_cpu, terraform.workspace, 0)
   memory = lookup(var.control_plane_mem, terraform.workspace, 0)
   disks  = [sakuracloud_disk.k8s_control_plane_disk[count.index].id]
-  tags   = ["k8s", terraform.workspace]
+  tags   = ["drove", terraform.workspace]
 
   network_interface {
     upstream = sakuracloud_internet.k8s_external_switch.switch_id
@@ -14,7 +14,7 @@ resource "sakuracloud_server" "k8s_control_plane" {
     user_ip_address = "192.168.100.${count.index + 1}"
   }
   disk_edit_parameter {
-    hostname        = "k8s-${terraform.workspace}-control-plane-${count.index + 1}"
+    hostname        = "drove-${terraform.workspace}-control-plane-${count.index + 1}"
     password        = random_password.cluster_pass.result
     disable_pw_auth = "true"
     ssh_keys        = [data.local_file.ssh-key.content]

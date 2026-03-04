@@ -1,6 +1,6 @@
 resource "sakuracloud_switch" "k8s_internal_switch" {
-  name = "k8s-${terraform.workspace}-internal-switch"
-  tags = ["k8s", terraform.workspace]
+  name = "drove-${terraform.workspace}-internal-switch"
+  tags = ["drove", terraform.workspace]
   timeouts {
     create = "1h"
     delete = "1h"
@@ -8,8 +8,8 @@ resource "sakuracloud_switch" "k8s_internal_switch" {
 }
 
 resource "sakuracloud_vpc_router" "k8s_internal_router" {
-  name                = "k8s-${terraform.workspace}-internal-router"
-  tags                = ["k8s", terraform.workspace]
+  name                = "drove-${terraform.workspace}-internal-router"
+  tags                = ["drove", terraform.workspace]
   internet_connection = true
 
   private_network_interface {

@@ -67,8 +67,8 @@ variable "worker_node_mem" {
 variable "worker_node_disk" {
   type = map(any)
   default = {
-    dev  = 40
-    prod = 40
+    dev  = 20
+    prod = 20
   }
 }
 variable "worker_node_rook_disk" {
