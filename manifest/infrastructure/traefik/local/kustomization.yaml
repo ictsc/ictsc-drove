@@ -1,7 +1,5 @@
 resources:
   - ./compress.yaml
-  - ./gateway-class.yaml
-  - ./gateway.yaml
   - ./hierarchy.yaml
   - ./http-redirect-middleware.yaml
   - ./http-redirect-route.yaml
