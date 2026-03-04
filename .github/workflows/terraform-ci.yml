@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v6
       - name: Get Terraform version
         id: terraform-version
-        uses: bigwheel/get-terraform-version-action@v1.2.0
+        uses: bigwheel/get-terraform-version-action@v1.3.0
         with:
           path: terraform
       - name: Setup Terraform
@@ -53,7 +53,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Terraform version
         id: terraform-version
-        uses: bigwheel/get-terraform-version-action@v1.2.0
+        uses: bigwheel/get-terraform-version-action@v1.3.0
         with:
           path: terraform
       - name: Setup Terraform
@@ -96,7 +96,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Terraform version
         id: terraform-version
-        uses: bigwheel/get-terraform-version-action@v1.2.0
+        uses: bigwheel/get-terraform-version-action@v1.3.0
         with:
           path: terraform
       - name: Setup Terraform
