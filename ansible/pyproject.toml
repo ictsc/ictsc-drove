@@ -9,7 +9,7 @@ dependencies = [
   "autoflake==2.3.3",
   "black==25.11.0",
   "flake8==7.3.0",
-  "isort==7.0.0",
+  "isort==8.0.1",
   "mypy==1.19.1",
   "passlib==1.7.4",
 ]
