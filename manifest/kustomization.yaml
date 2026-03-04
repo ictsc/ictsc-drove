@@ -5,6 +5,7 @@ resources:
   - ./basement/reloader/application.yaml
   - ./basement/kube-login/application.yaml
   - ./basement/system-rbac/application.yaml
+  - ./basement/gateway-api/application.yaml
 
   - ./infrastructure/application.yaml
   - ./infrastructure/cert-manager/application.yaml

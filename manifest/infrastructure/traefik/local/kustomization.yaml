@@ -1,0 +1,9 @@
+resources:
+  - ./compress.yaml
+  - ./gateway-class.yaml
+  - ./hierarchy.yaml
+  - ./http-redirect-middleware.yaml
+  - ./http-redirect-route.yaml
+  - ./strip.yaml
+
+  - https://raw.githubusercontent.com/traefik/traefik/v3.6/docs/content/reference/dynamic-configuration/kubernetes-gateway-rbac.yml
