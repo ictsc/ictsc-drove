@@ -5,8 +5,10 @@ deployment:
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
-  kubernetesGateway:
+  kubernetesIngress:
     enabled: false
+  kubernetesGateway:
+    enabled: true
 
 logs:
   access:
