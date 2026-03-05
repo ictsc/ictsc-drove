@@ -9,7 +9,7 @@ releases:
   - name: traefik
     namespace: traefik
     chart: traefik/traefik
-    version: 39.0.2
+    version: 39.0.4
     values:
       - env/common/traefik.yaml
   - name: autoscaler
