@@ -77,7 +77,7 @@
       ansible.builtin.command: helm upgrade --install argocd argo/argo-cd --namespace argocd --create-namespace -f /tmp/argocd-vars.yaml --force
       changed_when: false
 
-- name: Create misc resources
+- name: Create pre-required resources
   block:
     - name: Apply necessary CRD
       ansible.builtin.shell: |
@@ -88,6 +88,7 @@
         kubectl apply -f \
           https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.89.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
         kubectl apply -f https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/download/v1.1.0/default.yaml
+        kubectl apply -f https://raw.githubusercontent.com/traefik/traefik-helm-chart/refs/tags/v39.0.2/traefik/crds/gateway-standard-install.yaml
       changed_when: false
     - name: Create infrastructure namespace
       ansible.builtin.shell: kubectl get ns infrastructure || kubectl create ns infrastructure
@@ -108,7 +109,7 @@
       retries: 12
       delay: 5
       changed_when: false
-    - name: Create infrastructure namespace
+    - name: Create monitoring namespace
       ansible.builtin.shell: kubectl get ns monitoring || kubectl create ns monitoring
       register: components_ret
       until: components_ret.rc == 0
