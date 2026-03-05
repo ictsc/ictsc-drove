@@ -5,7 +5,7 @@ requires-python = "==3.14.*"
 dependencies = [
   "ansible==13.4.0",
   "minio==7.2.20",
-  "ansible-lint==26.2.0",
+  "ansible-lint==26.3.0",
   "autoflake==2.3.3",
   "black==26.1.0",
   "flake8==7.3.0",
