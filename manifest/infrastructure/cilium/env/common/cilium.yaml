@@ -1,6 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/cilium/cilium/v1.19.1/install/kubernetes/cilium/values.schema.json
 
-k8sServiceHost: auto
 k8sClientRateLimit:
   qps: 40
   burst: 50
