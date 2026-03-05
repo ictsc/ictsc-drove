@@ -44,6 +44,7 @@ repoServer:
         - name: ENV_NAME
           value: {{ workspace }}
 
+# This should be synced with manifest/infrastructure/argocd/env/common/argocd-repo-server.yaml
   clusterRoleRules:
     enabled: true
     rules:
@@ -51,5 +52,6 @@ repoServer:
         resources:
           - configmaps
           - secrets
+          - namespaces
         verbs:
           - get
