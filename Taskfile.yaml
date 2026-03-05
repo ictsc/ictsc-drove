@@ -269,7 +269,16 @@ tasks:
         vars:
           BINARY: helmfile
           INSTALL_DOC: https://helmfile.readthedocs.io/en/latest/#installation
+      - task: check-binary
+        vars:
+          BINARY: yq
+          INSTALL_DOC:
+    vars:
+      CURRENT_CONTEXT: { sh: kubectl config current-context }
     cmds:
+      - cd dev/helmfile_test && sh create_k8s_user.sh
+      - kubectl config use-context argocd-repo-server
+      - defer: kubectl config use-context {{ .CURRENT_CONTEXT }}
       - |
         for dir in $(find . -name helmfile.yaml | rev | cut -f2- -d'/' | rev); do
           rm -rf "$dir"/generated

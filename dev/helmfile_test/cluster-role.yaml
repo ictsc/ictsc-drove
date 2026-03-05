@@ -1,0 +1,14 @@
+# This should be synced with manifest/infrastructure/argocd/env/common/argocd-repo-server.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argocd-repo-server
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - secrets
+      - namespaces
+    verbs:
+      - get
