@@ -12,6 +12,5 @@ repoServer:
         resources:
           - configmaps
           - secrets
-          - namespaces
         verbs:
           - get

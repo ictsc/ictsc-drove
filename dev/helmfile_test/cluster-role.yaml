@@ -4,11 +4,9 @@ kind: ClusterRole
 metadata:
   name: argocd-repo-server
 rules:
-  - apiGroups:
-      - ""
+  - apiGroups: [""]
     resources:
       - configmaps
       - secrets
-      - namespaces
     verbs:
       - get

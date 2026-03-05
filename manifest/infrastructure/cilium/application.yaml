@@ -13,10 +13,7 @@ spec:
     repoURL: https://github.com/ictsc/ictsc-drove.git
     path: manifest/infrastructure/cilium
     targetRevision: main
-    plugin:
-      env:
-        - name: ENABLE_LOOKUP
-          value: "true"
+    plugin: {}
   destination:
     server: https://kubernetes.default.svc
     namespace: cilium
