@@ -1,12 +1,12 @@
-envVars:
-  - name: HEADLAMP_CONFIG_OIDC_CLIENT_ID
+env:
+  - name: OIDC_CLIENT_ID
     value: dex-client
-  - name: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
+  - name: OIDC_CLIENT_SECRET
     valueFrom:
       secretKeyRef:
         name: github-app
         key: client-secret
-  - name: HEADLAMP_CONFIG_OIDC_ISSUER_URL
+  - name: OIDC_ISSUER_URL
     value: https://dex.drove-dev.ictsc.net
-  - name: HEADLAMP_CONFIG_OIDC_SCOPES
+  - name: OIDC_SCOPES
     value: profile,email,groups
