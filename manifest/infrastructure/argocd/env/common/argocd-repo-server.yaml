@@ -12,6 +12,7 @@ repoServer:
         resources:
           - configmaps
           - secrets
+          - deployments
           - services
         verbs:
           - get
