@@ -8,7 +8,7 @@ spec:
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: common-issuer-key
-    solvers:w
+    solvers:
       - http01:
           gatewayHTTPRoute:
             parentRefs:
