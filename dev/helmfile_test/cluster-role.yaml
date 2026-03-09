@@ -8,5 +8,6 @@ rules:
     resources:
       - configmaps
       - secrets
+      - services
     verbs:
       - get
