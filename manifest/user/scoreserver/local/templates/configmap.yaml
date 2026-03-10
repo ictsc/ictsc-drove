@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oauth2-proxy-env
+data:
+  client-id: dex-scoreserver-client
+  oidc-issuer-url: https://dex.drove-dev.ictsc.net
+  redirect-url: https://contest-admin-dev.ictsc.net/oauth2/callback
