@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ictsc/ictsc-regalia-release.git
     path: {{ .Values.env }}
-    targetRevision: 2025-pr
+    targetRevision: main
   destination:
     server: https://kubernetes.default.svc
     namespace: scoreserver
