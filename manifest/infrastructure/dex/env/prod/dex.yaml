@@ -24,7 +24,7 @@ config:
         - https://ceph.drove.ictsc.net/_oauth
         - https://hubble.drove.ictsc.net/_oauth
         - https://postgres.drove.ictsc.net/_oauth
-        - https://headlamp.drove.ictsc.net//oidc-callback
+        - https://headlamp.drove.ictsc.net/oidc-callback
         - https://grafana.drove.ictsc.net/callback
     - id: dex-scoreserver-client
       secret: "{{ .Env.SCORESERVER_CLIENT_SECRET }}"
