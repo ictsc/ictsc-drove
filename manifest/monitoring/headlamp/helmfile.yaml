@@ -12,7 +12,12 @@ releases:
     version: 0.40.0
     values:
       - env/common/headlamp.yaml
-      - env/{{ .Environment.Name }}/headlamp.yaml
+  - name: headlamp-secret
+    namespace: headlamp
+    chart: ./chart
+    version: 0.1.0
+    values:
+      - env/{{ .Environment.Name }}/secret.yaml
   - name: autoscaler
     namespace: headlamp
     chart: ../../common/autoscaler

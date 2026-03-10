@@ -1,0 +1,3 @@
+clientID: ""
+issuerURL: ""
+scopes: profile,email,groups

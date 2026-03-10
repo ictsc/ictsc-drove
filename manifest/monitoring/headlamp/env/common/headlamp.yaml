@@ -1,1 +1,9 @@
 replicaCount: 2
+
+config:
+  oidc:
+    secret:
+      create: false
+    externalSecret:
+      enabled: true
+      name: headlamp-oidc

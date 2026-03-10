@@ -1,0 +1,10 @@
+# Default values for ingress.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# (required) OIDC client ID
+clientID: ""
+# (required) OIDC issuer URL
+issuerURL: ""
+# (optional) OIDC scopes (カンマ区切りで複数指定可能)
+scopes: profile,email,groups
