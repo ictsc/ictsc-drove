@@ -9,7 +9,7 @@ releases:
   - name: headlamp
     namespace: headlamp
     chart: headlamp/headlamp
-    version: 0.40.0
+    version: 0.40.1
     values:
       - env/common/headlamp.yaml
   - name: headlamp-secret
