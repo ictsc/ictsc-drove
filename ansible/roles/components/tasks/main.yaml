@@ -160,18 +160,6 @@
       retries: 12
       delay: 5
       changed_when: false
-    - name: Create sstate secret
-      ansible.builtin.shell: |
-        kubectl get secret sstate-secrets -n scoreserver || \
-        kubectl create secret generic sstate-secrets -n scoreserver \
-          --from-literal=url="{{ lookup('env', 'SSTATE_URL') }}" \
-          --from-literal=user="{{ lookup('env', 'SSTATE_USER') }}" \
-          --from-literal=password="{{ lookup('env', 'SSTATE_PASSWORD') }}"
-      register: components_ret
-      until: components_ret.rc == 0
-      retries: 12
-      delay: 5
-      changed_when: false
 
 - name: Apply root application
   block:
