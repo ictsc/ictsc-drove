@@ -24,7 +24,7 @@ releases:
   - name: argocd-image-updater
     namespace: argocd
     chart: argo/argocd-image-updater
-    version: 1.1.4
+    version: 1.1.5
   - name: autoscaler
     namespace: argocd
     chart: ../../common/autoscaler
