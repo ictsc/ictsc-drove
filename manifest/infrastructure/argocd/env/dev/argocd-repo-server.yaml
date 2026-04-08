@@ -1,7 +1,7 @@
 repoServer:
   extraContainers:
     - name: helmfile-plugin
-      image: ghcr.io/logica0419/argocd-helmfile-plugin:v1.4.3
+      image: ghcr.io/logica0419/argocd-helmfile-plugin:v1.4.4
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
