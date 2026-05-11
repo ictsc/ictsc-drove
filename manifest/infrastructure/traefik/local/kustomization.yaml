@@ -5,4 +5,4 @@ resources:
   - ./http-redirect-route.yaml
   - ./strip.yaml
 
-  - https://raw.githubusercontent.com/traefik/traefik/v3.7.0/docs/content/reference/dynamic-configuration/kubernetes-gateway-rbac.yml
+  - https://raw.githubusercontent.com/traefik/traefik/v3.7.1/docs/content/reference/dynamic-configuration/kubernetes-gateway-rbac.yml
