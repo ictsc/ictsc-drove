@@ -9,6 +9,6 @@ releases:
   - name: redis
     namespace: scoreserver
     chart: dandydev/redis-ha
-    version: 4.38.0
+    version: 4.39.0
     values:
       - env/common/redis.yaml
