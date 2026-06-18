@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Get Terraform version
         id: terraform-version
         uses: bigwheel/get-terraform-version-action@v1.3.0
@@ -44,7 +44,7 @@ jobs:
           app-id: ${{ secrets.PUSHER_APP_ID }}
           private-key: ${{ secrets.PUSHER_PRIVATE_KEY }}
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ steps.token.outputs.token }}
       - name: Set up Task
@@ -89,7 +89,7 @@ jobs:
       TF_WORKSPACE: dev
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Set up Task
         uses: arduino/setup-task@v2
         with:
