@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Task
-        uses: arduino/setup-task@v2
+        uses: arduino/setup-task@v3.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Helm

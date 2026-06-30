@@ -48,7 +48,7 @@ jobs:
         with:
           token: ${{ steps.token.outputs.token }}
       - name: Set up Task
-        uses: arduino/setup-task@v2
+        uses: arduino/setup-task@v3.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Terraform version
@@ -91,7 +91,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Set up Task
-        uses: arduino/setup-task@v2
+        uses: arduino/setup-task@v3.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Terraform version
