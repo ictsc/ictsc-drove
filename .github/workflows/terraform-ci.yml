@@ -27,7 +27,7 @@ jobs:
         with:
           terraform_version: ${{ steps.terraform-version.outputs.terraform-version }}
       - name: Lint
-        uses: reviewdog/action-tflint@v1.25.0
+        uses: reviewdog/action-tflint@v1.26.0
         with:
           github_token: ${{ github.token }}
           working_directory: terraform
